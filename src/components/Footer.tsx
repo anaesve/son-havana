@@ -42,7 +42,7 @@ export default function Footer() {
               <img
                 referrerPolicy="no-referrer"
                 alt="Son Havana Club Logo"
-                className="h-12 w-auto grayscale brightness-200 opacity-65 hover:opacity-100 transition-all"
+                className="h-14 w-auto grayscale brightness-200 opacity-65 hover:opacity-100 transition-all"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyQX7vQQb-Iq8CK8GkvbiGjMfQCuOSHxtdqT6R69pDe2Ty7YNgBVc--mJJ2_myP_h-bHdTtYftyky-VSt7off2WKbWjXj__dvaa-wNJ-l5LWi1K4xYDggXOln38uTQzMSad_zN5-OEpM43jyoBL1ZminsBgxftLNkigrfgXGUTCJYC-Vqifw7rhzU-O5wlUMF4s1mJho8tpmkhOZwFVAKDEgc4VNbN0yIw_BQAcOGkRg-v4v91EhJgXdhZ0MoHc2ZFvQ"
               />
             </a>

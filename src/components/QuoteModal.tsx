@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X, Sparkles, Send, Mail, User, Phone, CheckCircle2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Send, Mail, User, Phone, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface QuoteModalProps {
@@ -18,15 +18,25 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  // Simple pricing estimate for fun and fidelity!
+  useEffect(() => {
+    if (isOpen) {
+      setArtist(selectedArtist);
+      setSubmitted(false);
+    }
+  }, [isOpen, selectedArtist]);
+
+  // Tarifas de referencia por hora en COP (estimados Medellín)
   const getEstimate = () => {
-    let baseHourRate = 450;
-    if (artist === "SON K'MARON") baseHourRate = 1500;
-    else if (artist === "EL SON DE PABLO") baseHourRate = 800;
-    else if (artist === "Combo Completo Son Havana Corporativo") baseHourRate = 1200;
-    else if (artist === "Reserva de Bodas") baseHourRate = 2500;
+    let baseHourRate = 1_800_000;
+    if (artist === "SON K'MARON") baseHourRate = 6_000_000;
+    else if (artist === "EL SON DE PABLO") baseHourRate = 3_200_000;
+    else if (artist === "Combo Completo Son Havana Corporativo") baseHourRate = 4_800_000;
+    else if (artist === "Reserva de Bodas") baseHourRate = 10_000_000;
     return baseHourRate * parseInt(duration);
   };
+
+  const formatCop = (amount: number) =>
+    `$${amount.toLocaleString("es-CO")} COP`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +82,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                 </button>
               </div>
               <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] font-anybody font-black text-primary-container neon-orange">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-anybody font-black text-primary">
                   Contratación Directa
                 </span>
                 <h3 className="text-2xl md:text-3xl font-anybody font-black text-white uppercase leading-tight">
@@ -211,11 +221,11 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                       <div className="text-[10px] uppercase font-anybody font-bold text-surface-variant/80">
                         Presupuesto Estimado
                       </div>
-                      <div className="text-lg font-anybody font-black text-primary-container neon-orange">
-                        ${getEstimate().toLocaleString("es-CO")} USD
+                      <div className="text-lg font-anybody font-black text-primary">
+                        {formatCop(getEstimate())}
                       </div>
                     </div>
-                    <div className="text-[10px] text-right max-w-[180px] text-surface-variant/60 leading-tight">
+                    <div className="text-[10px] text-right max-w-[180px] text-surface-variant/70 leading-tight">
                       *Estimado básico para Medellín. Sujeto a viáticos e impuestos locales.
                     </div>
                   </div>
@@ -247,7 +257,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                   <div className="bg-black/40 p-4 rounded-xl border border-surface-variant/10 max-w-sm mx-auto text-left space-y-1 text-xs text-surface-variant/80">
                     <div><strong>Cliente:</strong> {name}</div>
                     <div><strong>Artista:</strong> {artist}</div>
-                    <div><strong>Presupuesto ref:</strong> ${getEstimate().toLocaleString("es-CO")} USD</div>
+                    <div><strong>Presupuesto ref:</strong> {formatCop(getEstimate())}</div>
                     <div><strong>Contacto:</strong> {email} | {phone}</div>
                   </div>
 

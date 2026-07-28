@@ -12,7 +12,7 @@ const PLAYLIST: LiveChannel[] = [
   { 
     id: "1", 
     title: "Latina Stereo", 
-    artist: "Medellín, Col. • El Sonido de las Estrellas", 
+    artist: "Medellín, Col. • El Sonido de las Palmeras", 
     duration: "LIVE",
     tag: "Salsa Clásica",
     audioUrl: "https://stream.latinastereo.com/proxy/latina/stream"
@@ -353,9 +353,9 @@ export default function RadioPlayer() {
                     {isLoading ? (
                       <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" />
                     ) : isPlaying ? (
-                      <Pause className="w-4 h-4 fill-current text-on-primary-container" />
+                      <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" />
                     ) : (
-                      <Play className="w-4 h-4 fill-current translate-x-0.5 text-on-primary-container animate-pulse" />
+                      <Play className="w-4 h-4 fill-current text-on-primary-container animate-pulse shrink-0" />
                     )}
                   </button>
 
@@ -368,8 +368,8 @@ export default function RadioPlayer() {
                     <SkipForward className="w-3.5 h-3.5" />
                   </button>
 
-                  {/* End duration time */}
-                  <span className="text-[9px] font-anybody font-bold text-mango bg-mango/15 px-1.5 py-0.5 rounded-sm border border-mango/20 w-12 text-center">
+                  {/* LIVE badge */}
+                  <span className="inline-flex items-center justify-center min-w-[2.75rem] px-2.5 py-1 text-[9px] font-anybody font-black text-mango bg-mango/15 rounded-full border border-mango/20 uppercase tracking-wider">
                     {track.duration}
                   </span>
                 </div>
@@ -401,7 +401,7 @@ export default function RadioPlayer() {
                         setCurrentTime("00:00");
                         setIsPlaying(true);
                       }}
-                      className={`px-2 py-1 text-[9px] font-anybody font-black uppercase rounded transition-all border cursor-pointer ${
+                      className={`min-w-[2.25rem] px-2.5 py-1.5 text-[9px] font-anybody font-black uppercase rounded-full transition-all border cursor-pointer ${
                         currentTrackIndex === idx
                           ? "bg-primary-container text-on-primary-container border-primary-container glow-orange"
                           : "bg-black/45 text-surface-variant/60 border-white/5 hover:border-surface-variant/20 hover:text-white"
@@ -440,13 +440,17 @@ export default function RadioPlayer() {
                     />
                   </div>
 
-                  {/* Collapse button */}
+                  {/* Collapse button — pill visible para no perderse en la barra */}
                   <button
                     onClick={() => setIsMinimized(true)}
-                    className="p-1 rounded bg-black/30 text-surface-variant/60 hover:text-white hover:bg-black/50 transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer glow-orange shadow-md"
                     title="Minimizar radio"
+                    aria-label="Minimizar emisora"
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-4 h-4 shrink-0" />
+                    <span className="text-[9px] font-anybody font-black uppercase tracking-wider hidden sm:inline">
+                      Ocultar
+                    </span>
                   </button>
                 </div>
 

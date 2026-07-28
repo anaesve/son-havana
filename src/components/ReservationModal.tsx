@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X, Users, MapPin, Phone, User, MessageCircle, Check } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -15,8 +15,15 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
   const hoy = new Date().toLocaleDateString("en-CA");
   const [date, setDate] = useState(hoy);
   const [time, setTime] = useState("21:00");
-  const [sede, setSede] = useState(initialSede);
+  // Única sede habilitada por ahora
+  const sede = "Medellín";
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+    }
+  }, [isOpen, initialSede]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +74,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                 </button>
               </div>
               <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] font-anybody font-black text-primary-container neon-orange">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-anybody font-black text-primary">
                   Asegura Tu Mesa
                 </span>
                 <h3 className="text-2xl md:text-3xl font-anybody font-black text-white uppercase leading-tight">
@@ -119,7 +126,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {/* Sede */}
+                    {/* Sede — solo Medellín */}
                     <div>
                       <label className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1">
                         Sede
@@ -128,12 +135,11 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                         <MapPin className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
                         <select
                           value={sede}
-                          onChange={(e) => setSede(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container appearance-none transition-colors"
+                          disabled
+                          aria-label="Sede Medellín"
+                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none appearance-none transition-colors opacity-90 cursor-not-allowed"
                         >
                           <option value="Medellín">Sede Medellín</option>
-                          <option value="Laureles">Sede Laureles</option>
-                          <option value="Bogotá">Sede Bogotá</option>
                         </select>
                       </div>
                     </div>
@@ -194,14 +200,14 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                               : "bg-black/30 text-surface-variant border-surface-variant/10 hover:border-surface-variant/35"
                           }`}
                         >
-                          {t} PM
+                          {t}
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <p className="text-xs text-surface-variant/80 leading-relaxed text-center pt-2">
-                    *Al reservar recibirás atención preferencial. Tu mesa se guardará hasta las 9:30 PM.
+                    *Al reservar recibirás atención preferencial. Tu mesa se guardará hasta las 10:30 PM.
                   </p>
 
                   <button
@@ -227,7 +233,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
 
                   <div className="bg-black/40 p-4 rounded-xl border border-surface-variant/10 max-w-sm mx-auto text-left space-y-2 text-xs text-surface-variant/90">
                     <div><strong>Invitado:</strong> {name}</div>
-                    <div><strong>Fecha/Hora:</strong> {date} @ {time} PM</div>
+                    <div><strong>Fecha/Hora:</strong> {date} @ {time}</div>
                     <div><strong>Invitados:</strong> {guests} personas</div>
                     <div><strong>Sede:</strong> {sede}</div>
                   </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "../types";
-import { ShoppingCart, ShoppingBag, Flame } from "lucide-react";
+import { ShoppingBag, Flame } from "lucide-react";
 
 interface MerchProps {
   onAddToCart: (product: Product) => void;
@@ -62,10 +62,10 @@ export default function Merch({ onAddToCart }: MerchProps) {
           {PRODUCTS.map((product) => (
             <article
               key={product.id}
-              className="bg-card rounded-2xl p-5 flex flex-col group border border-on-surface/8 hover:border-primary-container/40 transition-all duration-300 shadow-[0_1px_2px_color-mix(in_srgb,var(--color-on-surface)_4%,transparent)] hover:shadow-[0_12px_28px_-8px_color-mix(in_srgb,var(--color-on-surface)_18%,transparent)] hover:-translate-y-0.5"
+              className="bg-on-surface rounded-2xl p-5 flex flex-col group border border-surface/10 hover:border-mango/40 transition-all duration-300 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-on-surface)_45%,transparent)] hover:shadow-[0_16px_32px_-12px_color-mix(in_srgb,var(--color-on-surface)_55%,transparent)] hover:-translate-y-0.5"
             >
               {/* Image box */}
-              <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-card">
+              <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-black/30">
                 <img
                   referrerPolicy="no-referrer"
                   alt={product.description}
@@ -77,22 +77,23 @@ export default function Merch({ onAddToCart }: MerchProps) {
               {/* Text metadata */}
               <div className="flex-1 flex flex-col justify-between space-y-4">
                 <div>
-                  <h3 className="font-anybody font-black text-lg md:text-xl text-on-surface uppercase group-hover:text-secondary-container transition-colors">
+                  <h3 className="font-anybody font-black text-lg md:text-xl text-white uppercase group-hover:text-mango transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-xs text-on-surface/70 font-geist mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-surface/75 font-geist mt-1 line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-secondary-container font-anybody font-black text-lg md:text-xl">
+                  <span className="text-mango font-anybody font-black text-lg md:text-xl">
                     ${product.price.toFixed(2)} USD
                   </span>
 
+                  {/* Mango 9.38:1 vs naranja 5.77:1 sobre azul tinta → mango gana */}
                   <button
                     onClick={() => onAddToCart(product)}
-                    className="bg-on-surface text-surface hover:bg-primary-container hover:text-on-primary-container px-4 py-2.5 rounded-lg font-anybody font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="bg-mango text-on-surface hover:bg-primary-container hover:text-on-primary-container px-6 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer hover:scale-[1.03] active:scale-[0.98]"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" /> Añadir
                   </button>

@@ -77,7 +77,7 @@ export default function Reservas({ onBookingOpen }: ReservasProps) {
 
             <div className="pt-8">
               <button
-                onClick={() => onBookingOpen("Laureles")}
+                onClick={() => onBookingOpen("Medellín")}
                 className="text-xs font-anybody font-black uppercase tracking-wider text-secondary-container underline group-hover:no-underline hover:text-on-surface transition-all text-left cursor-pointer"
               >
                 Reserva Especial →
@@ -106,13 +106,13 @@ export default function Reservas({ onBookingOpen }: ReservasProps) {
                   href="https://wa.me/573105156550?text=%C2%A1Hola!%20Quisiera%20reservar%20mi%20puesto%20para%20la%20salsa%20brava."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-success text-on-surface px-5 py-2.5 rounded-lg font-anybody font-black text-xs uppercase flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform text-center"
+                  className="bg-success text-on-surface px-8 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98] transition-all text-center"
                 >
                   <MessageCircle className="w-4 h-4 fill-current" /> Mensaje a WhatsApp
                 </a>
                 <a
                   href="tel:+573105156550"
-                  className="bg-surface/10 text-surface border border-surface/25 px-5 py-2.5 rounded-lg font-anybody font-black text-xs uppercase flex items-center justify-center gap-2 hover:bg-surface/20 transition-all text-center"
+                  className="bg-surface/10 text-surface border border-surface/25 px-8 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-surface/20 hover:scale-[1.03] active:scale-[0.98] transition-all text-center backdrop-blur-sm"
                 >
                   <Phone className="w-4 h-4" /> Llámanos
                 </a>
@@ -121,7 +121,7 @@ export default function Reservas({ onBookingOpen }: ReservasProps) {
 
             <div className="pt-6">
               <a
-                href="https://maps.google.com"
+                href="https://www.google.com/maps/search/?api=1&query=Son+Havana+Carrera+73+%2344-56+Medell%C3%ADn+Colombia"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-anybody font-black uppercase tracking-wider text-primary group-hover:text-primary/80 underline group-hover:no-underline transition-all flex items-center gap-1 cursor-pointer"

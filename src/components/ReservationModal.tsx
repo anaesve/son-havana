@@ -125,22 +125,20 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {/* Sede — solo Medellín */}
-                    <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {/* Sede — solo Medellín (campo fijo, sin select estrecho) */}
+                    <div className="min-w-0">
                       <label className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1">
                         Sede
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
-                        <select
-                          value={sede}
-                          disabled
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
+                        <div
                           aria-label="Sede Medellín"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none appearance-none transition-colors opacity-90 cursor-not-allowed"
+                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm opacity-90"
                         >
-                          <option value="Medellín">Sede Medellín</option>
-                        </select>
+                          Medellín
+                        </div>
                       </div>
                     </div>
 

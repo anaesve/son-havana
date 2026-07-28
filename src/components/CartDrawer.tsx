@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Trash2, ShoppingBag, Plus, Minus, CreditCard, MessageSquare } from "lucide-react";
+import { X, Trash2, ShoppingBag, Plus, Minus, MessageSquare } from "lucide-react";
 import { CartItem } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -27,7 +27,9 @@ export default function CartDrawer({
     cartItems.forEach((item) => {
       orderDetails += `- *${item.product.name}* (Cant: ${item.quantity}) - $${(item.product.price * item.quantity).toFixed(2)} USD\n`;
     });
-    orderDetails += `\n*Total a pagar:* $${subtotal.toFixed(2)} USD\n\nPor favor indíquenme las formas de pago (Nequi, Tarjeta o PayPal).`;
+    orderDetails += `\n*Total referencial:* $${subtotal.toFixed(2)} USD\n\n`;
+    orderDetails += "Me gustaría confirmar disponibilidad y, si aplica, personalizar mi instrumento. ";
+    orderDetails += "¿Me comparten el link o las opciones de pago (transferencia, tarjeta u otro medio)?";
     return `https://wa.me/573105156550?text=${encodeURIComponent(orderDetails)}`;
   };
 
@@ -113,7 +115,7 @@ export default function CartDrawer({
                         <button
                           onClick={() => onUpdateQuantity(item.product.id, -1)}
                           disabled={item.quantity <= 1}
-                          className="w-6 h-6 rounded bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white text-xs disabled:opacity-40"
+                          className="w-7 h-7 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white disabled:opacity-40 hover:bg-black/70 transition-colors cursor-pointer"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
@@ -122,7 +124,7 @@ export default function CartDrawer({
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.product.id, 1)}
-                          className="w-6 h-6 rounded bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white text-xs"
+                          className="w-7 h-7 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white hover:bg-black/70 transition-colors cursor-pointer"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
@@ -130,7 +132,7 @@ export default function CartDrawer({
                     </div>
                     <button
                       onClick={() => onRemoveItem(item.product.id)}
-                      className="p-2 rounded bg-black/40 text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-all"
+                      className="p-2 rounded-full bg-black/40 text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-all cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -143,35 +145,27 @@ export default function CartDrawer({
             {cartItems.length > 0 && (
               <div className="p-6 border-t border-surface-variant/10 bg-black/40 space-y-4">
                 <div className="flex justify-between items-center text-sm font-anybody font-bold text-surface-variant">
-                  <span>Subtotal:</span>
+                  <span>Subtotal referencial:</span>
                   <span className="text-lg text-white font-black">${subtotal.toFixed(2)} USD</span>
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-surface-variant/80 leading-tight">
-                  <span>*Envíos nacionales e internacionales calculados al finalizar la compra.</span>
+                <div className="flex justify-between items-center text-[10px] text-surface-variant/80 leading-tight gap-3">
+                  <span>*Un asesor te atiende por WhatsApp, confirma tu pedido y te envía el link de pago (transferencia, tarjeta u otro medio).</span>
                   <button
                     onClick={onClearCart}
-                    className="text-red-400 underline hover:text-red-500 transition-colors"
+                    className="text-red-400 underline hover:text-red-500 transition-colors shrink-0"
                   >
                     Vaciar todo
                   </button>
                 </div>
 
-                <div className="space-y-2">
-                  <a
-                    href={getWhatsAppOrderLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-on-surface py-3 rounded-xl font-anybody font-black text-sm uppercase tracking-wide transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <MessageSquare className="w-4 h-4 fill-current" /> Pedir por WhatsApp
-                  </a>
-                  <button
-                    onClick={() => alert("Simulando pasarela de pago segura... Redirigiendo a pasarela Son Havana.")}
-                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3 rounded-xl font-anybody font-black text-sm uppercase tracking-wide transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <CreditCard className="w-4 h-4" /> Pago con Tarjeta / PayPal
-                  </button>
-                </div>
+                <a
+                  href={getWhatsAppOrderLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-on-surface py-3.5 px-6 rounded-full font-anybody font-black text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                >
+                  <MessageSquare className="w-4 h-4 fill-current" /> Pedir por WhatsApp
+                </a>
               </div>
             )}
           </motion.div>

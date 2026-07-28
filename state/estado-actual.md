@@ -11,6 +11,7 @@
 - **Radio:** playlist con streams vivos (Latina Stereo, Colombia Salsa Dura, 100% Salsa, Salsa Latina, Campesina Cubana). Sync por URL pedida (ref), no `audio.src`.
 - **Footer redes** linkeadas (IG, FB, YT, Spotify, WA) con iconos de marca en Spotify/WhatsApp.
 - Pulidos UI: bounce en 3 iconos de Reservas; sin iconos gigantes en Corporativos/Bodas; dots del hero más arriba.
+- **Repo git local:** `git init` + commit inicial `41f8da9` en `main`.
 
 ## Pendiente
 - Renombrar utilidades `neon-*` / `glow-*` (deuda consciente).
@@ -18,9 +19,10 @@
 - `<title>` de `index.html` sigue siendo "My Google AI Studio App".
 - Logo header/footer sigue hotlink remoto `lh3.googleusercontent.com`.
 - Limpiar deps muertas (`express`, `dotenv`, `@google/genai`).
-- **`git init` + primer push a GitHub** (aún no es repo).
+- **`git init` + primer commit hechos** (`41f8da9`). Falta crear repo remoto y `git push`.
 - Validar textos de sedes con el negocio.
 - Ideal: reexportar hero a 1920×1080+ (hoy ~1024×576).
+- Borrar o ignorar `hector-lavoe.jpg` suelto en la raíz (duplicado viejo; el hero usa `public/images/hero/`).
 
 ## Blockers
 - Ninguno. Riesgo externo: streams de radio de terceros y hotlinks del logo.

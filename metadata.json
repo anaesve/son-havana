@@ -1,0 +1,6 @@
+{
+  "name": "Son Havana Digital",
+  "description": "Plataforma digital para Son Havana, club de salsa en Medellín, con radio en vivo, reservaciones y contratación de artistas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

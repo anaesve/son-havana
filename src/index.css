@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody:wght@400;700;900&family=Archivo+Narrow:wght@400;500;700&family=Geist:wght@400;600&display=swap');
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PALETA. Único lugar que hay que editar para cambiar de dirección
+   visual: las utilidades de abajo derivan sus tintas de estos
+   tokens vía color-mix(), así que no hay hex repetidos.
+   Actual: "Serigrafía ICAIC" con acento naranja Son Havana
+   (ex-bermellón → papaya #ff6b35). Contraste AA verificado.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --font-anybody: "Anybody", sans-serif;
+  --font-geist: "Geist", sans-serif;
+  --font-archivo: "Archivo Narrow", sans-serif;
+
+  --color-primary-container: #ff6b35;
+  --color-on-primary-container: #0e1b4d;
+  --color-primary: #ff8a5b;
+  --color-secondary-container: #9a3412;
+  --color-on-secondary-container: #fdf0d5;
+  --color-on-surface: #0e1b4d;
+  --color-surface: #fdf0d5;
+  --color-surface-variant: #d8c9a3;
+  --color-card: #ffffff;
+  --color-coral: #ff6b35;
+  --color-mango: #ffb703;
+  --color-palma: #06d6a0;
+  --color-success: #06d6a0;
+}
+
+@layer utilities {
+  /* Sobreimpresión: desplazamiento de tinta en vez de resplandor neón.
+     Nombres heredados (neon-*, glow-*) para no romper los componentes. */
+  .neon-orange {
+    text-shadow:
+      2px 2px 0 color-mix(in srgb, var(--color-coral) 55%, transparent),
+      -1px -1px 0 color-mix(in srgb, var(--color-palma) 40%, transparent);
+  }
+  .neon-gold {
+    text-shadow:
+      2px 2px 0 color-mix(in srgb, var(--color-mango) 60%, transparent),
+      -1px -1px 0 color-mix(in srgb, var(--color-on-surface) 35%, transparent);
+  }
+  .glow-orange {
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-on-surface) 85%, transparent);
+  }
+  .glow-gold {
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-coral) 80%, transparent);
+  }
+
+  /* Sombras duras de serigrafía (sin blur), para tarjetas y botones */
+  .sombra-dura {
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-on-surface) 20%, transparent);
+  }
+  .sombra-dura-acento {
+    box-shadow: 6px 6px 0 color-mix(in srgb, var(--color-primary-container) 45%, transparent);
+  }
+  .sombra-dura-chica {
+    box-shadow: 3px 3px 0 color-mix(in srgb, var(--color-coral) 50%, transparent);
+  }
+  /* CTA sobre el cartel del hero: necesita peso sin recurrir a un glow */
+  .sombra-dura-cta {
+    box-shadow: 5px 5px 0 color-mix(in srgb, var(--color-on-surface) 60%, transparent);
+  }
+
+  /* Grano suave de arena (no semitono de cartel): acompaña fotos, no las pelea. */
+  .trama-punto {
+    background-image: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--color-on-surface) 8%, transparent) 0.6px,
+      transparent 1.2px
+    );
+    background-size: 5px 5px;
+  }
+
+  /* ── Fondos de sección (caribeños, atmosféricos) ──
+     Nombres por ROL. Diseñados para convivir con FOTOGRAFÍA real:
+     lavados suaves, luz cálida y persianas, sin franjas de serigrafía. */
+
+  /* Sección clara (arena al mediodía). Texto en on-surface. */
+  .fondo-papel {
+    background-color: var(--color-surface);
+    background-image:
+      radial-gradient(
+        ellipse 95% 65% at 10% -5%,
+        color-mix(in srgb, var(--color-mango) 34%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 75% 55% at 100% 105%,
+        color-mix(in srgb, var(--color-palma) 24%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 40% 30% at 70% 20%,
+        color-mix(in srgb, var(--color-coral) 10%, transparent),
+        transparent 60%
+      );
+  }
+
+  /* Azul tinta + lavado de mar. Texto claro. */
+  .fondo-tinta {
+    background-color: var(--color-on-surface);
+    background-image:
+      radial-gradient(
+        ellipse 110% 75% at 85% -15%,
+        color-mix(in srgb, var(--color-palma) 36%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at -5% 105%,
+        color-mix(in srgb, var(--color-coral) 22%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 50% 50%,
+        color-mix(in srgb, var(--color-mango) 8%, transparent),
+        transparent 70%
+      );
+  }
+
+  /* Noche de club: azul profundo + focos cálidos. Texto claro. */
+  .fondo-profundo {
+    background-color: color-mix(in srgb, var(--color-on-surface) 90%, black);
+    background-image:
+      radial-gradient(
+        ellipse 55% 40% at 20% 15%,
+        color-mix(in srgb, var(--color-mango) 22%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 90% 80%,
+        color-mix(in srgb, var(--color-coral) 20%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 40% 30% at 50% 100%,
+        color-mix(in srgb, var(--color-palma) 12%, transparent),
+        transparent 50%
+      );
+  }
+
+  /* Sol de tarde / acento. Texto OSCURO (on-primary-container). */
+  .fondo-acento {
+    background-color: var(--color-primary-container);
+    background-image:
+      radial-gradient(
+        ellipse 90% 60% at 100% -5%,
+        color-mix(in srgb, var(--color-mango) 50%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at -5% 105%,
+        color-mix(in srgb, var(--color-secondary-container) 40%, transparent),
+        transparent 58%
+      );
+  }
+
+  /* Franja de calor al borde de sección (mango → coral → palma). */
+  .registro-desplazado {
+    position: relative;
+  }
+  .registro-desplazado::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      var(--color-mango) 0 28%,
+      var(--color-coral) 28% 62%,
+      var(--color-palma) 62% 100%
+    );
+    opacity: 0.85;
+  }
+
+  .vinyl-grooves {
+    background: repeating-radial-gradient(
+      circle,
+      var(--color-on-surface),
+      var(--color-on-surface) 2px,
+      color-mix(in srgb, var(--color-on-surface) 78%, var(--color-surface)) 3px,
+      color-mix(in srgb, var(--color-on-surface) 70%, var(--color-surface)) 4px,
+      var(--color-on-surface) 5px
+    );
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-on-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-container);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+.pause-animation {
+  animation-play-state: paused !important;
+}
+
+/* Hide Grammarly elements and underlines to avoid prototype interference */
+[data-grammarly-part],
+.grammarly-u_f,
+grammarly-extension,
+grammarly-desktop-integration,
+[class*="grammarly"],
+div[data-grammarly-part="underline"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Style the native date picker calendar indicator */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  /* Filtro para teñirlo del naranja de --color-primary-container */
+  filter: invert(48%) sepia(85%) saturate(2500%) hue-rotate(346deg) brightness(102%) contrast(101%);
+}

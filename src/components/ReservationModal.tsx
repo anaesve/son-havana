@@ -94,14 +94,14 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                         Nombre completo
                       </label>
                       <div className="relative">
-                        <User className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <input
                           type="text"
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Ej: Ana Estévez"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -112,14 +112,14 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                         WhatsApp de contacto
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <input
                           type="tel"
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="Ej: +57 312 345 6789"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -135,7 +135,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <div
                           aria-label="Sede Medellín"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm opacity-90"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm opacity-90"
                         >
                           Medellín
                         </div>
@@ -148,11 +148,11 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                         Personas
                       </label>
                       <div className="relative">
-                        <Users className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <select
                           value={guests}
                           onChange={(e) => setGuests(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container appearance-none transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 appearance-none transition-colors"
                         >
                           <option value="1">1 Persona</option>
                           <option value="2">2 Personas</option>
@@ -176,7 +176,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                           min={hoy}
                           value={date}
                           onChange={(e) => setDate(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -192,7 +192,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                           key={t}
                           type="button"
                           onClick={() => setTime(t)}
-                          className={`py-2 text-xs rounded-lg font-anybody font-bold transition-all border ${
+                          className={`py-2.5 text-xs rounded-full font-anybody font-bold transition-all border ${
                             time === t
                               ? "bg-primary-container text-on-primary-container border-primary-container glow-orange"
                               : "bg-black/30 text-surface-variant border-surface-variant/10 hover:border-surface-variant/35"
@@ -210,7 +210,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
 
                   <button
                     type="submit"
-                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3 rounded-xl font-anybody font-black text-base uppercase transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
                     Confirmar Pre-Reserva
                   </button>
@@ -241,7 +241,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                       href={getWhatsAppLink()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full max-w-xs mx-auto bg-[#25D366] hover:bg-[#20ba5a] text-on-surface py-3 rounded-xl font-anybody font-black text-base uppercase transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20"
+                      className="w-full max-w-xs mx-auto bg-[#25D366] hover:bg-[#20ba5a] text-on-surface py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 hover:scale-[1.03] active:scale-[0.98]"
                     >
                       <MessageCircle className="w-5 h-5 fill-current" /> Enviar por WhatsApp
                     </a>

@@ -110,29 +110,35 @@ export default function CartDrawer({
                       <p className="text-xs text-primary-container font-anybody font-bold">
                         ${item.product.price.toFixed(2)} USD
                       </p>
-                      {/* Quantity Toggles */}
-                      <div className="flex items-center gap-2 mt-2">
+                      {/* Quantity Toggles — pill + touch target ≥44px en mobile */}
+                      <div className="flex items-center gap-2.5 mt-2">
                         <button
+                          type="button"
                           onClick={() => onUpdateQuantity(item.product.id, -1)}
                           disabled={item.quantity <= 1}
-                          className="w-7 h-7 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white disabled:opacity-40 hover:bg-black/70 transition-colors cursor-pointer"
+                          aria-label="Quitar uno"
+                          className="size-11 shrink-0 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white disabled:opacity-40 hover:bg-black/70 transition-colors cursor-pointer"
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-4 h-4" />
                         </button>
-                        <span className="text-xs font-bold text-white w-4 text-center">
+                        <span className="text-sm font-bold text-white min-w-5 text-center tabular-nums">
                           {item.quantity}
                         </span>
                         <button
+                          type="button"
                           onClick={() => onUpdateQuantity(item.product.id, 1)}
-                          className="w-7 h-7 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white hover:bg-black/70 transition-colors cursor-pointer"
+                          aria-label="Agregar uno"
+                          className="size-11 shrink-0 rounded-full bg-black/50 border border-surface-variant/15 flex items-center justify-center text-white hover:bg-black/70 transition-colors cursor-pointer"
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                     <button
+                      type="button"
                       onClick={() => onRemoveItem(item.product.id)}
-                      className="p-2 rounded-full bg-black/40 text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-all cursor-pointer"
+                      aria-label={`Eliminar ${item.product.name}`}
+                      className="size-11 shrink-0 rounded-full bg-black/40 text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-all cursor-pointer flex items-center justify-center"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

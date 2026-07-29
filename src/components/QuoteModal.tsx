@@ -104,7 +104,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                       <select
                         value={artist}
                         onChange={(e) => setArtist(e.target.value)}
-                        className="w-full px-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                        className="w-full px-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors appearance-none"
                       >
                         <option value="SON K'MARON">Orquesta Son K'maron (Salsa en Vivo)</option>
                         <option value="EL SON DE PABLO">El Son de Pablo (Son Cubano Tradicional)</option>
@@ -119,14 +119,14 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                         Nombre Solicitante
                       </label>
                       <div className="relative">
-                        <User className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <input
                           type="text"
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Ej: Daniel Restrepo"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -137,14 +137,14 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                         Teléfono Móvil
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <input
                           type="tel"
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="Ej: +57 301 445 1234"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -155,14 +155,14 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                         Correo Electrónico
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-3 w-4 h-4 text-primary-container/60" />
+                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none" />
                         <input
                           type="email"
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="Ej: daniel@empresa.com"
-                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
                         />
                       </div>
                     </div>
@@ -175,7 +175,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                       <select
                         value={eventType}
                         onChange={(e) => setEventType(e.target.value)}
-                        className="w-full px-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                        className="w-full px-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors appearance-none"
                       >
                         <option value="Boda / Matrimonio">Boda / Matrimonio</option>
                         <option value="Corporativo / Empresa">Corporativo / Empresa</option>
@@ -192,7 +192,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                       <select
                         value={duration}
                         onChange={(e) => setDuration(e.target.value)}
-                        className="w-full px-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container transition-colors"
+                        className="w-full px-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors appearance-none"
                       >
                         <option value="1">1 Hora de show</option>
                         <option value="2">2 Horas de show</option>
@@ -211,7 +211,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                       onChange={(e) => setNotes(e.target.value)}
                       rows={2}
                       placeholder="Ej: Sonido profesional incluido, tarima, etc."
-                      className="w-full px-4 py-2 bg-black/40 border border-surface-variant/10 rounded-lg text-white text-sm focus:outline-none focus:border-primary-container resize-none transition-colors"
+                      className="w-full px-4 py-3 bg-black/40 border border-surface-variant/10 rounded-2xl text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 resize-none transition-colors"
                     />
                   </div>
 
@@ -232,7 +232,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
 
                   <button
                     type="submit"
-                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-3 rounded-xl font-anybody font-black text-base uppercase transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
                     <Send className="w-4 h-4" /> Enviar Solicitud de Cotización
                   </button>
@@ -263,7 +263,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
 
                   <button
                     onClick={handleClose}
-                    className="px-6 py-2 bg-surface text-on-surface rounded-xl font-anybody font-black text-xs uppercase tracking-wider hover:bg-primary-container hover:text-on-primary-container transition-all"
+                    className="px-8 py-3 bg-surface text-on-surface rounded-full font-anybody font-black text-xs uppercase tracking-wider hover:bg-primary-container hover:text-on-primary-container transition-all"
                   >
                     Entendido / Cerrar
                   </button>

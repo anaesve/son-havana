@@ -213,16 +213,16 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               <span>{currentSlide.badge}</span>
             </div>
 
-            {/* Title / Header block - Sized down to prevent wrapping overflow & hitting header menu */}
-            <div className="space-y-1">
+            {/* Título display: mobile ≥32px (a11y), text-balance para viudas */}
+            <div className="space-y-1.5 max-w-3xl">
               <span 
-                className="block text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-white/90 font-anybody"
+                className="block text-sm sm:text-base font-black uppercase tracking-[0.2em] text-white/90 font-anybody"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
                 {currentSlide.title}
               </span>
               <h1 
-                className="font-anybody text-2.5xl sm:text-4xl md:text-[44px] lg:text-[48px] font-black leading-[1.12] tracking-tight uppercase text-white max-w-3xl"
+                className="font-anybody text-[2rem] leading-[1.15] sm:text-4xl sm:leading-[1.12] md:text-[44px] lg:text-[48px] font-black tracking-tight uppercase text-white text-balance"
                 style={{ textShadow: "0 3px 15px rgba(0,0,0,1), 0 1px 4px rgba(0,0,0,1)" }}
               >
                 {currentSlide.subtitle}

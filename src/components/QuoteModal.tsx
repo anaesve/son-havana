@@ -69,7 +69,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg bg-on-surface border border-primary-container/30 rounded-2xl overflow-hidden shadow-2xl z-10"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-on-surface border border-primary-container/30 rounded-3xl shadow-2xl z-10"
           >
             {/* Header */}
             <div className="relative h-32 flex items-end p-6 bg-gradient-to-t from-on-surface to-secondary-container/20">
@@ -216,8 +216,8 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                   </div>
 
                   {/* Pricing estimate display */}
-                  <div className="p-3 bg-black/50 border border-primary-container/20 rounded-xl flex items-center justify-between">
-                    <div>
+                  <div className="p-4 bg-black/50 border border-primary-container/20 rounded-full flex items-center justify-between gap-3">
+                    <div className="min-w-0 pl-2">
                       <div className="text-[10px] uppercase font-anybody font-bold text-surface-variant/80">
                         Presupuesto Estimado
                       </div>
@@ -225,16 +225,17 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
                         {formatCop(getEstimate())}
                       </div>
                     </div>
-                    <div className="text-[10px] text-right max-w-[180px] text-surface-variant/70 leading-tight">
-                      *Estimado básico para Medellín. Sujeto a viáticos e impuestos locales.
+                    <div className="text-[10px] text-right max-w-[140px] text-surface-variant/70 leading-tight pr-2">
+                      *Estimado Medellín. Sujeto a viáticos.
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                    style={{ borderRadius: 9999 }}
+                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-4 px-8 rounded-full font-anybody font-black text-sm sm:text-base uppercase tracking-wider transition-transform shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
-                    <Send className="w-4 h-4" /> Enviar Solicitud de Cotización
+                    <Send className="w-4 h-4 shrink-0" /> Enviar Cotización
                   </button>
                 </form>
               ) : (

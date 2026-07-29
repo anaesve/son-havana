@@ -61,7 +61,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg bg-on-surface border border-primary-container/30 rounded-2xl overflow-hidden shadow-2xl z-10"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-on-surface border border-primary-container/30 rounded-3xl shadow-2xl z-10"
           >
             {/* Header */}
             <div className="relative h-32 flex items-end p-6 bg-gradient-to-t from-on-surface to-mango/25">
@@ -210,7 +210,8 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
 
                   <button
                     type="submit"
-                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                    style={{ borderRadius: 9999 }}
+                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-4 px-8 rounded-full font-anybody font-black text-sm sm:text-base uppercase tracking-wider transition-transform shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
                     Confirmar Pre-Reserva
                   </button>

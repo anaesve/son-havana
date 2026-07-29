@@ -38,10 +38,11 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
           <div className="lg:col-span-4 flex lg:justify-end">
             <button
               onClick={() => onQuoteArtist("EVENTOS CORPORATIVOS")}
-              className="flex items-center gap-2 font-anybody font-black text-sm md:text-base text-white hover:text-primary-container transition-all border-b-2 border-primary-container pb-2 group"
+              style={{ borderRadius: 9999 }}
+              className="inline-flex items-center justify-center gap-2 font-anybody font-black text-xs sm:text-sm uppercase tracking-wider text-on-primary-container bg-primary-container hover:bg-primary px-6 py-3.5 rounded-full shadow-lg transition-transform hover:scale-[1.03] active:scale-[0.98] group"
             >
-              EXPLORAR CATÁLOGO COMPLETO{" "}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+              Cotizar evento especial
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -75,7 +76,8 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               </p>
               <button
                 onClick={() => onQuoteArtist("SON K'MARON")}
-                className="bg-surface text-on-surface hover:bg-primary-container hover:text-on-primary-container px-5 py-2.5 rounded-full font-anybody font-black text-xs uppercase tracking-wider self-start transition-all cursor-pointer shadow"
+                style={{ borderRadius: 9999 }}
+                className="bg-surface text-on-surface hover:bg-primary-container hover:text-on-primary-container px-6 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider self-start transition-transform cursor-pointer shadow-lg hover:scale-[1.03] active:scale-[0.98]"
               >
                 Solicitar Cotización
               </button>
@@ -109,7 +111,8 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               </p>
               <button
                 onClick={() => onQuoteArtist("EL SON DE PABLO")}
-                className="bg-surface text-on-surface hover:bg-primary-container hover:text-on-primary-container px-5 py-2.5 rounded-full font-anybody font-black text-xs uppercase tracking-wider self-start transition-all cursor-pointer shadow"
+                style={{ borderRadius: 9999 }}
+                className="bg-surface text-on-surface hover:bg-primary-container hover:text-on-primary-container px-6 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider self-start transition-transform cursor-pointer shadow-lg hover:scale-[1.03] active:scale-[0.98]"
               >
                 Reservar Fecha
               </button>
@@ -131,9 +134,10 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               </p>
               <button
                 onClick={() => onQuoteArtist("Combo Completo Son Havana Corporativo")}
-                className="text-primary font-anybody font-black text-xs uppercase tracking-wider underline hover:text-primary-container transition-colors text-left"
+                style={{ borderRadius: 9999 }}
+                className="self-start inline-flex items-center gap-2 bg-primary-container text-on-primary-container hover:bg-primary px-5 py-2.5 rounded-full font-anybody font-black text-xs uppercase tracking-wider shadow-md transition-transform hover:scale-[1.03] active:scale-[0.98]"
               >
-                Ver más información →
+                Cotizar evento →
               </button>
             </div>
 
@@ -150,9 +154,10 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               </p>
               <button
                 onClick={() => onQuoteArtist("Reserva de Bodas")}
-                className="text-mango font-anybody font-black text-xs uppercase tracking-wider underline hover:text-mango/70 transition-colors text-left"
+                style={{ borderRadius: 9999 }}
+                className="self-start inline-flex items-center gap-2 bg-mango text-on-surface hover:bg-primary-container hover:text-on-primary-container px-5 py-2.5 rounded-full font-anybody font-black text-xs uppercase tracking-wider shadow-md transition-transform hover:scale-[1.03] active:scale-[0.98]"
               >
-                Cotizar Boda →
+                Cotizar boda →
               </button>
             </div>
           </div>

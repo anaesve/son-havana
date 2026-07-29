@@ -194,7 +194,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
                           onClick={() => setTime(t)}
                           className={`py-2.5 text-xs rounded-full font-anybody font-bold transition-all border ${
                             time === t
-                              ? "bg-primary-container text-on-primary-container border-primary-container glow-orange"
+                              ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
                               : "bg-black/30 text-surface-variant border-surface-variant/10 hover:border-surface-variant/35"
                           }`}
                         >
@@ -210,7 +210,7 @@ export default function ReservationModal({ isOpen, onClose, initialSede = "Medel
 
                   <button
                     type="submit"
-                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
                     Confirmar Pre-Reserva
                   </button>

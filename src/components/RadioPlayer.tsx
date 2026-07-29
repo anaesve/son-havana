@@ -228,7 +228,7 @@ export default function RadioPlayer() {
           >
             <button
               onClick={() => setIsMinimized(false)}
-              className="flex items-center gap-3 bg-on-surface border-2 border-primary-container/40 p-3 rounded-full shadow-2xl glow-orange text-white hover:border-primary-container hover:scale-105 transition-all group"
+              className="flex items-center gap-3 bg-on-surface border-2 border-primary-container/40 p-3 rounded-full shadow-2xl text-white hover:border-primary-container hover:scale-105 transition-all group"
               id="minimized-player"
               title="Abrir Emisora SH"
             >
@@ -347,7 +347,7 @@ export default function RadioPlayer() {
                   {/* Play & Pause Trigger */}
                   <button
                     onClick={handlePlayPause}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center glow-orange cursor-pointer"
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
                     title={isPlaying ? "Pausar" : "Sintonizar Salsa en Vivo"}
                   >
                     {isLoading ? (
@@ -403,7 +403,7 @@ export default function RadioPlayer() {
                       }}
                       className={`min-w-[2.25rem] px-2.5 py-1.5 text-[9px] font-anybody font-black uppercase rounded-full transition-all border cursor-pointer ${
                         currentTrackIndex === idx
-                          ? "bg-primary-container text-on-primary-container border-primary-container glow-orange"
+                          ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
                           : "bg-black/45 text-surface-variant/60 border-white/5 hover:border-surface-variant/20 hover:text-white"
                       }`}
                       title={`${t.title} - ${t.artist}`}
@@ -443,7 +443,7 @@ export default function RadioPlayer() {
                   {/* Collapse button — pill visible para no perderse en la barra */}
                   <button
                     onClick={() => setIsMinimized(true)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer glow-orange shadow-md"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md"
                     title="Minimizar radio"
                     aria-label="Minimizar emisora"
                   >

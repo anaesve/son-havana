@@ -45,26 +45,28 @@ html {
       2px 2px 0 color-mix(in srgb, var(--color-mango) 60%, transparent),
       -1px -1px 0 color-mix(in srgb, var(--color-on-surface) 35%, transparent);
   }
+  /* Sombras suaves que siguen el borde pill (la sombra dura 4px/0
+     leía como "botón cuadrado" aunque el radius fuera full). */
   .glow-orange {
-    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-on-surface) 85%, transparent);
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-primary-container) 55%, transparent);
   }
   .glow-gold {
-    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-coral) 80%, transparent);
+    box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-mango) 50%, transparent);
   }
 
-  /* Sombras duras de serigrafía (sin blur), para tarjetas y botones */
+  /* Sombras de profundidad para tarjetas (sin stamp cuadrado) */
   .sombra-dura {
-    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-on-surface) 20%, transparent);
+    box-shadow: 0 8px 24px -12px color-mix(in srgb, var(--color-on-surface) 35%, transparent);
   }
   .sombra-dura-acento {
-    box-shadow: 6px 6px 0 color-mix(in srgb, var(--color-primary-container) 45%, transparent);
+    box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--color-primary-container) 45%, transparent);
   }
   .sombra-dura-chica {
-    box-shadow: 3px 3px 0 color-mix(in srgb, var(--color-coral) 50%, transparent);
+    box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--color-coral) 40%, transparent);
   }
-  /* CTA sobre el cartel del hero: necesita peso sin recurrir a un glow */
+  /* CTA del hero: peso sin aplastar la silueta redonda */
   .sombra-dura-cta {
-    box-shadow: 5px 5px 0 color-mix(in srgb, var(--color-on-surface) 60%, transparent);
+    box-shadow: 0 12px 28px -10px color-mix(in srgb, var(--color-on-surface) 55%, transparent);
   }
 
   /* Grano suave de arena (no semitono de cartel): acompaña fotos, no las pelea. */
@@ -235,6 +237,14 @@ div[data-grammarly-part="underline"] {
   pointer-events: none !important;
   height: 0 !important;
   width: 0 !important;
+}
+
+/* iOS/Safari: sin appearance nativo el radius pill se ignora en inputs */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Style the native date picker calendar indicator */

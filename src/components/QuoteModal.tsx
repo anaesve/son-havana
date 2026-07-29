@@ -232,7 +232,7 @@ export default function QuoteModal({ isOpen, onClose, selectedArtist = "SON K'MA
 
                   <button
                     type="submit"
-                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all glow-orange flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                    className="w-full bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container py-3.5 px-6 rounded-full font-anybody font-black text-base uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                   >
                     <Send className="w-4 h-4" /> Enviar Solicitud de Cotización
                   </button>

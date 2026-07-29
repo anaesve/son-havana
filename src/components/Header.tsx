@@ -91,7 +91,7 @@ export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderP
         {/* Reserve Now Desktop CTA */}
         <button
           onClick={onBookingOpen}
-          className="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-anybody font-black text-sm uppercase hover:bg-primary-container/90 transition-all glow-orange"
+          className="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-anybody font-black text-sm uppercase hover:bg-primary-container/90 transition-all shadow-lg"
         >
           Reservar Mesa
         </button>
@@ -147,7 +147,7 @@ export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderP
                   setIsMobileMenuOpen(false);
                   onBookingOpen();
                 }}
-                className="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-anybody font-black text-sm uppercase text-center glow-orange flex items-center justify-center gap-2"
+                className="w-full bg-primary-container text-on-primary-container py-3.5 px-6 rounded-full font-anybody font-black text-sm uppercase tracking-wider text-center shadow-lg flex items-center justify-center gap-2"
               >
                 <CalendarDays className="w-4 h-4" /> Reservar Mesa En Línea
               </button>
@@ -155,7 +155,7 @@ export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderP
                 href="https://wa.me/573105156550"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-success text-on-surface py-3 rounded-xl font-anybody font-black text-sm uppercase text-center flex items-center justify-center gap-2"
+                className="w-full bg-success text-on-surface py-3.5 px-6 rounded-full font-anybody font-black text-sm uppercase tracking-wider text-center shadow-lg flex items-center justify-center gap-2"
               >
                 <PhoneCall className="w-4 h-4" /> Consultar por WhatsApp
               </a>

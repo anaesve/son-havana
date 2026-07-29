@@ -247,6 +247,18 @@ textarea {
   appearance: none;
 }
 
+/* Pill forzado (modales): gana contra resets / caché parcial de utilidades */
+.ui-pill {
+  border-radius: 9999px !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+.ui-pill-soft {
+  border-radius: 1.5rem !important; /* 24px — textareas */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
 /* Style the native date picker calendar indicator */
 input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;

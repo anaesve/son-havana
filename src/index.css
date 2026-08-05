@@ -1,8 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Anybody:wght@400;700;900&family=Archivo+Narrow:wght@400;500;700&family=Geist:wght@400;600&display=swap');
 @import "tailwindcss";
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -30,6 +43,7 @@ html {
   --color-mango: #ffb703;
   --color-palma: #06d6a0;
   --color-success: #06d6a0;
+  --color-danger: #f87171;
 }
 
 @layer utilities {
@@ -222,6 +236,33 @@ html {
 
 .pause-animation {
   animation-play-state: paused !important;
+}
+
+@keyframes eq-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bar 0.9s ease-in-out infinite;
+}
+
+.eq-bar-paused {
+  animation: none;
+  transform: scaleY(0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar {
+    animation: none;
+    transform: scaleY(0.45);
+  }
 }
 
 /* Hide Grammarly elements and underlines to avoid prototype interference */

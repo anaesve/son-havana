@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Camera, X, ZoomIn, Instagram } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useDialogA11y } from "../hooks/useDialogA11y";
 
 const IMAGES_TEMPLATE = [
   {
@@ -44,9 +45,34 @@ const IMAGES_TEMPLATE = [
 export default function Galeria() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const [images, setImages] = useState(() => 
-    IMAGES_TEMPLATE.map(img => ({ ...img, url: img.localPath }))
+  const [images, setImages] = useState(() =>
+    IMAGES_TEMPLATE.map((img) => ({ ...img, url: img.localPath }))
   );
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const closeLightbox = useCallback(() => setLightboxImage(null), []);
+  useDialogA11y(!!lightboxImage, closeLightbox, lightboxRef);
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        setActiveIndex((prev) => {
+          const next = (prev + 1) % images.length;
+          setLightboxImage(images[next].url);
+          return next;
+        });
+      }
+      if (e.key === "ArrowLeft") {
+        setActiveIndex((prev) => {
+          const next = (prev - 1 + images.length) % images.length;
+          setLightboxImage(images[next].url);
+          return next;
+        });
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightboxImage, images]);
 
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % images.length);
@@ -79,7 +105,8 @@ export default function Galeria() {
           src={img.localPath}
           className="hidden"
           onError={() => handleImageError(img.id)}
-          alt="Local path check"
+          alt=""
+          aria-hidden="true"
         />
       ))}
 
@@ -92,11 +119,11 @@ export default function Galeria() {
               <span className="text-[10px] uppercase tracking-[0.25em] font-anybody font-black text-primary-container">
                 Galería de Fotos
               </span>
-              <h4 className="font-anybody text-3xl sm:text-4xl md:text-[40px] text-white font-black leading-tight mt-2">
+              <h2 className="font-anybody text-3xl sm:text-4xl md:text-[40px] text-white font-black leading-tight mt-2 text-balance">
                 MOMENTOS <br />
                 <span className="text-primary-container">LEGENDARIOS</span>
-              </h4>
-              <p className="font-geist text-sm md:text-base text-white/70 mt-4 leading-relaxed max-w-lg">
+              </h2>
+              <p className="font-geist text-sm md:text-base text-white/80 mt-4 leading-relaxed max-w-lg">
                 Nuestra pista de baile cobra vida en cada disparo. Instantes cargados de salsa pesada, calor rumbero, mojitos helados y la descarga de la mejor orquesta en vivo de Medellín.
               </p>
             </div>
@@ -108,6 +135,7 @@ export default function Galeria() {
                 href="https://www.instagram.com/sonhavana"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram @sonhavana"
                 className="group relative flex items-center justify-center cursor-pointer shrink-0"
               >
                 {/* Pulsing outer glow */}
@@ -127,10 +155,10 @@ export default function Galeria() {
                 <span className="text-xs font-anybody font-bold text-mango tracking-wider block">
                   @SONHAVANA
                 </span>
-                <h5 className="text-white font-anybody font-black text-lg tracking-tight leading-tight">
+                <p className="text-white font-anybody font-black text-lg tracking-tight leading-tight">
                   ¡Agréganos a tus redes!
-                </h5>
-                <p className="text-white/65 font-geist text-xs leading-snug">
+                </p>
+                <p className="text-white/80 font-geist text-xs leading-snug">
                   Entérate de la programación diaria, promociones y fotos exclusivas.
                 </p>
                 <a
@@ -164,32 +192,32 @@ export default function Galeria() {
                 </p>
               </div>
 
-              {/* Zoom Action Top Right */}
               <button
+                type="button"
                 onClick={() => setLightboxImage(activeImage.url)}
-                className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-black/60 text-white hover:bg-mango hover:text-on-surface hover:scale-110 transition-all opacity-0 group-hover:opacity-100 cursor-pointer shadow-lg"
-                title="Expandir foto"
+                className="absolute top-4 right-4 z-30 size-11 rounded-full bg-black/60 text-white hover:bg-mango hover:text-on-surface hover:scale-110 transition-all cursor-pointer shadow-lg flex items-center justify-center"
+                aria-label="Expandir foto"
               >
-                <ZoomIn className="w-4.5 h-4.5" />
+                <ZoomIn className="w-4.5 h-4.5" aria-hidden="true" />
               </button>
 
-              {/* Navigation Arrows Overlay */}
               <button
+                type="button"
                 onClick={handlePrev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/50 hover:bg-mango hover:text-on-surface border border-white/10 flex items-center justify-center text-white transition-all cursor-pointer shadow-md opacity-80 md:opacity-0 md:group-hover:opacity-100"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full bg-black/50 hover:bg-mango hover:text-on-surface border border-white/10 flex items-center justify-center text-white transition-all cursor-pointer shadow-md opacity-90"
                 aria-label="Imagen anterior"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6" aria-hidden="true" />
               </button>
               <button
+                type="button"
                 onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/50 hover:bg-mango hover:text-on-surface border border-white/10 flex items-center justify-center text-white transition-all cursor-pointer shadow-md opacity-80 md:opacity-0 md:group-hover:opacity-100"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full bg-black/50 hover:bg-mango hover:text-on-surface border border-white/10 flex items-center justify-center text-white transition-all cursor-pointer shadow-md opacity-90"
                 aria-label="Siguiente imagen"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6" aria-hidden="true" />
               </button>
 
-              {/* Animated Slideshow Image */}
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeIndex}
@@ -198,7 +226,11 @@ export default function Galeria() {
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4 }}
                   referrerPolicy="no-referrer"
-                  alt="Momento legendario en Son Havana"
+                  alt={activeImage.caption}
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover filter brightness-90 hover:brightness-105 transition-all duration-500 cursor-zoom-in"
                   onClick={() => setLightboxImage(activeImage.url)}
                   src={activeImage.url}
@@ -206,17 +238,22 @@ export default function Galeria() {
               </AnimatePresence>
             </div>
 
-            {/* Bottom mini indicator dots */}
-            <div className="flex justify-center gap-1.5 mt-4">
+            <div className="flex justify-center gap-1 mt-4">
               {images.map((_, idx) => (
                 <button
                   key={idx}
+                  type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    activeIndex === idx ? "w-6 bg-mango" : "w-1.5 bg-white/20 hover:bg-white/40"
-                  }`}
+                  className="size-11 flex items-center justify-center cursor-pointer"
                   aria-label={`Ir a la imagen ${idx + 1}`}
-                />
+                  aria-current={activeIndex === idx ? "true" : undefined}
+                >
+                  <span
+                    className={`block h-1.5 rounded-full transition-all duration-300 ${
+                      activeIndex === idx ? "w-6 bg-mango" : "w-1.5 bg-white/30"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           </div>
@@ -224,7 +261,6 @@ export default function Galeria() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       <AnimatePresence>
         {lightboxImage && (
           <div className="fixed inset-0 z-[250] flex items-center justify-center p-4">
@@ -232,26 +268,35 @@ export default function Galeria() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setLightboxImage(null)}
+              onClick={closeLightbox}
               className="fixed inset-0 bg-black/95"
+              aria-hidden="true"
             />
             <motion.div
+              ref={lightboxRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Vista ampliada de la galería"
+              tabIndex={-1}
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="relative max-w-4xl max-h-[90vh] z-10 flex flex-col items-center"
+              className="relative max-w-4xl max-h-[90vh] z-10 flex flex-col items-center outline-none"
             >
               <button
-                onClick={() => setLightboxImage(null)}
-                className="absolute -top-12 right-0 p-2 text-white hover:text-primary-container transition-all"
-                title="Cerrar vista"
+                type="button"
+                onClick={closeLightbox}
+                className="absolute -top-12 right-0 size-11 text-white hover:text-primary-container transition-all flex items-center justify-center cursor-pointer"
+                aria-label="Cerrar vista ampliada"
               >
-                <X className="w-6 h-6" />
+                <X className="w-6 h-6" aria-hidden="true" />
               </button>
               <img
                 referrerPolicy="no-referrer"
                 src={lightboxImage}
-                alt="Momentos legendarios Son Havana"
+                alt={activeImage.caption}
+                width={1600}
+                height={1000}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg border border-white/10 shadow-2xl"
               />
             </motion.div>

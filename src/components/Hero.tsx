@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, Calendar, Sparkles, Phone, Music } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight, Calendar, Sparkles, Phone, Music, Pause, Play } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 interface HeroProps {
   onBookingOpen: () => void;
@@ -31,7 +31,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPath: "/images/hero/hector-lavoe.jpg",
     demoUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Hector_lavoe.png",
     price: "$25.000 COP",
-    highlights: ["🎺 Orquesta y metales en vivo", "🥁 Descarga clásica de congas", "🇵🇷 Clásicos de la época de oro"],
+    highlights: ["Orquesta y metales en vivo", "Descarga clásica de congas", "Clásicos de la época de oro"],
     ctaText: "Reservar Mesa para Lavoe",
     waText: "¡Hola! Quisiera reservar mesa para el Homenaje a Héctor Lavoe en Son Havana."
   },
@@ -44,7 +44,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPath: "/images/hero/grupo-niche.jpg",
     demoUrl: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
-    highlights: ["🇨🇴 Orgullo y sabor nacional", "🎷 Arreglos originales", "⭐ Show en vivo toda la noche"],
+    highlights: ["Orgullo y sabor nacional", "Arreglos originales", "Show en vivo toda la noche"],
     ctaText: "Reservar Mesa para Niche",
     waText: "¡Hola! Quisiera reservar mi mesa para el Homenaje al Grupo Niche en Son Havana."
   },
@@ -57,7 +57,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPath: "/images/hero/programacion-semanal.jpg",
     demoUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1600",
     price: "La mejor energía",
-    highlights: ["🍹 Cócteles y mojitos caribeños", "💃 Pista de baile sin fin", "✨ El mejor ambiente de la ciudad"],
+    highlights: ["Cócteles y mojitos caribeños", "Pista de baile sin fin", "El mejor ambiente de la ciudad"],
     ctaText: "Reservar para esta Semana",
     waText: "¡Hola! Quisiera información y reservar mesa para la programación de esta semana en Son Havana."
   },
@@ -70,28 +70,33 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPath: "/images/hero/clases-baile.jpg",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
     price: "ENTRADA LIBRE (NO COVER)",
-    highlights: ["🎓 Clases interactivas para todos", "🍹 Cócteles 2x1 seleccionados", "🇨🇺 100% Timba, casino y son"],
+    highlights: ["Clases interactivas para todos", "Cócteles 2x1 seleccionados", "100% Timba, casino y son"],
     ctaText: "Anotarse en la Clase",
     waText: "¡Hola! Quisiera reservar cupos/mesa para la clase gratis de Salsa Casino de este miércoles."
   }
 ];
 
 export default function Hero({ onBookingOpen }: HeroProps) {
+  const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [slides, setSlides] = useState<Slide[]>(() => 
-    SLIDES_TEMPLATE.map(s => ({ ...s, bgUrl: s.localPath }))
+  const [isPlaying, setIsPlaying] = useState(!reduceMotion);
+  const [slides, setSlides] = useState<Slide[]>(() =>
+    SLIDES_TEMPLATE.map((s) => ({ ...s, bgUrl: s.localPath }))
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
+    if (reduceMotion) setIsPlaying(false);
+  }, [reduceMotion]);
+
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
-    if (isPlaying) {
+    if (isPlaying && !reduceMotion) {
       timerRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % slides.length);
       }, 7000);
     }
-  }, [isPlaying, slides.length]);
+  }, [isPlaying, slides.length, reduceMotion]);
 
   useEffect(() => {
     startTimer();
@@ -132,7 +137,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
   const handleWhatsApp = (text: string) => {
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/573105156550?text=${encodedText}`, "_blank");
+    window.open(`https://wa.me/573105156550?text=${encodedText}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -147,27 +152,36 @@ export default function Hero({ onBookingOpen }: HeroProps) {
     >
       {/* Full Background Photographic Slider with High Opacity & Maximum Brightness */}
       <div className="absolute inset-0 z-0">
-        {/* Hidden image detectors for ALL slides to check if local files exist, otherwise falling back to demo URLs */}
-        {slides.map((s) => (
-          <img
-            key={`preload-${s.id}`}
-            src={s.localPath}
-            className="hidden"
-            onError={() => handleImageError(s.id)}
-            alt="Local path check"
-          />
-        ))}
+        {slides.map((s) =>
+          s.id === currentSlide.id ? null : (
+            <img
+              key={`preload-${s.id}`}
+              src={s.localPath}
+              className="hidden"
+              onError={() => handleImageError(s.id)}
+              alt=""
+              aria-hidden="true"
+            />
+          )
+        )}
 
         <AnimatePresence mode="wait">
-          <motion.div
+          <motion.img
             key={currentSlide.id}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.98, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${currentSlide.bgUrl}')` }}
+            src={currentSlide.bgUrl}
+            alt=""
+            aria-hidden="true"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            decoding="async"
             referrerPolicy="no-referrer"
+            onError={() => handleImageError(currentSlide.id)}
+            initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 0.98, scale: 1 }}
+            exit={reduceMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.8 }}
+            className="absolute inset-0 w-full h-full object-cover"
           />
         </AnimatePresence>
 
@@ -213,20 +227,28 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               <span>{currentSlide.badge}</span>
             </div>
 
-            {/* Título display: mobile ≥32px (a11y), text-balance para viudas */}
+            {/* Marca fija como h1; evento del slide como display copy */}
             <div className="space-y-1.5 max-w-3xl">
-              <span 
+              <h1
                 className="block text-sm sm:text-base font-black uppercase tracking-[0.2em] text-white/90 font-anybody"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
-                {currentSlide.title}
-              </span>
-              <h1 
+                Son Havana
+                <span className="sr-only"> — Salsa y son cubano en Medellín</span>
+              </h1>
+              <p
                 className="font-anybody text-[2rem] leading-[1.15] sm:text-4xl sm:leading-[1.12] md:text-[44px] lg:text-[48px] font-black tracking-tight uppercase text-white text-balance"
                 style={{ textShadow: "0 3px 15px rgba(0,0,0,1), 0 1px 4px rgba(0,0,0,1)" }}
+                aria-live="polite"
               >
                 {currentSlide.subtitle}
-              </h1>
+              </p>
+              <p
+                className="block text-xs sm:text-sm font-black uppercase tracking-[0.15em] text-white/80 font-anybody"
+                style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
+              >
+                {currentSlide.title}
+              </p>
             </div>
 
             {/* Description text - highly legible, with generous line height and strong shadows */}
@@ -297,38 +319,57 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         onTouchStart={(e) => e.stopPropagation()}
         onTouchEnd={(e) => e.stopPropagation()}
       >
-        {/* Prev Arrow */}
         <button
+          type="button"
           onClick={handlePrev}
-          className="p-1 rounded-full text-white/75 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-          title="Slide anterior"
+          className="size-11 rounded-full text-white/75 hover:text-white hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center"
+          aria-label="Slide anterior"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-5 h-5" aria-hidden="true" />
         </button>
 
-        {/* Slide indicators / dot jump */}
-        <div className="flex gap-2.5">
+        <div className="flex gap-1">
           {slides.map((slide, index) => (
             <button
               key={slide.id}
+              type="button"
               onClick={() => handleDotClick(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
-                currentIndex === index
-                  ? "bg-primary-container scale-110 shadow-md shadow-primary-container/50"
-                  : "bg-white/35 hover:bg-white/60"
-              }`}
-              title={`Ir al banner ${index + 1}`}
-            />
+              className="size-11 flex items-center justify-center cursor-pointer"
+              aria-label={`Ir al banner ${index + 1}: ${slide.subtitle}`}
+              aria-current={currentIndex === index ? "true" : undefined}
+            >
+              <span
+                className={`block w-2.5 h-2.5 rounded-full transition-all ${
+                  currentIndex === index
+                    ? "bg-primary-container scale-110 shadow-md shadow-primary-container/50"
+                    : "bg-white/35"
+                }`}
+              />
+            </button>
           ))}
         </div>
 
-        {/* Next Arrow */}
         <button
-          onClick={handleNext}
-          className="p-1 rounded-full text-white/75 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-          title="Siguiente slide"
+          type="button"
+          onClick={togglePlay}
+          className="size-11 rounded-full text-white/75 hover:text-white hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center"
+          aria-label={isPlaying ? "Pausar carrusel" : "Reproducir carrusel"}
+          aria-pressed={isPlaying}
         >
-          <ChevronRight className="w-5 h-5" />
+          {isPlaying ? (
+            <Pause className="w-4 h-4" aria-hidden="true" />
+          ) : (
+            <Play className="w-4 h-4" aria-hidden="true" />
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={handleNext}
+          className="size-11 rounded-full text-white/75 hover:text-white hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center"
+          aria-label="Siguiente slide"
+        >
+          <ChevronRight className="w-5 h-5" aria-hidden="true" />
         </button>
       </div>
 

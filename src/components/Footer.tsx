@@ -28,10 +28,10 @@ export default function Footer() {
           
           {/* Left: Copyright & Credit metadata */}
           <div className="text-center md:text-left order-3 md:order-1 md:w-1/3">
-            <p className="text-surface-variant/70 font-anybody font-bold text-[10px] uppercase tracking-[0.2em]">
+            <p className="text-surface-variant/80 font-anybody font-bold text-xs uppercase tracking-[0.2em]">
               © 2026 SON HAVANA CLUB
             </p>
-            <p className="text-[9px] text-surface-variant/70 uppercase tracking-widest mt-1">
+            <p className="text-xs text-surface-variant/80 uppercase tracking-widest mt-1">
               Todos los derechos reservados &bull; Rumba, clave y tradición
             </p>
           </div>
@@ -42,6 +42,10 @@ export default function Footer() {
               <img
                 referrerPolicy="no-referrer"
                 alt="Son Havana Club Logo"
+                width={160}
+                height={56}
+                loading="lazy"
+                decoding="async"
                 className="h-14 w-auto grayscale brightness-200 opacity-65 hover:opacity-100 transition-all"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyQX7vQQb-Iq8CK8GkvbiGjMfQCuOSHxtdqT6R69pDe2Ty7YNgBVc--mJJ2_myP_h-bHdTtYftyky-VSt7off2WKbWjXj__dvaa-wNJ-l5LWi1K4xYDggXOln38uTQzMSad_zN5-OEpM43jyoBL1ZminsBgxftLNkigrfgXGUTCJYC-Vqifw7rhzU-O5wlUMF4s1mJho8tpmkhOZwFVAKDEgc4VNbN0yIw_BQAcOGkRg-v4v91EhJgXdhZ0MoHc2ZFvQ"
               />

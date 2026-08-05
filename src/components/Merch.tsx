@@ -46,12 +46,12 @@ export default function Merch({ onAddToCart }: MerchProps) {
           <span className="text-[10px] uppercase tracking-[0.25em] font-anybody font-black text-secondary-container flex items-center justify-center gap-1">
             <Flame className="w-3 h-3 text-secondary-container" /> Accesorios de Colección
           </span>
-          <h3
-            className="font-anybody text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] text-on-surface font-black uppercase leading-tight"
+          <h2
+            className="font-anybody text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] text-on-surface font-black uppercase leading-tight text-balance"
             style={{ letterSpacing: "-0.02em" }}
           >
             MERCH <span className="text-secondary-container">SON HAVANA</span>
-          </h3>
+          </h2>
           <p className="font-geist text-base md:text-lg text-on-surface/75 max-w-xl mx-auto">
             Instrumentos musicales tradicionales y accesorios profesionales con calidad acústica aprobada por melómanos y bailadores.
           </p>
@@ -68,7 +68,11 @@ export default function Merch({ onAddToCart }: MerchProps) {
               <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-black/30">
                 <img
                   referrerPolicy="no-referrer"
-                  alt={product.description}
+                  alt={product.name}
+                  width={400}
+                  height={400}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   src={product.image}
                 />

@@ -215,7 +215,11 @@ export default function RadioPlayer() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[150] w-full">
+    <div
+      className="fixed bottom-0 left-0 right-0 z-[150] w-full"
+      role="region"
+      aria-label="Radio Son Havana"
+    >
       <AnimatePresence mode="wait">
         {isMinimized ? (
           /* Minimized Compact Floating Tab on the Right */
@@ -227,10 +231,11 @@ export default function RadioPlayer() {
             className="absolute bottom-6 right-6 flex items-center"
           >
             <button
+              type="button"
               onClick={() => setIsMinimized(false)}
-              className="flex items-center gap-3 bg-on-surface border-2 border-primary-container/40 p-3 rounded-full shadow-2xl text-white hover:border-primary-container hover:scale-105 transition-all group"
+              className="flex items-center gap-3 bg-on-surface border-2 border-primary-container/40 p-3 rounded-full shadow-2xl text-white hover:border-primary-container hover:scale-105 transition-all group cursor-pointer"
               id="minimized-player"
-              title="Abrir Emisora SH"
+              aria-label="Abrir emisora Son Havana"
             >
               <div className="relative">
                 <Disc
@@ -298,40 +303,44 @@ export default function RadioPlayer() {
                   </div>
 
                   <div className="min-w-0 text-left">
-                    <span className="text-[9px] font-anybody font-black text-mango tracking-widest uppercase block animate-pulse">
-                      {hasError ? "• SEÑAL INACTIVA" : isLoading ? "• BUFFERING..." : "• SEÑAL EN VIVO"}
+                    <span className="text-xs font-anybody font-black text-surface tracking-widest uppercase block">
+                      {hasError ? "• SEÑAL INACTIVA" : isLoading ? "• BUFFERING…" : "• SEÑAL EN VIVO"}
                     </span>
-                    <h4 className="text-sm font-anybody font-black text-white truncate uppercase leading-tight mt-0.5">
+                    <p className="text-sm font-anybody font-black text-white truncate uppercase leading-tight mt-0.5">
                       {track.title}
-                    </h4>
+                    </p>
                     {hasError ? (
-                      <span className="text-[10px] text-red-400 font-bold flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3 text-red-400 flex-shrink-0" />
+                      <span className="text-[10px] text-danger font-bold flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3 text-danger flex-shrink-0" aria-hidden="true" />
                         Señal caída, saltando...
                       </span>
                     ) : isLoading ? (
-                      <span className="text-[10px] text-mango/80 font-bold animate-pulse">
+                      <span className="text-[10px] text-mango/80 font-bold motion-safe:animate-pulse">
                         Conectando con la emisora...
                       </span>
                     ) : (
-                      <p className="text-[11px] text-surface-variant/70 truncate">
+                      <p className="text-[11px] text-surface-variant/80 truncate">
                         {track.artist}
                       </p>
                     )}
                   </div>
                 </div>
 
-                {/* Micro Equalizer Wave Bars */}
-                <div className="flex items-end gap-[2px] h-5 px-2">
-                  {[10, 18, 14, 24, 12, 20].map((height, i) => (
+                {/* Micro Equalizer Wave Bars (CSS, sin Math.random en render) */}
+                <div className="flex items-end gap-[2px] h-5 px-2" aria-hidden="true">
+                  {[0.7, 1, 0.85, 1.1, 0.75, 0.95].map((scale, i) => (
                     <div
                       key={i}
                       style={{
-                        height: isPlaying && !isLoading && !hasError ? `${Math.floor(Math.random() * 16) + 4}px` : "3px",
-                        transition: isPlaying ? "height 0.15s ease-in-out" : "height 0.3s ease",
+                        height: "18px",
+                        animationDelay: `${i * 0.12}s`,
+                        animationDuration: `${0.7 + i * 0.08}s`,
+                        transform: `scaleY(${scale})`,
                       }}
-                      className="w-[3px] rounded-t-xs bg-primary-container"
-                    ></div>
+                      className={`w-[3px] rounded-t-xs bg-primary-container ${
+                        isPlaying && !isLoading && !hasError ? "eq-bar" : "eq-bar-paused"
+                      }`}
+                    />
                   ))}
                 </div>
               </div>
@@ -344,28 +353,28 @@ export default function RadioPlayer() {
                     {currentTime}
                   </span>
 
-                  {/* Play & Pause Trigger */}
                   <button
+                    type="button"
                     onClick={handlePlayPause}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
-                    title={isPlaying ? "Pausar" : "Sintonizar Salsa en Vivo"}
+                    className="size-11 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
+                    aria-label={isPlaying ? "Pausar emisora" : "Sintonizar salsa en vivo"}
                   >
                     {isLoading ? (
-                      <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" />
+                      <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" aria-hidden="true" />
                     ) : isPlaying ? (
-                      <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" />
+                      <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" aria-hidden="true" />
                     ) : (
-                      <Play className="w-4 h-4 fill-current text-on-primary-container animate-pulse shrink-0" />
+                      <Play className="w-4 h-4 fill-current text-on-primary-container motion-safe:animate-pulse shrink-0" aria-hidden="true" />
                     )}
                   </button>
 
-                  {/* Skip Track Button */}
                   <button
+                    type="button"
                     onClick={handleNextTrack}
-                    className="w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-primary-container hover:text-white transition-all flex items-center justify-center cursor-pointer"
-                    title="Siguiente Canal Salsero"
+                    className="size-11 rounded-full bg-black/40 hover:bg-black/60 text-primary-container hover:text-white transition-all flex items-center justify-center cursor-pointer"
+                    aria-label="Siguiente canal salsero"
                   >
-                    <SkipForward className="w-3.5 h-3.5" />
+                    <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
 
                   {/* LIVE badge */}
@@ -390,23 +399,25 @@ export default function RadioPlayer() {
               <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-1/3 border-t border-white/5 pt-2 md:pt-0 md:border-none">
                 {/* Vintage Selectors */}
                 <div className="flex gap-1 items-center">
-                  <span className="text-[8px] font-anybody font-bold text-surface-variant/70 uppercase tracking-widest mr-1 hidden lg:inline">
+                  <span className="text-[8px] font-anybody font-bold text-surface-variant/80 uppercase tracking-widest mr-1 hidden lg:inline">
                     CANAL:
                   </span>
                   {PLAYLIST.map((t, idx) => (
                     <button
                       key={t.id}
+                      type="button"
                       onClick={() => {
                         setCurrentTrackIndex(idx);
                         setCurrentTime("00:00");
                         setIsPlaying(true);
                       }}
-                      className={`min-w-[2.25rem] px-2.5 py-1.5 text-[9px] font-anybody font-black uppercase rounded-full transition-all border cursor-pointer ${
+                      className={`min-w-[2.75rem] min-h-11 px-2.5 py-1.5 text-[9px] font-anybody font-black uppercase rounded-full transition-all border cursor-pointer ${
                         currentTrackIndex === idx
                           ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
-                          : "bg-black/45 text-surface-variant/60 border-white/5 hover:border-surface-variant/20 hover:text-white"
+                          : "bg-black/45 text-surface-variant/80 border-white/5 hover:border-surface-variant/20 hover:text-white"
                       }`}
-                      title={`${t.title} - ${t.artist}`}
+                      aria-label={`CH${idx + 1}: ${t.title}`}
+                      aria-pressed={currentTrackIndex === idx}
                     >
                       CH{idx + 1}
                     </button>
@@ -414,16 +425,17 @@ export default function RadioPlayer() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {/* Volume Knob wrapper */}
                   <div className="flex items-center gap-1.5">
                     <button
+                      type="button"
                       onClick={toggleMute}
-                      className="text-surface-variant/60 hover:text-white transition-colors cursor-pointer"
+                      className="size-11 flex items-center justify-center text-surface-variant/80 hover:text-white transition-colors cursor-pointer"
+                      aria-label={isMuted || volume === 0 ? "Activar sonido" : "Silenciar"}
                     >
                       {isMuted || volume === 0 ? (
-                        <VolumeX className="w-4 h-4 text-red-400" />
+                        <VolumeX className="w-4 h-4 text-danger" aria-hidden="true" />
                       ) : (
-                        <Volume2 className="w-4 h-4 text-primary-container" />
+                        <Volume2 className="w-4 h-4 text-primary-container" aria-hidden="true" />
                       )}
                     </button>
                     <input
@@ -436,18 +448,18 @@ export default function RadioPlayer() {
                         setVolume(parseFloat(e.target.value));
                         setIsMuted(false);
                       }}
+                      aria-label="Volumen"
                       className="w-14 h-1 bg-black/60 rounded-lg appearance-none cursor-pointer accent-primary-container"
                     />
                   </div>
 
-                  {/* Collapse button — pill visible para no perderse en la barra */}
                   <button
+                    type="button"
                     onClick={() => setIsMinimized(true)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md"
-                    title="Minimizar radio"
-                    aria-label="Minimizar emisora"
+                    className="flex items-center gap-1.5 min-h-11 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md"
+                    aria-label="Ocultar emisora"
                   >
-                    <ChevronDown className="w-4 h-4 shrink-0" />
+                    <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
                     <span className="text-[9px] font-anybody font-black uppercase tracking-wider hidden sm:inline">
                       Ocultar
                     </span>

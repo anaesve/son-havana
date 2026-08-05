@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowRight, Music, Sparkles, Award, PartyPopper, Heart } from "lucide-react";
+import { ArrowRight, PartyPopper, Heart } from "lucide-react";
 
 interface ContratacionesProps {
   onQuoteArtist: (artistName: string) => void;
@@ -37,7 +37,7 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
           </div>
           <div className="lg:col-span-4 flex lg:justify-end">
             <button
-              onClick={() => onQuoteArtist("EVENTOS CORPORATIVOS")}
+              onClick={() => onQuoteArtist("Combo Completo Son Havana Corporativo")}
               style={{ borderRadius: 9999 }}
               className="inline-flex items-center justify-center gap-2 font-anybody font-black text-xs sm:text-sm uppercase tracking-wider text-on-primary-container bg-primary-container hover:bg-primary px-6 py-3.5 rounded-full shadow-lg transition-transform hover:scale-[1.03] active:scale-[0.98] group"
             >
@@ -55,6 +55,10 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
             <img
               referrerPolicy="no-referrer"
               alt="Orquesta Son K'maron en vivo"
+              width={800}
+              height={1000}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               src={sonKmaronSrc}
               onError={() => {
@@ -90,6 +94,10 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
             <img
               referrerPolicy="no-referrer"
               alt="El Son de Pablo en concierto"
+              width={800}
+              height={1000}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               src={elSonDePabloSrc}
               onError={() => {
@@ -126,9 +134,9 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               <div className="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container mb-3 shadow-inner">
                 <PartyPopper className="w-5 h-5" />
               </div>
-              <h4 className="font-anybody font-black text-white text-lg md:text-xl uppercase">
+              <h3 className="font-anybody font-black text-white text-lg md:text-xl uppercase">
                 Eventos Corporativos
-              </h4>
+              </h3>
               <p className="text-surface-variant/80 text-xs md:text-sm mt-1 mb-3 leading-relaxed">
                 Experiencias y talleres de baile temáticos para empresas que buscan ritmo, unión e identidad cultural.
               </p>
@@ -146,9 +154,9 @@ export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
               <div className="w-10 h-10 rounded-full bg-mango/20 flex items-center justify-center text-mango mb-3 shadow-inner">
                 <Heart className="w-5 h-5 fill-current" />
               </div>
-              <h4 className="font-anybody font-black text-white text-lg md:text-xl uppercase">
+              <h3 className="font-anybody font-black text-white text-lg md:text-xl uppercase">
                 Reserva de Bodas
-              </h4>
+              </h3>
               <p className="text-surface-variant/80 text-xs md:text-sm mt-1 mb-3 leading-relaxed">
                 Haz que tu gran día tenga el auténtico sabor y la alegría de Son Havana. Música en vivo, ambientación caribeña única y show de baile inolvidable.
               </p>

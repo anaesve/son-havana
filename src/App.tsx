@@ -23,6 +23,7 @@ export default function App() {
   // Modal / overlay states
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [bookingSede, setBookingSede] = useState("Medellín");
+  const [bookingType, setBookingType] = useState<"mesa" | "grupal" | "cumpleanos">("mesa");
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [quoteArtist, setQuoteArtist] = useState("SON K'MARON");
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -73,8 +74,12 @@ export default function App() {
   };
 
   // Table reservation activation
-  const handleBookingOpen = (sede: string = "Medellín") => {
+  const handleBookingOpen = (
+    sede: string = "Medellín",
+    type: "mesa" | "grupal" | "cumpleanos" = "mesa"
+  ) => {
     setBookingSede(sede);
+    setBookingType(type);
     setIsBookingOpen(true);
   };
 
@@ -82,6 +87,13 @@ export default function App() {
 
   return (
     <div className="bg-on-surface text-surface overflow-x-hidden font-geist selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between pb-28 md:pb-20">
+      <a
+        href="#contenido"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[300] focus:bg-primary-container focus:text-on-primary-container focus:px-4 focus:py-3 focus:rounded-full focus:font-anybody focus:font-black focus:text-sm focus:uppercase"
+      >
+        Saltar al contenido
+      </a>
+
       {/* Persistent Audio player (Sticky) - Custom-designed salsa style */}
       <RadioPlayer />
 
@@ -89,13 +101,13 @@ export default function App() {
       <Header
         cartCount={totalCartCount}
         onCartOpen={() => setIsCartOpen(true)}
-        onBookingOpen={() => handleBookingOpen("Medellín")}
+        onBookingOpen={() => handleBookingOpen("Medellín", "mesa")}
       />
 
       {/* Main Single-Screen Content flow */}
-      <main className="flex-grow">
+      <main id="contenido" className="flex-grow">
         {/* Hero Section */}
-        <Hero onBookingOpen={() => handleBookingOpen("Medellín")} />
+        <Hero onBookingOpen={() => handleBookingOpen("Medellín", "mesa")} />
 
         {/* Live Orchestra & Band hire Section */}
         <Contrataciones onQuoteArtist={handleQuoteArtist} />
@@ -118,6 +130,7 @@ export default function App() {
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         initialSede={bookingSede}
+        reservationType={bookingType}
       />
 
       <QuoteModal

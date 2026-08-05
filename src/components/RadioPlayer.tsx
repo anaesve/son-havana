@@ -9,45 +9,45 @@ interface LiveChannel extends Track {
 }
 
 const PLAYLIST: LiveChannel[] = [
-  { 
-    id: "1", 
-    title: "Latina Stereo", 
-    artist: "Medellín, Col. • El Sonido de las Palmeras", 
+  {
+    id: "1",
+    title: "Zeta 93 (WZNT)",
+    artist: "Puerto Rico • Salsa y sabor caribeño",
+    duration: "LIVE",
+    tag: "Salsa",
+    audioUrl: "https://liveaudio.lamusica.com/PR_WZNT_icy",
+  },
+  {
+    id: "2",
+    title: "Salsoul (WPRM)",
+    artist: "Puerto Rico • Salsa clásica 24/7",
     duration: "LIVE",
     tag: "Salsa Clásica",
-    audioUrl: "https://stream.latinastereo.com/proxy/latina/stream"
+    audioUrl: "https://server20.servistreaming.com:9023/stream",
   },
-  { 
-    id: "2", 
-    title: "Colombia Salsa Dura", 
-    artist: "Golpe, Guaguancó y Clave • 24/7", 
+  {
+    id: "3",
+    title: "Mega 97.9 FM (WSKQ)",
+    artist: "Nueva York • Tropical y salsa",
     duration: "LIVE",
-    tag: "Salsa Brava",
-    audioUrl: "https://play10.tikast.com/proxy/colsalsadura?mp=/stream"
+    tag: "Tropical",
+    audioUrl: "https://liveaudio.lamusica.com/NY_WSKQ_icy",
   },
-  { 
-    id: "3", 
-    title: "100% Salsa", 
-    artist: "Éxitos e Himnos de Oro de la Salsa", 
-    duration: "LIVE",
-    tag: "Salsa Pesada",
-    audioUrl: "https://stm01.streammaximum.com:8194/;"
-  },
-  { 
-    id: "4", 
-    title: "Salsa Latina", 
-    artist: "Clásicos y Joyas del Sabor Latino", 
-    duration: "LIVE",
-    tag: "Soneros",
-    audioUrl: "https://play10.tikast.com/proxy/zsalsalatina?mp=/stream"
-  },
-  { 
-    id: "5", 
-    title: "Campesina Cubana", 
-    artist: "Son, Timba y Descarga desde la Isla", 
+  {
+    id: "4",
+    title: "Radio Progreso 90.3",
+    artist: "Cuba • Noticias y música desde la Isla",
     duration: "LIVE",
     tag: "Cuba",
-    audioUrl: "https://radiocampesinacubana.stream.laut.fm/radiocampesinacubana"
+    audioUrl: "https://icecast.teveo.cu/XjfW7qWN",
+  },
+  {
+    id: "5",
+    title: "Timba Nation Radio",
+    artist: "Timba, salsa y descarga en vivo",
+    duration: "LIVE",
+    tag: "Timba",
+    audioUrl: "https://stream.zeno.fm/ss7gf0pypuhvv",
   },
 ];
 

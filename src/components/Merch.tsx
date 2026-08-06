@@ -62,9 +62,8 @@ export default function Merch({ onAddToCart }: MerchProps) {
           {PRODUCTS.map((product) => (
             <article
               key={product.id}
-              className="bg-on-surface rounded-3xl p-5 flex flex-col group border border-surface/10 hover:border-mango/40 transition-all duration-300 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-on-surface)_45%,transparent)] hover:shadow-[0_16px_32px_-12px_color-mix(in_srgb,var(--color-on-surface)_55%,transparent)] hover:-translate-y-0.5"
+              className="bg-on-surface rounded-[28px] p-4 flex flex-col group border border-surface/10 hover:border-mango/40 transition-all duration-300 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-on-surface)_45%,transparent)] hover:shadow-[0_16px_32px_-12px_color-mix(in_srgb,var(--color-on-surface)_55%,transparent)] hover:-translate-y-0.5"
             >
-              {/* Image box */}
               <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-black/30">
                 <img
                   referrerPolicy="no-referrer"
@@ -89,17 +88,17 @@ export default function Merch({ onAddToCart }: MerchProps) {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
-                  <span className="text-mango font-anybody font-black text-lg md:text-xl">
-                    ${product.price.toFixed(2)} USD
+                <div className="flex flex-col gap-3 pt-2 mt-auto">
+                  <span className="text-mango font-anybody font-black text-lg md:text-xl whitespace-nowrap">
+                    ${product.price.toFixed(2)}{" "}
+                    <span className="text-sm text-mango/90">USD</span>
                   </span>
-
-                  {/* Mango 9.38:1 vs naranja 5.77:1 sobre azul tinta → mango gana */}
                   <button
+                    type="button"
                     onClick={() => onAddToCart(product)}
-                    className="bg-mango text-on-surface hover:bg-primary-container hover:text-on-primary-container px-6 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer hover:scale-[1.03] active:scale-[0.98]"
+                    className="w-full justify-center bg-mango text-on-surface hover:bg-primary-container hover:text-on-primary-container px-6 py-3 rounded-full font-anybody font-black text-xs uppercase tracking-wider transition-all inline-flex items-center gap-1.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98] min-h-11"
                   >
-                    <ShoppingBag className="w-3.5 h-3.5" /> Añadir
+                    <ShoppingBag className="w-3.5 h-3.5" aria-hidden="true" /> Añadir
                   </button>
                 </div>
               </div>

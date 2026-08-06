@@ -271,8 +271,8 @@ export default function RadioPlayer() {
               Móvil: columna (meta → controles centrados → canales + volumen).
               Desktop: play fijo al centro; Ocultar izq / cambiar der; LIVE junto al nombre.
             */}
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col gap-3 md:relative md:min-h-[4.75rem] md:flex-row md:items-center md:gap-3">
-              <div className="flex items-center gap-3 min-w-0 md:flex-1 md:pr-40">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col gap-3 lg:relative lg:min-h-[4.75rem]">
+              <div className="flex items-center gap-3 min-w-0 lg:absolute lg:left-6 xl:left-8 lg:top-1/2 lg:-translate-y-1/2 lg:max-w-[38%] xl:max-w-[40%]">
                 <div className="relative w-11 h-11 bg-black rounded-full shrink-0 flex items-center justify-center shadow-md border border-white/5 overflow-hidden">
                   <div className="absolute inset-0 vinyl-grooves rounded-full" />
                   <div
@@ -312,7 +312,7 @@ export default function RadioPlayer() {
               </div>
 
               {/* Móvil: fila centrada Ocultar | Play | Cambiar */}
-              <div className="flex items-center justify-center gap-3 md:hidden">
+              <div className="flex items-center justify-center gap-3 lg:hidden">
                 <button
                   type="button"
                   onClick={() => setIsMinimized(true)}
@@ -346,7 +346,7 @@ export default function RadioPlayer() {
               </div>
 
               {/* Desktop: play anclado al centro; Ocultar/cambiar con absolute */}
-              <div className="hidden md:flex md:absolute md:left-1/2 md:top-1/2 md:z-10 md:-translate-x-1/2 md:-translate-y-1/2 md:items-center">
+              <div className="hidden lg:flex lg:absolute lg:left-1/2 lg:top-1/2 lg:z-10 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:items-center">
                 <div className="absolute right-full mr-2">
                   <button
                     type="button"
@@ -386,8 +386,8 @@ export default function RadioPlayer() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-3 min-w-0 md:flex-1 md:pl-40 border-t border-white/5 pt-3 md:border-0 md:pt-0">
-                <div className="flex items-center justify-center gap-1.5 flex-wrap" role="group" aria-label="Canales">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:absolute lg:right-6 xl:right-8 lg:top-1/2 lg:-translate-y-1/2 gap-3 min-w-0 border-t border-white/5 pt-3 lg:border-0 lg:pt-0 lg:max-w-[42%] xl:max-w-[45%]">
+                <div className="flex items-center justify-center gap-1.5 flex-wrap max-w-full" role="group" aria-label="Canales">
                   {PLAYLIST.map((t, idx) => (
                     <button
                       key={t.id}
@@ -396,7 +396,7 @@ export default function RadioPlayer() {
                         setCurrentTrackIndex(idx);
                         setIsPlaying(true);
                       }}
-                      className={`size-11 min-w-11 px-2 text-[10px] font-anybody font-black rounded-full transition-all border cursor-pointer shrink-0 ${
+                      className={`size-11 lg:size-auto lg:h-8 lg:min-w-8 lg:px-2 px-2 text-[10px] font-anybody font-black rounded-full transition-all border cursor-pointer shrink-0 ${
                         currentTrackIndex === idx
                           ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
                           : "bg-black/45 text-surface-variant/80 border-white/5 hover:border-surface-variant/20 hover:text-white"

@@ -86,7 +86,7 @@ export default function App() {
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="bg-on-surface text-surface overflow-x-hidden font-geist selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between pb-44 md:pb-20">
+    <div className="bg-on-surface text-surface overflow-x-hidden font-geist selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between pb-44 lg:pb-20">
       <a
         href="#contenido"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[300] focus:bg-primary-container focus:text-on-primary-container focus:px-4 focus:py-3 focus:rounded-full focus:font-anybody focus:font-black focus:text-sm focus:uppercase"

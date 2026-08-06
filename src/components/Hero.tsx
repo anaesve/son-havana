@@ -45,17 +45,20 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     posterLayout: true,
   },
   {
-    id: "niche",
-    badge: "Gran Homenaje de la Casa",
-    title: "SON HAVANA ALL STARS",
-    subtitle: "HOMENAJE AL GRUPO NICHE",
-    description: "La orquesta de la casa rinde homenaje al creador del himno salsero de Colombia, Jairo Varela. Canta y baila éxitos legendarios como 'Cali Pachanguero', 'Algo Que Se Quede', 'Buen Viento' y más.",
-    localPath: "/images/hero/grupo-niche.jpg",
+    id: "tromboricua",
+    badge: "",
+    title: "",
+    subtitle: "TROMBORICUA",
+    description: "",
+    localPath: "/images/hero/Tromboricua.webp",
     demoUrl: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
-    highlights: ["Orgullo y sabor nacional", "Arreglos originales", "Show en vivo toda la noche"],
-    ctaText: "Reservar Mesa para Niche",
-    waText: "¡Hola! Quisiera reservar mi mesa para el Homenaje al Grupo Niche en Son Havana."
+    highlights: ["Trombonera Seria", "Feria de Flores"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
+    waText:
+      "¡Hola! Quiero saber más sobre la presentación de Tromboricua este viernes 07 de agosto en Feria de Flores.",
+    posterLayout: true,
   },
   {
     id: "programacion",
@@ -211,7 +214,9 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             src={currentSlide.bgUrl}
             alt={
               currentSlide.posterLayout
-                ? "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores"
+                ? currentSlide.id === "tromboricua"
+                  ? "Cartel Tromboricua — Trombonera Seria, viernes 07 de agosto en Feria de Flores"
+                  : "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores"
                 : ""
             }
             aria-hidden={currentSlide.posterLayout ? undefined : true}
@@ -232,7 +237,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         {/* Scrim: en las 3 primeras slides el velo se concentra en el centro
             (donde va el copy) y deja las esquinas más claras para que se vea
             la ilustración. El slide de clases mantiene el scrim fotográfico. */}
-        {currentSlide.id === "son-kmaron" ? (
+        {currentSlide.posterLayout ? (
           <>
             <div
               className="absolute inset-0 pointer-events-none"
@@ -322,7 +327,9 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
       {currentSlide.posterLayout && (
         <h1 className="sr-only">
-          Son K&apos;maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.
+          {currentSlide.id === "tromboricua"
+            ? "Tromboricua — Trombonera Seria. Viernes 07 de agosto en Feria de Flores."
+            : "Son K'maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores."}
         </h1>
       )}
 

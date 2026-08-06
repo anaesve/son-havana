@@ -7,7 +7,7 @@ interface ContratacionesProps {
 
 export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
   const [sonKmaronSrc, setSonKmaronSrc] = useState("/images/contrataciones/sonk'maron.jpg");
-  const [elSonDePabloSrc, setElSonDePabloSrc] = useState("/images/contrataciones/elsondepablo.jpg");
+  const [elSonDePabloSrc, setElSonDePabloSrc] = useState("/images/contrataciones/elsondepablo.webp");
 
   const DEMO_SON_KMARON =
     "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_";

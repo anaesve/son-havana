@@ -6,7 +6,7 @@ import { useDialogA11y } from "../hooks/useDialogA11y";
 const IMAGES_TEMPLATE = [
   {
     id: "g1",
-    localPath: "/images/galeria/galeria1.jpg",
+    localPath: "/images/galeria/galeria1.webp",
     demoUrl:
       "https://lh3.googleusercontent.com/aida/AP1WRLs104Bm1xHiKKNaKjQxC_0eL1mMKKazkFho0vk-mIgBhNy1Z9O-knKTSUGMhBfXFKdjYNfsGV4-n4-vVv7FkENQWiYDqfPBP4I1xGna4UtJ82_2ZDoDTw4SZ9g7oKNQuF1qNL5sqVZhXmOOFZxc3aGLuSqHCkbW_WV4hpA3qPEYlu-Hym_KI6d8vqKhC9woQVkN_HvnfseWDEheYnvG-qQSG-JZzz8CuXyT4cMl68pKq8sZ_WJIeb9zfOc",
     title: "Pista encendida",

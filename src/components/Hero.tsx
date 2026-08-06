@@ -150,7 +150,9 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col items-center overflow-hidden bg-on-surface pt-28 pb-16 md:pt-32 md:pb-24 select-none scroll-mt-20"
+      className={`relative min-h-screen w-full flex flex-col items-center overflow-hidden bg-on-surface select-none scroll-mt-20 ${
+        currentSlide.posterLayout ? "pt-28 pb-0 md:pt-32" : "pt-28 pb-16 md:pt-32 md:pb-24"
+      }`}
       onMouseDown={() => setIsPlaying(false)}
       onMouseUp={() => setIsPlaying(true)}
       onMouseLeave={() => setIsPlaying(true)}
@@ -192,9 +194,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             animate={{ opacity: 0.98, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.8 }}
-            className={`absolute inset-0 w-full h-full ${
-              currentSlide.posterLayout ? "object-contain object-center" : "object-cover"
-            }`}
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
         </AnimatePresence>
 
@@ -237,71 +237,66 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
       {/* Contenido del slide */}
       {currentSlide.posterLayout ? (
-        <>
-          {/* El cartel ya incluye título, fecha y copy — reservamos el centro sin texto HTML */}
-          <div className="relative z-10 flex-1 w-full min-h-[38vh] sm:min-h-[44vh] md:min-h-[50vh]" aria-hidden="true" />
-
-          <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 pb-28 md:pb-32 text-center">
-            <h1 className="sr-only">
-              Son K&apos;maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.
-            </h1>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="flex flex-col items-center space-y-4"
+        <div className="absolute inset-x-0 bottom-[9.5rem] md:bottom-[10.5rem] z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center">
+          <h1 className="sr-only">
+            Son K&apos;maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.
+          </h1>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex flex-col items-center space-y-4"
+            >
+              <div
+                className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl"
+                style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
+                {currentSlide.highlights.map((h, i) => (
+                  <span key={i} className="inline-flex items-center">
+                    {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
+                    <span>{h}</span>
+                  </span>
+                ))}
+              </div>
+
+              {currentSlide.price && (
                 <div
-                  className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl"
+                  className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2"
                   style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
                 >
-                  {currentSlide.highlights.map((h, i) => (
-                    <span key={i} className="inline-flex items-center">
-                      {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
-                      <span>{h}</span>
-                    </span>
-                  ))}
+                  <Music className="w-4 h-4 text-mango" />
+                  <span>Aporte Cultural: {currentSlide.price}</span>
                 </div>
+              )}
 
-                {currentSlide.price && (
-                  <div
-                    className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2"
-                    style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
-                  >
-                    <Music className="w-4 h-4 text-mango" />
-                    <span>Aporte Cultural: {currentSlide.price}</span>
-                  </div>
-                )}
-
-                <div
-                  className="flex flex-col sm:flex-row gap-4 pt-2 justify-center items-center w-full max-w-md sm:max-w-none"
-                  onMouseDown={(e) => e.stopPropagation()}
-                  onMouseUp={(e) => e.stopPropagation()}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
+              <div
+                className="flex flex-col sm:flex-row gap-4 pt-1 justify-center items-center w-full max-w-md sm:max-w-none"
+                onMouseDown={(e) => e.stopPropagation()}
+                onMouseUp={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={onBookingOpen}
+                  className="w-full sm:w-auto bg-primary-container hover:bg-primary text-on-primary-container font-black uppercase tracking-wider text-xs sm:text-sm px-10 py-5 rounded-full sombra-dura-cta hover:scale-[1.03] transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
                 >
-                  <button
-                    onClick={onBookingOpen}
-                    className="w-full sm:w-auto bg-primary-container hover:bg-primary text-on-primary-container font-black uppercase tracking-wider text-xs sm:text-sm px-10 py-5 rounded-full sombra-dura-cta hover:scale-[1.03] transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
-                  >
-                    <Calendar className="w-4.5 h-4.5" />
-                    <span>{currentSlide.ctaText}</span>
-                  </button>
-                  <button
-                    onClick={() => handleWhatsApp(currentSlide.waText)}
-                    className="w-full sm:w-auto border border-surface/30 hover:border-success/60 bg-on-surface/50 hover:bg-success/20 text-surface font-bold text-xs sm:text-sm px-10 py-5 rounded-full backdrop-blur-sm transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
-                  >
-                    <Phone className="w-4.5 h-4.5 text-success" />
-                    <span>{currentSlide.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
-                  </button>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </>
+                  <Calendar className="w-4.5 h-4.5" />
+                  <span>{currentSlide.ctaText}</span>
+                </button>
+                <button
+                  onClick={() => handleWhatsApp(currentSlide.waText)}
+                  className="w-full sm:w-auto border border-surface/30 hover:border-success/60 bg-on-surface/50 hover:bg-success/20 text-surface font-bold text-xs sm:text-sm px-10 py-5 rounded-full backdrop-blur-sm transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
+                >
+                  <Phone className="w-4.5 h-4.5 text-success" />
+                  <span>{currentSlide.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
+                </button>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       ) : (
       <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center flex-1 text-center space-y-7">
         <AnimatePresence mode="wait">
@@ -408,7 +403,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       )}
 
       {/* Slide Navigation controls */}
-      <div 
+      <div
         className="absolute bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4 bg-black/50 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full shadow-lg"
         onMouseDown={(e) => e.stopPropagation()}
         onMouseUp={(e) => e.stopPropagation()}

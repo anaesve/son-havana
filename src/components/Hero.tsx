@@ -178,6 +178,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   };
 
   const currentSlide = slides[currentIndex];
+  const slideCopy = SLIDES_TEMPLATE[currentIndex];
 
   const handleWhatsApp = (text: string) => {
     const encodedText = encodeURIComponent(text);
@@ -251,7 +252,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
                 `,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/35 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/70 via-on-surface/25 to-transparent pointer-events-none" />
           </>
         ) : currentIndex < 3 ? (
           <>
@@ -338,7 +339,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       <div className="absolute inset-x-0 bottom-[11rem] md:bottom-[12rem] z-20 px-6 md:px-12 text-center">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentSlide.id}
+            key={slideCopy.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -349,7 +350,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl min-h-[1.25rem]"
               style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
             >
-              {currentSlide.highlights.map((h, i) => (
+              {slideCopy.highlights.map((h, i) => (
                 <span key={i} className="inline-flex items-center">
                   {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
                   <span>{h}</span>
@@ -357,13 +358,13 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               ))}
             </div>
 
-            {currentSlide.price && (
+            {slideCopy.price && (
               <div
                 className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2 min-h-[1.25rem]"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
                 <Music className="w-4 h-4 text-mango" />
-                <span>Aporte Cultural: {currentSlide.price}</span>
+                <span>Aporte Cultural: {slideCopy.price}</span>
               </div>
             )}
 
@@ -379,14 +380,14 @@ export default function Hero({ onBookingOpen }: HeroProps) {
                 className="w-full sm:w-auto bg-primary-container hover:bg-primary text-on-primary-container font-black uppercase tracking-wider text-xs sm:text-sm px-10 py-5 rounded-full sombra-dura-cta hover:scale-[1.03] transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
               >
                 <Calendar className="w-4.5 h-4.5" />
-                <span>{currentSlide.ctaText}</span>
+                <span>{slideCopy.ctaText}</span>
               </button>
               <button
-                onClick={() => handleWhatsApp(currentSlide.waText)}
+                onClick={() => handleWhatsApp(slideCopy.waText)}
                 className="w-full sm:w-auto border border-surface/30 hover:border-success/60 bg-on-surface/50 hover:bg-success/20 text-surface font-bold text-xs sm:text-sm px-10 py-5 rounded-full backdrop-blur-sm transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
               >
                 <Phone className="w-4.5 h-4.5 text-success" />
-                <span>{currentSlide.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
+                <span>{slideCopy.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
               </button>
             </div>
           </motion.div>

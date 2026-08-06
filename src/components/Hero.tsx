@@ -14,6 +14,7 @@ interface Slide {
   description: string;
   bgUrl: string; // This will hold the path/fallback url dynamically
   localPath: string; // The target local path for the user
+  localPathMobile?: string;
   demoUrl: string; // The demo backup url
   price?: string;
   highlights: string[];
@@ -31,7 +32,8 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     title: "",
     subtitle: "Son K'maron",
     description: "",
-    localPath: "/images/hero/son-kmaron.jpg",
+    localPath: "/images/hero/son-kmaron.webp",
+    localPathMobile: "/images/hero/son-kmaron-mobile.webp",
     demoUrl:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
     price: "$25.000 COP",
@@ -87,10 +89,35 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(!reduceMotion);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [slides, setSlides] = useState<Slide[]>(() =>
     SLIDES_TEMPLATE.map((s) => ({ ...s, bgUrl: s.localPath }))
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resolveSlidePath = useCallback((slide: Omit<Slide, "bgUrl"> | Slide) => {
+    if (slide.localPathMobile && isMobileViewport) return slide.localPathMobile;
+    return slide.localPath;
+  }, [isMobileViewport]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobileViewport(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    setSlides((prev) =>
+      prev.map((slide) => {
+        const template = SLIDES_TEMPLATE.find((s) => s.id === slide.id);
+        if (!template) return slide;
+        const nextPath = resolveSlidePath(template);
+        return slide.bgUrl === slide.demoUrl ? slide : { ...slide, bgUrl: nextPath };
+      })
+    );
+  }, [isMobileViewport, resolveSlidePath]);
 
   useEffect(() => {
     if (reduceMotion) setIsPlaying(false);
@@ -140,6 +167,12 @@ export default function Hero({ onBookingOpen }: HeroProps) {
     );
   };
 
+  const getPreloadPath = (slide: Slide) => {
+    const template = SLIDES_TEMPLATE.find((s) => s.id === slide.id);
+    if (!template) return slide.localPath;
+    return resolveSlidePath(template);
+  };
+
   const currentSlide = slides[currentIndex];
 
   const handleWhatsApp = (text: string) => {
@@ -163,7 +196,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           s.id === currentSlide.id ? null : (
             <img
               key={`preload-${s.id}`}
-              src={s.localPath}
+              src={getPreloadPath(s)}
               className="hidden"
               onError={() => handleImageError(s.id)}
               alt=""

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ShoppingBag, PhoneCall, CalendarDays } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useScrollLock } from "../hooks/useScrollLock";
 
 interface HeaderProps {
   cartCount: number;
@@ -11,6 +12,8 @@ interface HeaderProps {
 export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useScrollLock(isMobileMenuOpen);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
@@ -135,7 +138,7 @@ export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderP
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-24 left-0 w-full bg-on-surface/95 border-b border-surface-variant/10 flex flex-col p-6 space-y-4 lg:hidden backdrop-blur-xl shadow-xl z-[90]"
+            className="absolute top-24 left-0 w-full max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain bg-on-surface/95 border-b border-surface-variant/10 flex flex-col p-6 space-y-4 lg:hidden backdrop-blur-xl shadow-xl z-[90]"
           >
             {navLinks.map((link) => (
               <a

@@ -47,7 +47,7 @@ export default function CartDrawer({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/80 backdrop-blur-xs touch-none"
             aria-hidden="true"
           />
 

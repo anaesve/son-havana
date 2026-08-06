@@ -61,16 +61,21 @@ export default function ReservationModal({
     return `https://wa.me/573105156550?text=${encodeURIComponent(text)}`;
   };
 
+  const fieldClass =
+    "ui-pill w-full px-4 py-3.5 bg-black/40 border border-surface-variant/20 text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors";
+  const fieldClassIcon =
+    "ui-pill w-full pl-11 pr-4 py-3.5 bg-black/40 border border-surface-variant/20 text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors";
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm touch-none"
             aria-hidden="true"
           />
 
@@ -80,10 +85,10 @@ export default function ReservationModal({
             aria-modal="true"
             aria-labelledby="reservation-modal-title"
             tabIndex={-1}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.98, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto overscroll-contain bg-on-surface border border-primary-container/30 rounded-3xl shadow-2xl z-10 outline-none"
+            exit={{ opacity: 0, scale: 0.98, y: 24 }}
+            className="relative w-full sm:max-w-lg max-h-[92vh] sm:max-h-[90vh] overflow-y-auto overscroll-contain bg-on-surface border border-primary-container/30 rounded-t-3xl sm:rounded-3xl shadow-2xl z-10 outline-none"
           >
             <div className="relative h-32 flex items-end p-6 bg-gradient-to-t from-on-surface to-mango/25">
               <div className="absolute top-4 right-4 flex items-center justify-center">
@@ -109,10 +114,10 @@ export default function ReservationModal({
               </div>
             </div>
 
-            <div className="p-6">
+            <div className="p-6 pb-8">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div>
                       <label
                         htmlFor="res-name"
@@ -134,7 +139,7 @@ export default function ReservationModal({
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Ej: Ana Estévez…"
-                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
+                          className={fieldClassIcon}
                         />
                       </div>
                     </div>
@@ -161,13 +166,13 @@ export default function ReservationModal({
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="Ej: +57 312 345 6789…"
-                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
+                          className={fieldClassIcon}
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="min-w-0">
                       <label
                         htmlFor="res-sede"
@@ -187,7 +192,8 @@ export default function ReservationModal({
                           readOnly
                           value={sede}
                           onChange={(e) => setSede(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm opacity-90"
+                          className={fieldClassIcon}
+                          aria-readonly="true"
                         />
                       </div>
                     </div>
@@ -209,7 +215,7 @@ export default function ReservationModal({
                           name="guests"
                           value={guests}
                           onChange={(e) => setGuests(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 appearance-none transition-colors"
+                          className={fieldClassIcon}
                         >
                           <option value="1">1 Persona</option>
                           <option value="2">2 Personas</option>
@@ -237,7 +243,7 @@ export default function ReservationModal({
                           min={hoy}
                           value={date}
                           onChange={(e) => setDate(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-black/40 border border-surface-variant/10 rounded-full text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors"
+                          className={`${fieldClassIcon} quote-date-input`}
                         />
                       </div>
                     </div>
@@ -247,7 +253,7 @@ export default function ReservationModal({
                     <legend className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1">
                       Hora sugerida
                     </legend>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {["20:00", "21:00", "22:00", "23:00"].map((t) => (
                         <button
                           key={t}
@@ -273,7 +279,7 @@ export default function ReservationModal({
 
                   <button
                     type="submit"
-                    className="w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-4 px-8 rounded-full font-anybody font-black text-sm sm:text-base uppercase tracking-wider transition-transform shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+                    className="ui-pill w-full bg-primary-container hover:bg-primary-container/90 text-on-primary-container py-4 px-8 font-anybody font-black text-sm sm:text-base uppercase tracking-wider transition-transform shadow-lg flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98] cursor-pointer min-h-[3.25rem]"
                   >
                     Confirmar Pre-Reserva
                   </button>

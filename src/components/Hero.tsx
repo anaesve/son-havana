@@ -20,6 +20,8 @@ interface Slide {
   ctaText: string;
   secondaryCtaText?: string;
   waText: string;
+  /** Cartel ilustrado: sin copy encima, solo bloque inferior + CTAs */
+  posterLayout?: boolean;
 }
 
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
@@ -38,7 +40,8 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:
-      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores."
+      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores.",
+    posterLayout: true,
   },
   {
     id: "niche",
@@ -148,7 +151,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-on-surface pt-28 pb-16 md:pt-32 md:pb-24 select-none scroll-mt-20"
+      className="relative min-h-screen w-full flex flex-col items-center overflow-hidden bg-on-surface pt-28 pb-16 md:pt-32 md:pb-24 select-none scroll-mt-20"
       onMouseDown={() => setIsPlaying(false)}
       onMouseUp={() => setIsPlaying(true)}
       onMouseLeave={() => setIsPlaying(true)}
@@ -186,7 +189,9 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             animate={{ opacity: 0.98, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.8 }}
-            className="absolute inset-0 w-full h-full object-cover"
+            className={`absolute inset-0 w-full h-full ${
+              currentSlide.posterLayout ? "object-contain object-center" : "object-cover"
+            }`}
           />
         </AnimatePresence>
 
@@ -228,7 +233,13 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       </div>
 
       {/* Center-aligned Immersive Content Area */}
-      <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center justify-center space-y-7 pt-6 md:pt-10">
+      <div
+        className={`relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center ${
+          currentSlide.posterLayout
+            ? "justify-end flex-1 pb-28 md:pb-32 pt-24 text-center"
+            : "justify-center flex-1 text-center space-y-7"
+        }`}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -236,8 +247,12 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col items-center space-y-5"
+            className={`flex flex-col items-center w-full ${
+              currentSlide.posterLayout ? "space-y-4 mt-auto" : "space-y-5"
+            }`}
           >
+            {!currentSlide.posterLayout && (
+              <>
             {/* Event Badge with simple star indicator */}
             <div 
               className="flex items-center gap-2 text-xs sm:text-sm font-black tracking-widest uppercase text-mango"
@@ -278,6 +293,8 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             >
               {currentSlide.description}
             </p>
+              </>
+            )}
 
             {/* Highlight list in clean bulleted formatting */}
             <div 
@@ -305,7 +322,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
             {/* Interactive Call-To-Action buttons - fully rounded */}
             <div 
-              className="flex flex-col sm:flex-row gap-4 pt-8 sm:pt-10 justify-center items-center w-full max-w-md sm:max-w-none"
+              className="flex flex-col sm:flex-row gap-4 pt-6 justify-center items-center w-full max-w-md sm:max-w-none"
               onMouseDown={(e) => e.stopPropagation()}
               onMouseUp={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}

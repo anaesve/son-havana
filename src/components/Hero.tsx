@@ -27,11 +27,10 @@ interface Slide {
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
   {
     id: "son-kmaron",
-    badge: "Son Havana presenta",
-    title: "SON K'MARON",
-    subtitle: "SALSA CLÁSICA CON ESTILO",
-    description:
-      "Orquesta en vivo de salsa con el sello Son Havana. Este jueves 06 de agosto en Feria de Flores: metales potentes, percusión en descarga y la rumba clásica que llena la pista.",
+    badge: "",
+    title: "",
+    subtitle: "Son K'maron",
+    description: "",
     localPath: "/images/hero/son-kmaron.jpg",
     demoUrl:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
@@ -177,8 +176,12 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           <motion.img
             key={currentSlide.id}
             src={currentSlide.bgUrl}
-            alt=""
-            aria-hidden="true"
+            alt={
+              currentSlide.posterLayout
+                ? "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores"
+                : ""
+            }
+            aria-hidden={currentSlide.posterLayout ? undefined : true}
             width={1920}
             height={1080}
             fetchPriority="high"
@@ -211,7 +214,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
                 `,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/45 via-transparent to-on-surface/12 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/35 via-transparent to-transparent pointer-events-none" />
           </>
         ) : currentIndex < 3 ? (
           <>
@@ -232,14 +235,75 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         )}
       </div>
 
-      {/* Center-aligned Immersive Content Area */}
-      <div
-        className={`relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center ${
-          currentSlide.posterLayout
-            ? "justify-end flex-1 pb-28 md:pb-32 pt-24 text-center"
-            : "justify-center flex-1 text-center space-y-7"
-        }`}
-      >
+      {/* Contenido del slide */}
+      {currentSlide.posterLayout ? (
+        <>
+          {/* El cartel ya incluye título, fecha y copy — reservamos el centro sin texto HTML */}
+          <div className="relative z-10 flex-1 w-full min-h-[38vh] sm:min-h-[44vh] md:min-h-[50vh]" aria-hidden="true" />
+
+          <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 pb-28 md:pb-32 text-center">
+            <h1 className="sr-only">
+              Son K&apos;maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.
+            </h1>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="flex flex-col items-center space-y-4"
+              >
+                <div
+                  className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl"
+                  style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
+                >
+                  {currentSlide.highlights.map((h, i) => (
+                    <span key={i} className="inline-flex items-center">
+                      {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
+                      <span>{h}</span>
+                    </span>
+                  ))}
+                </div>
+
+                {currentSlide.price && (
+                  <div
+                    className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2"
+                    style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
+                  >
+                    <Music className="w-4 h-4 text-mango" />
+                    <span>Aporte Cultural: {currentSlide.price}</span>
+                  </div>
+                )}
+
+                <div
+                  className="flex flex-col sm:flex-row gap-4 pt-2 justify-center items-center w-full max-w-md sm:max-w-none"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onMouseUp={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={onBookingOpen}
+                    className="w-full sm:w-auto bg-primary-container hover:bg-primary text-on-primary-container font-black uppercase tracking-wider text-xs sm:text-sm px-10 py-5 rounded-full sombra-dura-cta hover:scale-[1.03] transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
+                  >
+                    <Calendar className="w-4.5 h-4.5" />
+                    <span>{currentSlide.ctaText}</span>
+                  </button>
+                  <button
+                    onClick={() => handleWhatsApp(currentSlide.waText)}
+                    className="w-full sm:w-auto border border-surface/30 hover:border-success/60 bg-on-surface/50 hover:bg-success/20 text-surface font-bold text-xs sm:text-sm px-10 py-5 rounded-full backdrop-blur-sm transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
+                  >
+                    <Phone className="w-4.5 h-4.5 text-success" />
+                    <span>{currentSlide.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </>
+      ) : (
+      <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center flex-1 text-center space-y-7">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -247,12 +311,8 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className={`flex flex-col items-center w-full ${
-              currentSlide.posterLayout ? "space-y-4 mt-auto" : "space-y-5"
-            }`}
+            className="flex flex-col items-center w-full space-y-5"
           >
-            {!currentSlide.posterLayout && (
-              <>
             {/* Event Badge with simple star indicator */}
             <div 
               className="flex items-center gap-2 text-xs sm:text-sm font-black tracking-widest uppercase text-mango"
@@ -293,8 +353,6 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             >
               {currentSlide.description}
             </p>
-              </>
-            )}
 
             {/* Highlight list in clean bulleted formatting */}
             <div 
@@ -347,6 +405,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           </motion.div>
         </AnimatePresence>
       </div>
+      )}
 
       {/* Slide Navigation controls */}
       <div 

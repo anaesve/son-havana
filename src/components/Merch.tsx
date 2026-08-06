@@ -62,7 +62,7 @@ export default function Merch({ onAddToCart }: MerchProps) {
           {PRODUCTS.map((product) => (
             <article
               key={product.id}
-              className="bg-on-surface rounded-2xl p-5 flex flex-col group border border-surface/10 hover:border-mango/40 transition-all duration-300 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-on-surface)_45%,transparent)] hover:shadow-[0_16px_32px_-12px_color-mix(in_srgb,var(--color-on-surface)_55%,transparent)] hover:-translate-y-0.5"
+              className="bg-on-surface rounded-3xl p-5 flex flex-col group border border-surface/10 hover:border-mango/40 transition-all duration-300 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-on-surface)_45%,transparent)] hover:shadow-[0_16px_32px_-12px_color-mix(in_srgb,var(--color-on-surface)_55%,transparent)] hover:-translate-y-0.5"
             >
               {/* Image box */}
               <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-black/30">

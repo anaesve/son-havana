@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, SkipForward, Volume2, VolumeX, Music, Disc, ChevronDown, ChevronUp, Radio, Loader2, AlertCircle } from "lucide-react";
+import { Play, Pause, SkipForward, Volume2, VolumeX, Disc, ChevronDown, ChevronUp, Radio, Loader2, AlertCircle } from "lucide-react";
 import { Track } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -56,7 +56,6 @@ export default function RadioPlayer() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.8);
-  const [currentTime, setCurrentTime] = useState("00:00");
   const [isMinimized, setIsMinimized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -103,23 +102,10 @@ export default function RadioPlayer() {
       setHasError(true);
     };
 
-    const updateTime = () => {
-      if (audio.currentTime) {
-        const displayMin = Math.floor(audio.currentTime / 60);
-        const displaySec = Math.floor(audio.currentTime % 60);
-        setCurrentTime(
-          `${displayMin.toString().padStart(2, "0")}:${displaySec
-            .toString()
-            .padStart(2, "0")}`
-        );
-      }
-    };
-
     audio.addEventListener("canplay", handleCanPlay);
     audio.addEventListener("waiting", handleWaiting);
     audio.addEventListener("playing", handlePlaying);
     audio.addEventListener("error", handleAudioError);
-    audio.addEventListener("timeupdate", updateTime);
 
     return () => {
       audio.pause();
@@ -133,7 +119,6 @@ export default function RadioPlayer() {
       audio.removeEventListener("waiting", handleWaiting);
       audio.removeEventListener("playing", handlePlaying);
       audio.removeEventListener("error", handleAudioError);
-      audio.removeEventListener("timeupdate", updateTime);
       audioRef.current = null;
     };
   }, []);
@@ -207,7 +192,6 @@ export default function RadioPlayer() {
 
   const handleNextTrack = () => {
     setCurrentTrackIndex((prev) => (prev + 1) % PLAYLIST.length);
-    setCurrentTime("00:00");
   };
 
   const toggleMute = () => {
@@ -283,191 +267,136 @@ export default function RadioPlayer() {
               ></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
-              
-              {/* Left Column: Disc Art, Song Meta, Live Waves */}
-              <div className="flex items-center gap-4 w-full md:w-1/3 justify-between md:justify-start">
-                <div className="flex items-center gap-3 min-w-0">
-                  {/* Miniature spinning vinyl */}
-                  <div className="relative w-12 h-12 bg-black rounded-full flex-shrink-0 flex items-center justify-center shadow-md border border-white/5 overflow-hidden">
-                    <div className="absolute inset-0 vinyl-grooves rounded-full"></div>
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center animate-spin-slow ${
-                        !isPlaying || isLoading || hasError ? "pause-animation" : ""
-                      }`}
-                    >
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center relative">
-                        <div className="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
-                      </div>
+            {/*
+              Móvil: columna (meta → controles centrados → canales + volumen).
+              Desktop: play fijo al centro; Ocultar izq / cambiar der; LIVE junto al nombre.
+            */}
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col gap-3 md:relative md:min-h-[4.75rem] md:flex-row md:items-center md:gap-3">
+              <div className="flex items-center gap-3 min-w-0 md:flex-1 md:pr-40">
+                <div className="relative w-11 h-11 bg-black rounded-full shrink-0 flex items-center justify-center shadow-md border border-white/5 overflow-hidden">
+                  <div className="absolute inset-0 vinyl-grooves rounded-full" />
+                  <div
+                    className={`w-9 h-9 rounded-full flex items-center justify-center animate-spin-slow ${
+                      !isPlaying || isLoading || hasError ? "pause-animation" : ""
+                    }`}
+                  >
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center relative">
+                      <div className="w-1.5 h-1.5 rounded-full bg-on-surface" />
                     </div>
                   </div>
+                </div>
 
-                  <div className="min-w-0 text-left">
-                    <span className="text-xs font-anybody font-black text-surface tracking-widest uppercase block">
-                      {hasError ? "• SEÑAL INACTIVA" : isLoading ? "• BUFFERING…" : "• SEÑAL EN VIVO"}
-                    </span>
-                    <p className="text-sm font-anybody font-black text-white truncate uppercase leading-tight mt-0.5">
+                <div className="min-w-0 text-left flex-1">
+                  <span className="text-[10px] font-anybody font-black text-surface tracking-widest uppercase block">
+                    {hasError ? "• SEÑAL INACTIVA" : isLoading ? "• BUFFERING…" : "• SEÑAL EN VIVO"}
+                  </span>
+                  <div className="flex items-center gap-2 min-w-0 mt-0.5">
+                    <p className="text-sm font-anybody font-black text-white truncate uppercase leading-tight">
                       {track.title}
                     </p>
-                    {hasError ? (
-                      <span className="text-[10px] text-danger font-bold flex items-center gap-1">
-                        <AlertCircle className="w-3 h-3 text-danger flex-shrink-0" aria-hidden="true" />
-                        Señal caída, saltando...
-                      </span>
-                    ) : isLoading ? (
-                      <span className="text-[10px] text-mango/80 font-bold motion-safe:animate-pulse">
-                        Conectando con la emisora...
-                      </span>
-                    ) : (
-                      <p className="text-[11px] text-surface-variant/80 truncate">
-                        {track.artist}
-                      </p>
-                    )}
+                    <span className="inline-flex shrink-0 items-center justify-center px-2 py-0.5 text-[8px] font-anybody font-black text-mango bg-mango/15 rounded-full border border-mango/20 uppercase tracking-wider">
+                      {track.duration}
+                    </span>
                   </div>
-                </div>
-
-                {/* Micro Equalizer Wave Bars (CSS, sin Math.random en render) */}
-                <div className="flex items-end gap-[2px] h-5 px-2" aria-hidden="true">
-                  {[0.7, 1, 0.85, 1.1, 0.75, 0.95].map((scale, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        height: "18px",
-                        animationDelay: `${i * 0.12}s`,
-                        animationDuration: `${0.7 + i * 0.08}s`,
-                        transform: `scaleY(${scale})`,
-                      }}
-                      className={`w-[3px] rounded-t-xs bg-primary-container ${
-                        isPlaying && !isLoading && !hasError ? "eq-bar" : "eq-bar-paused"
-                      }`}
-                    />
-                  ))}
+                  {hasError ? (
+                    <span className="text-[10px] text-danger font-bold flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3 text-danger shrink-0" aria-hidden="true" />
+                      Señal caída, saltando…
+                    </span>
+                  ) : (
+                    <p className="text-[11px] text-surface-variant/80 truncate">
+                      {isLoading ? "Conectando con la emisora…" : track.artist}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              {/* Center Column: Audio Playback Timers, Core Controls and Spotify/YouTube links */}
-              <div className="flex flex-col items-center gap-1.5 w-full md:w-1/3">
-                <div className="flex items-center gap-4">
-                  {/* Prev-Track / Time info */}
-                  <span className="text-[10px] font-mono text-surface-variant/75 w-12 text-right">
-                    {currentTime}
+              <div className="flex items-center justify-center gap-3 md:absolute md:left-1/2 md:top-1/2 md:z-10 md:-translate-x-1/2 md:-translate-y-1/2">
+                <button
+                  type="button"
+                  onClick={() => setIsMinimized(true)}
+                  className="flex items-center justify-center gap-1.5 size-11 px-3 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer shadow-md"
+                  aria-label="Ocultar emisora"
+                >
+                  <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  <span className="text-[9px] font-anybody font-black uppercase tracking-wider hidden sm:inline">
+                    Ocultar
                   </span>
-
-                  <button
-                    type="button"
-                    onClick={handlePlayPause}
-                    className="size-11 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
-                    aria-label={isPlaying ? "Pausar emisora" : "Sintonizar salsa en vivo"}
-                  >
-                    {isLoading ? (
-                      <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" aria-hidden="true" />
-                    ) : isPlaying ? (
-                      <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" aria-hidden="true" />
-                    ) : (
-                      <Play className="w-4 h-4 fill-current text-on-primary-container motion-safe:animate-pulse shrink-0" aria-hidden="true" />
-                    )}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleNextTrack}
-                    className="size-11 rounded-full bg-black/40 hover:bg-black/60 text-primary-container hover:text-white transition-all flex items-center justify-center cursor-pointer"
-                    aria-label="Siguiente canal salsero"
-                  >
-                    <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
-                  </button>
-
-                  {/* LIVE badge */}
-                  <span className="inline-flex items-center justify-center min-w-[2.75rem] px-2.5 py-1 text-[9px] font-anybody font-black text-mango bg-mango/15 rounded-full border border-mango/20 uppercase tracking-wider">
-                    {track.duration}
-                  </span>
-                </div>
-
-                {/* Red Mundial de la Salsa Live Signal Indicator */}
-                <div className="flex items-center gap-2 bg-mango/10 px-3.5 py-1 rounded-full border border-mango/20">
-                  <span className="flex h-1.5 w-1.5 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mango opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-mango"></span>
-                  </span>
-                  <span className="text-[9px] font-anybody font-black text-mango uppercase tracking-widest">
-                    {hasError ? "BUSCANDO SEÑAL ALTERNATIVA..." : isLoading ? "ESTABLECIENDO CONEXIÓN..." : "SINTONIZANDO SALSA MUNDIAL EN VIVO"}
-                  </span>
-                </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={handlePlayPause}
+                  className="size-11 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
+                  aria-label={isPlaying ? "Pausar emisora" : "Sintonizar salsa en vivo"}
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" aria-hidden="true" />
+                  ) : isPlaying ? (
+                    <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" aria-hidden="true" />
+                  ) : (
+                    <Play className="w-4 h-4 fill-current text-on-primary-container motion-safe:animate-pulse shrink-0" aria-hidden="true" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNextTrack}
+                  className="size-11 rounded-full bg-black/40 hover:bg-black/60 text-primary-container hover:text-white transition-all flex items-center justify-center cursor-pointer"
+                  aria-label="Siguiente canal salsero"
+                >
+                  <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
+                </button>
               </div>
 
-              {/* Right Column: Station quick selection channels + volume & collapse controls */}
-              <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-1/3 border-t border-white/5 pt-2 md:pt-0 md:border-none">
-                {/* Vintage Selectors */}
-                <div className="flex gap-1 items-center">
-                  <span className="text-[8px] font-anybody font-bold text-surface-variant/80 uppercase tracking-widest mr-1 hidden lg:inline">
-                    CANAL:
-                  </span>
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-3 min-w-0 md:flex-1 md:pl-40 border-t border-white/5 pt-3 md:border-0 md:pt-0">
+                <div className="flex items-center justify-center gap-1.5 flex-wrap" role="group" aria-label="Canales">
                   {PLAYLIST.map((t, idx) => (
                     <button
                       key={t.id}
                       type="button"
                       onClick={() => {
                         setCurrentTrackIndex(idx);
-                        setCurrentTime("00:00");
                         setIsPlaying(true);
                       }}
-                      className={`min-w-[2.75rem] min-h-11 px-2.5 py-1.5 text-[9px] font-anybody font-black uppercase rounded-full transition-all border cursor-pointer ${
+                      className={`size-11 min-w-11 px-2 text-[10px] font-anybody font-black rounded-full transition-all border cursor-pointer shrink-0 ${
                         currentTrackIndex === idx
                           ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
                           : "bg-black/45 text-surface-variant/80 border-white/5 hover:border-surface-variant/20 hover:text-white"
                       }`}
-                      aria-label={`CH${idx + 1}: ${t.title}`}
+                      aria-label={`Canal ${idx + 1}: ${t.title}`}
                       aria-pressed={currentTrackIndex === idx}
                     >
-                      CH{idx + 1}
+                      {idx + 1}
                     </button>
                   ))}
                 </div>
-
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      type="button"
-                      onClick={toggleMute}
-                      className="size-11 flex items-center justify-center text-surface-variant/80 hover:text-white transition-colors cursor-pointer"
-                      aria-label={isMuted || volume === 0 ? "Activar sonido" : "Silenciar"}
-                    >
-                      {isMuted || volume === 0 ? (
-                        <VolumeX className="w-4 h-4 text-danger" aria-hidden="true" />
-                      ) : (
-                        <Volume2 className="w-4 h-4 text-primary-container" aria-hidden="true" />
-                      )}
-                    </button>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.05"
-                      value={isMuted ? 0 : volume}
-                      onChange={(e) => {
-                        setVolume(parseFloat(e.target.value));
-                        setIsMuted(false);
-                      }}
-                      aria-label="Volumen"
-                      className="w-14 h-1 bg-black/60 rounded-lg appearance-none cursor-pointer accent-primary-container"
-                    />
-                  </div>
-
+                <div className="flex items-center gap-2 w-full sm:w-auto justify-center">
                   <button
                     type="button"
-                    onClick={() => setIsMinimized(true)}
-                    className="flex items-center gap-1.5 min-h-11 px-3 py-2 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md"
-                    aria-label="Ocultar emisora"
+                    onClick={toggleMute}
+                    className="size-11 flex items-center justify-center text-surface-variant/80 hover:text-white transition-colors cursor-pointer shrink-0"
+                    aria-label={isMuted || volume === 0 ? "Activar sonido" : "Silenciar"}
                   >
-                    <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
-                    <span className="text-[9px] font-anybody font-black uppercase tracking-wider hidden sm:inline">
-                      Ocultar
-                    </span>
+                    {isMuted || volume === 0 ? (
+                      <VolumeX className="w-4 h-4 text-danger" aria-hidden="true" />
+                    ) : (
+                      <Volume2 className="w-4 h-4 text-primary-container" aria-hidden="true" />
+                    )}
                   </button>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={isMuted ? 0 : volume}
+                    onChange={(e) => {
+                      setVolume(parseFloat(e.target.value));
+                      setIsMuted(false);
+                    }}
+                    aria-label="Volumen"
+                    className="w-full max-w-[10rem] sm:w-20 h-2 sm:h-1 bg-black/60 rounded-lg appearance-none cursor-pointer accent-primary-container"
+                  />
                 </div>
-
               </div>
-
             </div>
           </motion.div>
         )}

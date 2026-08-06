@@ -18,6 +18,7 @@ interface Slide {
   price?: string;
   highlights: string[];
   ctaText: string;
+  secondaryCtaText?: string;
   waText: string;
 }
 
@@ -32,11 +33,12 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPath: "/images/hero/son-kmaron.jpg",
     demoUrl:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
-    price: "Jueves 06 de Agosto • Feria de Flores",
-    highlights: ["Orquesta en vivo de salsa", "Presentación especial SH", "Reserva tu mesa con anticipo"],
-    ctaText: "Reservar Mesa para Son K'maron",
+    price: "$25.000 COP",
+    highlights: ["Música en vivo", "Feria de Flores"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
     waText:
-      "¡Hola! Quisiera reservar mesa para la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores."
+      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores."
   },
   {
     id: "niche",
@@ -191,7 +193,22 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         {/* Scrim: en las 3 primeras slides el velo se concentra en el centro
             (donde va el copy) y deja las esquinas más claras para que se vea
             la ilustración. El slide de clases mantiene el scrim fotográfico. */}
-        {currentIndex < 3 ? (
+        {currentSlide.id === "son-kmaron" ? (
+          <>
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(ellipse 48% 42% at 0% 0%, color-mix(in srgb, var(--color-on-surface) 22%, transparent) 0%, transparent 72%),
+                  radial-gradient(ellipse 48% 42% at 100% 0%, color-mix(in srgb, var(--color-on-surface) 22%, transparent) 0%, transparent 72%),
+                  radial-gradient(ellipse 48% 42% at 0% 100%, color-mix(in srgb, var(--color-on-surface) 26%, transparent) 0%, transparent 72%),
+                  radial-gradient(ellipse 48% 42% at 100% 100%, color-mix(in srgb, var(--color-on-surface) 26%, transparent) 0%, transparent 72%)
+                `,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/45 via-transparent to-on-surface/12 pointer-events-none" />
+          </>
+        ) : currentIndex < 3 ? (
           <>
             <div
               className="absolute inset-0 pointer-events-none"
@@ -211,7 +228,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       </div>
 
       {/* Center-aligned Immersive Content Area */}
-      <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center justify-center space-y-7">
+      <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center justify-center space-y-7 pt-6 md:pt-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -288,7 +305,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
             {/* Interactive Call-To-Action buttons - fully rounded */}
             <div 
-              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center items-center w-full max-w-md sm:max-w-none"
+              className="flex flex-col sm:flex-row gap-4 pt-8 sm:pt-10 justify-center items-center w-full max-w-md sm:max-w-none"
               onMouseDown={(e) => e.stopPropagation()}
               onMouseUp={(e) => e.stopPropagation()}
               onTouchStart={(e) => e.stopPropagation()}
@@ -306,7 +323,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
                 className="w-full sm:w-auto border border-surface/30 hover:border-success/60 bg-on-surface/50 hover:bg-success/20 text-surface font-bold text-xs sm:text-sm px-10 py-5 rounded-full backdrop-blur-sm transition-all cursor-pointer flex items-center justify-center gap-2.5 font-anybody"
               >
                 <Phone className="w-4.5 h-4.5 text-success" />
-                <span>Escríbenos por WhatsApp</span>
+                <span>{currentSlide.secondaryCtaText ?? "Escríbenos por WhatsApp"}</span>
               </button>
             </div>
 

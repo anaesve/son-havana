@@ -1,6 +1,6 @@
 # Carpeta para imágenes del Hero Slider
 Coloca aquí las imágenes:
-- hector-lavoe.jpg
+- son-kmaron.jpg
 - grupo-niche.jpg
 - programacion-semanal.jpg
 - clases-baile.jpg

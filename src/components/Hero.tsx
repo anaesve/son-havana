@@ -23,17 +23,20 @@ interface Slide {
 
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
   {
-    id: "lavoe",
-    badge: "Presentación Especial • Sede Principal",
-    title: "SON HAVANA ALL STARS",
-    subtitle: "HOMENAJE A HÉCTOR LAVOE",
-    description: "Tributo especial al 'Cantante de los Cantantes'. Revive la salsa clásica, el soneo y el sentimiento de la época de oro de la Fania con metales potentes en vivo y una descarga de percusión inolvidable.",
-    localPath: "/images/hero/hector-lavoe.jpg",
-    demoUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Hector_lavoe.png",
-    price: "$25.000 COP",
-    highlights: ["Orquesta y metales en vivo", "Descarga clásica de congas", "Clásicos de la época de oro"],
-    ctaText: "Reservar Mesa para Lavoe",
-    waText: "¡Hola! Quisiera reservar mesa para el Homenaje a Héctor Lavoe en Son Havana."
+    id: "son-kmaron",
+    badge: "Son Havana presenta",
+    title: "SON K'MARON",
+    subtitle: "SALSA CLÁSICA CON ESTILO",
+    description:
+      "Orquesta en vivo de salsa con el sello Son Havana. Este jueves 06 de agosto en Feria de Flores: metales potentes, percusión en descarga y la rumba clásica que llena la pista.",
+    localPath: "/images/hero/son-kmaron.jpg",
+    demoUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
+    price: "Jueves 06 de Agosto • Feria de Flores",
+    highlights: ["Orquesta en vivo de salsa", "Presentación especial SH", "Reserva tu mesa con anticipo"],
+    ctaText: "Reservar Mesa para Son K'maron",
+    waText:
+      "¡Hola! Quisiera reservar mesa para la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores."
   },
   {
     id: "niche",

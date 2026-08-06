@@ -311,17 +311,15 @@ export default function RadioPlayer() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-3 md:absolute md:left-1/2 md:top-1/2 md:z-10 md:-translate-x-1/2 md:-translate-y-1/2">
+              {/* Móvil: fila centrada Ocultar | Play | Cambiar */}
+              <div className="flex items-center justify-center gap-3 md:hidden">
                 <button
                   type="button"
                   onClick={() => setIsMinimized(true)}
-                  className="flex items-center justify-center gap-1.5 size-11 px-3 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer shadow-md"
+                  className="flex items-center justify-center gap-1.5 size-11 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer shadow-md"
                   aria-label="Ocultar emisora"
                 >
                   <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
-                  <span className="text-[9px] font-anybody font-black uppercase tracking-wider hidden sm:inline">
-                    Ocultar
-                  </span>
                 </button>
                 <button
                   type="button"
@@ -345,6 +343,47 @@ export default function RadioPlayer() {
                 >
                   <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
                 </button>
+              </div>
+
+              {/* Desktop: play anclado al centro; Ocultar/cambiar con absolute */}
+              <div className="hidden md:flex md:absolute md:left-1/2 md:top-1/2 md:z-10 md:-translate-x-1/2 md:-translate-y-1/2 md:items-center">
+                <div className="absolute right-full mr-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsMinimized(true)}
+                    className="flex items-center gap-1.5 h-10 px-3 rounded-full bg-primary-container/20 border-2 border-primary-container/50 text-primary-container hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer shadow-md whitespace-nowrap"
+                    aria-label="Ocultar emisora"
+                  >
+                    <ChevronDown className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    <span className="text-[9px] font-anybody font-black uppercase tracking-wider">
+                      Ocultar
+                    </span>
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={handlePlayPause}
+                  className="size-11 rounded-full bg-gradient-to-br from-primary-container to-primary text-on-primary-container font-black hover:scale-105 active:scale-95 transition-all shadow-md flex items-center justify-center cursor-pointer"
+                  aria-label={isPlaying ? "Pausar emisora" : "Sintonizar salsa en vivo"}
+                >
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 text-on-primary-container animate-spin" aria-hidden="true" />
+                  ) : isPlaying ? (
+                    <Pause className="w-4 h-4 fill-current text-on-primary-container shrink-0" aria-hidden="true" />
+                  ) : (
+                    <Play className="w-4 h-4 fill-current text-on-primary-container motion-safe:animate-pulse shrink-0" aria-hidden="true" />
+                  )}
+                </button>
+                <div className="absolute left-full ml-2">
+                  <button
+                    type="button"
+                    onClick={handleNextTrack}
+                    className="size-10 rounded-full bg-black/40 hover:bg-black/60 text-primary-container hover:text-white transition-all flex items-center justify-center cursor-pointer"
+                    aria-label="Siguiente canal salsero"
+                  >
+                    <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
+                  </button>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-3 min-w-0 md:flex-1 md:pl-40 border-t border-white/5 pt-3 md:border-0 md:pt-0">

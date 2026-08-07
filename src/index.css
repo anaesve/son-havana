@@ -4,6 +4,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html.scroll-locked {
+  scroll-behavior: auto !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

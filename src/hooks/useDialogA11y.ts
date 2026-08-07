@@ -1,56 +1,22 @@
-import { useEffect, type RefObject } from "react";
+import { useLayoutEffect, type RefObject } from "react";
+import { lockScroll } from "./scrollLock";
 
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-function lockDocumentScroll() {
-  const scrollY = window.scrollY;
-  const { style: htmlStyle } = document.documentElement;
-  const { style: bodyStyle } = document.body;
-  const scrollbarGap = window.innerWidth - document.documentElement.clientWidth;
-
-  const prev = {
-    scrollY,
-    htmlOverflow: htmlStyle.overflow,
-    bodyOverflow: bodyStyle.overflow,
-    bodyPosition: bodyStyle.position,
-    bodyTop: bodyStyle.top,
-    bodyWidth: bodyStyle.width,
-    bodyPaddingRight: bodyStyle.paddingRight,
-  };
-
-  htmlStyle.overflow = "hidden";
-  bodyStyle.overflow = "hidden";
-  bodyStyle.position = "fixed";
-  bodyStyle.top = `-${scrollY}px`;
-  bodyStyle.width = "100%";
-  if (scrollbarGap > 0) {
-    bodyStyle.paddingRight = `${scrollbarGap}px`;
-  }
-
-  return () => {
-    htmlStyle.overflow = prev.htmlOverflow;
-    bodyStyle.overflow = prev.bodyOverflow;
-    bodyStyle.position = prev.bodyPosition;
-    bodyStyle.top = prev.bodyTop;
-    bodyStyle.width = prev.bodyWidth;
-    bodyStyle.paddingRight = prev.bodyPaddingRight;
-    window.scrollTo(0, prev.scrollY);
-  };
-}
-
 /**
  * Escape, focus trap, scroll-lock y restauración de foco para overlays.
+ * El scroll se restaura en el mismo punto, sin animación ni salto al inicio.
  */
 export function useDialogA11y(
   isOpen: boolean,
   onClose: () => void,
   containerRef: RefObject<HTMLElement | null>
 ) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) return;
 
-    const unlockScroll = lockDocumentScroll();
+    const unlockScroll = lockScroll();
     const previouslyFocused = document.activeElement as HTMLElement | null;
 
     const getFocusable = (): HTMLElement[] => {
@@ -70,7 +36,7 @@ export function useDialogA11y(
     const raf = requestAnimationFrame(() => {
       const list = getFocusable();
       const target = list[0] ?? containerRef.current;
-      target?.focus();
+      target?.focus({ preventScroll: true });
     });
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -87,19 +53,21 @@ export function useDialogA11y(
       if (!first || !last) return;
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
-        last.focus();
+        last.focus({ preventScroll: true });
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault();
-        first.focus();
+        first.focus({ preventScroll: true });
       }
     };
 
     document.addEventListener("keydown", onKeyDown);
     return () => {
       cancelAnimationFrame(raf);
-      unlockScroll();
       document.removeEventListener("keydown", onKeyDown);
-      previouslyFocused?.focus?.({ preventScroll: true });
+      unlockScroll();
+      requestAnimationFrame(() => {
+        previouslyFocused?.focus?.({ preventScroll: true });
+      });
     };
   }, [isOpen, onClose, containerRef]);
 }

@@ -329,7 +329,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       )}
 
       {/* Bloque inferior fijo: misma altura en todos los slides */}
-      <div className="absolute inset-x-0 bottom-[11rem] md:bottom-[12rem] z-20 px-6 md:px-12 text-center">
+      <div className="absolute inset-x-0 bottom-[13.5rem] md:bottom-[12rem] z-20 px-6 md:px-12 text-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={slideCopy.id}
@@ -389,7 +389,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
       {/* Slide Navigation controls */}
       <div
-        className="absolute bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4 bg-black/50 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full shadow-lg"
+        className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4 bg-black/50 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full shadow-lg"
         onMouseDown={(e) => e.stopPropagation()}
         onMouseUp={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}

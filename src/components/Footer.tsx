@@ -40,14 +40,13 @@ export default function Footer() {
           <div className="flex justify-center order-1 md:order-2 md:w-1/3">
             <a href="#hero" className="inline-block transition-transform hover:scale-105">
               <img
-                referrerPolicy="no-referrer"
                 alt="Son Havana Club Logo"
                 width={160}
                 height={56}
                 loading="lazy"
                 decoding="async"
-                className="h-14 w-auto grayscale brightness-200 opacity-65 hover:opacity-100 transition-all"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyQX7vQQb-Iq8CK8GkvbiGjMfQCuOSHxtdqT6R69pDe2Ty7YNgBVc--mJJ2_myP_h-bHdTtYftyky-VSt7off2WKbWjXj__dvaa-wNJ-l5LWi1K4xYDggXOln38uTQzMSad_zN5-OEpM43jyoBL1ZminsBgxftLNkigrfgXGUTCJYC-Vqifw7rhzU-O5wlUMF4s1mJho8tpmkhOZwFVAKDEgc4VNbN0yIw_BQAcOGkRg-v4v91EhJgXdhZ0MoHc2ZFvQ"
+                className="h-14 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+                src="/images/logo/son-havana-logo.webp"
               />
             </a>
           </div>

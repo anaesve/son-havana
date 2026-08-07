@@ -53,12 +53,12 @@ export default function Header({ cartCount, onCartOpen, onBookingOpen }: HeaderP
       <div className="flex items-center">
         <a href="#hero" className="flex items-center gap-2">
           <img
-            referrerPolicy="no-referrer"
             alt="Son Havana - Club de Salsa en Medellín"
             width={190}
             height={76}
+            decoding="async"
             className="h-16 md:h-[4.75rem] w-auto object-contain hover:scale-105 transition-transform"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRfQV7yUllvA6D6RQZT6dyuC4m9QlcwUIvEOXY-2lWg5PazGwwe11PZz-Uj2nhZFOKTSsP3B57SNkA4H3SCfSCClc9FG_p4g9ersLDB-mPep8QAI3aVzq-eijrpgaysow-PZIohF5UbeKwptnzM8OjLIJhzcBC_e1enQrQ9v0dVL-xlJx9v4Fjk7aB7EH1Ye5E9Q7zfyBCJlSC_wcn7kKX-SxYQV6rLKh_syFT4x9zBZvL1TwbRjWFMr-bPYXbtSHNMg"
+            src="/images/logo/son-havana-logo.webp"
           />
         </a>
       </div>

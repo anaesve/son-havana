@@ -103,6 +103,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     subtitle: "LA DIMENSIÓN",
     description: "",
     localPath: "/images/hero/LaDimension.webp",
+    localPathMobile: "/images/hero/LaDimension-mobile.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
     highlights: ["Remate Feria de Flores", "Salsa en vivo"],

@@ -5,5 +5,6 @@ Coloca aquí las imágenes:
 - Tromboricua.webp
 - Tromboricua-mobile.webp (móvil ≤767px)
 - LaCentral.webp
+- LaCentral-mobile.webp (móvil ≤767px, slide 3)
 - LaDimension.webp
 - LaDimension-mobile.webp (móvil ≤767px, slide 4)

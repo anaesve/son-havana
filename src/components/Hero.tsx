@@ -87,6 +87,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     subtitle: "ORQUESTA LA CENTRAL",
     description: "",
     localPath: "/images/hero/LaCentral.webp",
+    localPathMobile: "/images/hero/LaCentral-mobile.webp",
     demoUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
     highlights: ["Música en Vivo", "Pista de baile"],

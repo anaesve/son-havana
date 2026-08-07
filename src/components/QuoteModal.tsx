@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { X, Send, CalendarDays, MapPin, Clock, Music2, CheckCircle2, MessageCircle } from "lucide-react";
+import { X, Send, MapPin, Music2, CheckCircle2, MessageCircle, ClipboardList } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useDialogA11y } from "../hooks/useDialogA11y";
 
@@ -26,20 +26,29 @@ export default function QuoteModal({
   onClose,
   selectedArtist = "SON K'MARON",
 }: QuoteModalProps) {
+  const hoy = new Date().toLocaleDateString("en-CA");
   const [eventType, setEventType] = useState("Boda / Matrimonio");
-  const [dates, setDates] = useState("");
+  const [dateStart, setDateStart] = useState(hoy);
+  const [dateEnd, setDateEnd] = useState("");
   const [artist, setArtist] = useState(normalizeArtist(selectedArtist));
   const [place, setPlace] = useState("");
-  const [hours, setHours] = useState("2");
+  const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
+  const formatDates = () => {
+    if (dateEnd && dateEnd !== dateStart) return `${dateStart} al ${dateEnd}`;
+    return dateStart;
+  };
+
   const handleClose = useCallback(() => {
     setSubmitted(false);
-    setDates("");
+    setDateStart(hoy);
+    setDateEnd("");
     setPlace("");
+    setNotes("");
     onClose();
-  }, [onClose]);
+  }, [hoy, onClose]);
 
   useDialogA11y(isOpen, handleClose, panelRef);
 
@@ -56,20 +65,22 @@ export default function QuoteModal({
     "ui-pill w-full pl-11 pr-4 py-3.5 bg-black/40 border border-surface-variant/20 text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors";
 
   const getWhatsAppLink = () => {
-    const text = [
+    const parts = [
       "¡Hola! Quiero cotizar una orquesta para un evento.",
       `Tipo de evento: ${eventType}.`,
-      `Fecha(s): ${dates}.`,
+      `Fecha(s): ${formatDates()}.`,
       `Orquesta: ${artist}.`,
       `Lugar: ${place}.`,
-      `Duración: ${hours} hora(s).`,
-    ].join(" ");
-    return `https://wa.me/573105156550?text=${encodeURIComponent(text)}`;
+    ];
+    if (notes.trim()) {
+      parts.push(`Especificaciones: ${notes.trim()}.`);
+    }
+    return `https://wa.me/573105156550?text=${encodeURIComponent(parts.join(" "))}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!dates.trim() || !place.trim()) return;
+    if (!dateStart.trim() || !place.trim()) return;
     window.open(getWhatsAppLink(), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
@@ -153,27 +164,43 @@ export default function QuoteModal({
                       </select>
                     </div>
 
-                    <div className="lg:col-span-2">
+                    <div>
                       <label
-                        htmlFor="quote-dates"
+                        htmlFor="quote-date-start"
                         className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1"
                       >
-                        Fecha(s) del evento
+                        Fecha del evento
                       </label>
                       <div className="relative">
-                        <CalendarDays
-                          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none"
-                          aria-hidden="true"
-                        />
                         <input
-                          id="quote-dates"
-                          name="dates"
-                          type="text"
+                          id="quote-date-start"
+                          name="dateStart"
+                          type="date"
                           required
-                          value={dates}
-                          onChange={(e) => setDates(e.target.value)}
-                          placeholder="Ej: 15 de agosto o 20–21 de septiembre…"
-                          className={fieldClassIcon}
+                          min={hoy}
+                          value={dateStart}
+                          onChange={(e) => setDateStart(e.target.value)}
+                          className={`${fieldClassIcon} quote-date-input`}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="quote-date-end"
+                        className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1"
+                      >
+                        Fecha fin <span className="normal-case font-normal">(opcional)</span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          id="quote-date-end"
+                          name="dateEnd"
+                          type="date"
+                          min={dateStart || hoy}
+                          value={dateEnd}
+                          onChange={(e) => setDateEnd(e.target.value)}
+                          className={`${fieldClassIcon} quote-date-input`}
                         />
                       </div>
                     </div>
@@ -233,28 +260,25 @@ export default function QuoteModal({
 
                     <div className="lg:col-span-2">
                       <label
-                        htmlFor="quote-hours"
+                        htmlFor="quote-notes"
                         className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1"
                       >
-                        Número de horas
+                        Especificaciones especiales
                       </label>
                       <div className="relative">
-                        <Clock
-                          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-primary-container/60 pointer-events-none"
+                        <ClipboardList
+                          className="absolute left-3.5 top-4 w-4 h-4 text-primary-container/60 pointer-events-none"
                           aria-hidden="true"
                         />
-                        <select
-                          id="quote-hours"
-                          name="hours"
-                          value={hours}
-                          onChange={(e) => setHours(e.target.value)}
-                          className={fieldClassIcon}
-                        >
-                          <option value="1">1 hora</option>
-                          <option value="2">2 horas</option>
-                          <option value="3">3 horas</option>
-                          <option value="4">4 horas o más</option>
-                        </select>
+                        <textarea
+                          id="quote-notes"
+                          name="notes"
+                          rows={3}
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          placeholder="Ej: sonido, tarimas, iluminación, catering, montaje…"
+                          className="ui-pill-soft w-full pl-11 pr-4 py-3.5 bg-black/40 border border-surface-variant/20 text-white text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container/50 transition-colors resize-y min-h-[5.5rem]"
+                        />
                       </div>
                     </div>
                   </div>
@@ -288,7 +312,7 @@ export default function QuoteModal({
                       <strong>Tipo:</strong> {eventType}
                     </div>
                     <div>
-                      <strong>Fecha(s):</strong> {dates}
+                      <strong>Fecha(s):</strong> {formatDates()}
                     </div>
                     <div>
                       <strong>Orquesta:</strong> {artist}
@@ -296,9 +320,11 @@ export default function QuoteModal({
                     <div>
                       <strong>Lugar:</strong> {place}
                     </div>
-                    <div>
-                      <strong>Duración:</strong> {hours} hora(s)
-                    </div>
+                    {notes.trim() && (
+                      <div>
+                        <strong>Especificaciones:</strong> {notes.trim()}
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-3">

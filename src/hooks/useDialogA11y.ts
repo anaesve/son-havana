@@ -99,7 +99,7 @@ export function useDialogA11y(
       cancelAnimationFrame(raf);
       unlockScroll();
       document.removeEventListener("keydown", onKeyDown);
-      previouslyFocused?.focus?.();
+      previouslyFocused?.focus?.({ preventScroll: true });
     };
   }, [isOpen, onClose, containerRef]);
 }

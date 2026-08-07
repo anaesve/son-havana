@@ -6,7 +6,7 @@ interface ContratacionesProps {
 }
 
 export default function Contrataciones({ onQuoteArtist }: ContratacionesProps) {
-  const [sonKmaronSrc, setSonKmaronSrc] = useState("/images/contrataciones/sonk'maron.jpg");
+  const [sonKmaronSrc, setSonKmaronSrc] = useState("/images/contrataciones/sonk'maron.webp");
   const [elSonDePabloSrc, setElSonDePabloSrc] = useState("/images/contrataciones/elsondepablo.webp");
 
   const DEMO_SON_KMARON =

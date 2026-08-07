@@ -5,19 +5,13 @@ interface ReservasProps {
   onBookingOpen: (sede?: string, type?: "mesa" | "grupal" | "cumpleanos") => void;
 }
 
-const waGrupal =
-  "https://wa.me/573105156550?text=" +
-  encodeURIComponent(
-    "¡Hola! Quiero una reserva grupal en Son Havana (6 o más personas). ¿Me ayudan con mesas y zonas reservadas?"
-  );
-
 const waCumple =
   "https://wa.me/573105156550?text=" +
   encodeURIComponent(
     "¡Hola! Cumplo años esta semana y quiero la reserva especial de cumpleaños SH en Son Havana."
   );
 
-export default function Reservas({ onBookingOpen: _onBookingOpen }: ReservasProps) {
+export default function Reservas({ onBookingOpen }: ReservasProps) {
   return (
     <section
       id="reservas"
@@ -59,14 +53,13 @@ export default function Reservas({ onBookingOpen: _onBookingOpen }: ReservasProp
               </div>
             </div>
             <div className="pt-8">
-              <a
-                href={waGrupal}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full min-h-[3.375rem] bg-primary-container text-on-primary-container px-8 py-[1.125rem] rounded-full font-anybody font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98] transition-all text-center shadow-md"
+              <button
+                type="button"
+                onClick={() => onBookingOpen("Medellín", "grupal")}
+                className="w-full min-h-[3.375rem] bg-primary-container text-on-primary-container px-8 py-[1.125rem] rounded-full font-anybody font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98] transition-all text-center shadow-md cursor-pointer"
               >
                 Reservar con Anticipo →
-              </a>
+              </button>
             </div>
           </article>
 

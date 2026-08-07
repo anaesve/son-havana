@@ -27,7 +27,6 @@ export default function ReservationModal({
   const [guests, setGuests] = useState(reservationType === "grupal" ? "6" : "4");
   const hoy = new Date().toLocaleDateString("en-CA");
   const [date, setDate] = useState(hoy);
-  const [time, setTime] = useState("21:00");
   const [sede, setSede] = useState(initialSede);
   const [submitted, setSubmitted] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -57,7 +56,7 @@ export default function ReservationModal({
 
   const getWhatsAppLink = () => {
     const tipo = TYPE_LABEL[reservationType];
-    const text = `¡Hola Son Havana! Quisiera una *${tipo}* para el día *${date}* a las *${time}* para *${guests} personas* en la sede *${sede}*. A nombre de *${name}* (Tel: ${phone}).`;
+    const text = `¡Hola Son Havana! Quisiera una *${tipo}* para el día *${date}* para *${guests} personas* en la sede *${sede}*. A nombre de *${name}* (Tel: ${phone}).`;
     return `https://wa.me/573105156550?text=${encodeURIComponent(text)}`;
   };
 
@@ -249,29 +248,6 @@ export default function ReservationModal({
                     </div>
                   </div>
 
-                  <fieldset>
-                    <legend className="block text-xs font-anybody font-bold text-surface-variant/80 uppercase mb-1">
-                      Hora sugerida
-                    </legend>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {["20:00", "21:00", "22:00", "23:00"].map((t) => (
-                        <button
-                          key={t}
-                          type="button"
-                          onClick={() => setTime(t)}
-                          aria-pressed={time === t}
-                          className={`min-h-11 py-2.5 text-xs rounded-full font-anybody font-bold transition-all border cursor-pointer ${
-                            time === t
-                              ? "bg-primary-container text-on-primary-container border-primary-container shadow-md"
-                              : "bg-black/30 text-surface-variant border-surface-variant/10 hover:border-surface-variant/35"
-                          }`}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                  </fieldset>
-
                   <p className="text-xs text-surface-variant/80 leading-relaxed text-center pt-2">
                     *Al continuar, confirma tu pre-reserva por WhatsApp. Tu mesa se guarda hasta las
                     10:30 PM.
@@ -308,7 +284,7 @@ export default function ReservationModal({
                       <strong>Invitado:</strong> {name}
                     </div>
                     <div>
-                      <strong>Fecha/Hora:</strong> {date} @ {time}
+                      <strong>Fecha:</strong> {date}
                     </div>
                     <div>
                       <strong>Invitados:</strong> {guests} personas

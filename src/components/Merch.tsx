@@ -11,28 +11,28 @@ const PRODUCTS: Product[] = [
     id: "prod-1",
     name: "CAMPANA GRABADA",
     price: 35.00,
-    image: "/images/merch/campana.jpg",
+    image: "/images/merch/campana.webp",
     description: "Campana de mano grabada con el logotipo oficial de Son Havana. Ideal para repicar en la pista."
   },
   {
     id: "prod-2",
     name: "GÜIRO TRADICIONAL",
     price: 45.00,
-    image: "/images/merch/guiro.jpg",
+    image: "/images/merch/guiro.webp",
     description: "Güiro tradicional de madera con rascador profesional. Sonido arenoso y auténtico para guarachar."
   },
   {
     id: "prod-3",
     name: "MARACAS PROFESIONALES",
     price: 30.00,
-    image: "/images/merch/maracas.jpg",
+    image: "/images/merch/maracas.webp",
     description: "Maracas profesionales de cuero con semillas naturales para un sonido con ataque excelente."
   },
   {
     id: "prod-4",
     name: "TOTE BAG SH",
     price: 20.00,
-    image: "/images/merch/tote.jpg",
+    image: "/images/merch/tote.webp",
     description: "Tote bag de tela cruda de alta densidad con ilustración exclusiva Son Havana de colección."
   }
 ];

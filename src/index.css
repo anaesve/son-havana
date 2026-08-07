@@ -280,8 +280,9 @@ div[data-grammarly-part="underline"] {
   width: 0 !important;
 }
 
-/* iOS/Safari: sin appearance nativo el radius pill se ignora en inputs */
-input:not([type="checkbox"]):not([type="radio"]),
+/* iOS/Safari: sin appearance nativo el radius pill se ignora en inputs.
+   Excluir type=date: appearance:none oculta el ícono del calendario. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="date"]),
 select,
 textarea {
   -webkit-appearance: none;
@@ -289,7 +290,7 @@ textarea {
 }
 
 /* Pill forzado (modales): gana contra resets / caché parcial de utilidades */
-.ui-pill {
+.ui-pill:not([type="date"]) {
   border-radius: 9999px !important;
   -webkit-appearance: none !important;
   appearance: none !important;
@@ -298,6 +299,12 @@ textarea {
   border-radius: 1.5rem !important; /* 24px — textareas */
   -webkit-appearance: none !important;
   appearance: none !important;
+}
+
+input[type="date"].ui-pill,
+input[type="date"].quote-date-input {
+  border-radius: 9999px !important;
+  position: relative;
 }
 
 /* Style the native date picker calendar indicator */

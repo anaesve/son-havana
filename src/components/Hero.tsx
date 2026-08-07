@@ -253,35 +253,19 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             referrerPolicy="no-referrer"
             onError={() => handleImageError(currentSlide.id)}
             initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.98, scale: 1 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.8 }}
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         </AnimatePresence>
 
-        {/* Scrim: en las 3 primeras slides el velo se concentra en el centro
-            (donde va el copy) y deja las esquinas más claras para que se vea
-            la ilustración. El slide de clases mantiene el scrim fotográfico. */}
-        {currentSlide.posterLayout ? (
+        {/* Solo slides con copy encima del fondo: velo mínimo para legibilidad del texto.
+            Los carteles (posterLayout) van sin degradado para no ensuciar la ilustración. */}
+        {!currentSlide.posterLayout && (
           <>
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `
-                  radial-gradient(ellipse 48% 42% at 0% 0%, color-mix(in srgb, var(--color-on-surface) 22%, transparent) 0%, transparent 72%),
-                  radial-gradient(ellipse 48% 42% at 100% 0%, color-mix(in srgb, var(--color-on-surface) 22%, transparent) 0%, transparent 72%),
-                  radial-gradient(ellipse 48% 42% at 0% 100%, color-mix(in srgb, var(--color-on-surface) 26%, transparent) 0%, transparent 72%),
-                  radial-gradient(ellipse 48% 42% at 100% 100%, color-mix(in srgb, var(--color-on-surface) 26%, transparent) 0%, transparent 72%)
-                `,
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/70 via-on-surface/25 to-transparent pointer-events-none" />
-          </>
-        ) : (
-          <>
-            <div className="absolute inset-0 bg-on-surface/35" />
-            <div className="absolute inset-0 bg-gradient-to-t from-on-surface via-on-surface/50 to-on-surface/10" />
+            <div className="absolute inset-0 bg-on-surface/35 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-on-surface via-on-surface/50 to-on-surface/10 pointer-events-none" />
           </>
         )}
       </div>

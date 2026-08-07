@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Self-hosted fonts (Fontsource) — font-display: swap incluido.
+   Pesos = los usados en componentes (Anybody 700/900, Geist 400/600, Archivo Narrow 700). */
+@import "@fontsource/anybody/700.css";
+@import "@fontsource/anybody/900.css";
+@import "@fontsource/geist/400.css";
+@import "@fontsource/geist/600.css";
+@import "@fontsource/archivo-narrow/700.css";
+
 html {
   scroll-behavior: smooth;
 }

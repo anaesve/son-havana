@@ -4,5 +4,5 @@ Coloca aquí las imágenes:
 - son-kmaron-mobile.webp (móvil ≤767px)
 - Tromboricua.webp
 - Tromboricua-mobile.webp (móvil ≤767px)
-- programacion-semanal.jpg
-- clases-baile.jpg
+- LaCentral.webp
+- LaDimension.webp

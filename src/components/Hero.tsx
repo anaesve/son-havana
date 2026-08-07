@@ -25,6 +25,25 @@ interface Slide {
   posterLayout?: boolean;
 }
 
+const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
+  "son-kmaron": {
+    alt: "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores",
+    sr: "Son K'maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.",
+  },
+  tromboricua: {
+    alt: "Cartel Tromboricua — Trombonera Seria, viernes 07 de agosto en Feria de Flores",
+    sr: "Tromboricua — Trombonera Seria. Viernes 07 de agosto en Feria de Flores.",
+  },
+  "la-central": {
+    alt: "Cartel Orquesta La Central, sábado 08 de agosto en Feria de Flores",
+    sr: "Orquesta La Central. Sábado 08 de agosto en Feria de Flores.",
+  },
+  "la-dimension": {
+    alt: "Cartel La Dimensión, domingo 09 de agosto — remate Feria de las Flores",
+    sr: "La Dimensión. Domingo 09 de agosto. Remate de Feria de las Flores.",
+  },
+};
+
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
   {
     id: "son-kmaron",
@@ -62,30 +81,36 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     posterLayout: true,
   },
   {
-    id: "programacion",
-    badge: "Cartelera Oficial de la Semana",
-    title: "VIVE LA RUMBA, VIVE CUBA",
-    subtitle: "PROGRAMACIÓN SEMANAL",
-    description: "La rumba caribeña en el corazón de Medellín. Orquestas en vivo, clases gratuitas, la mejor selección de clásicos, rones seleccionados, mojitos frescos y la energía única donde el que baila siempre gana.",
-    localPath: "/images/hero/programacion-semanal.jpg",
+    id: "la-central",
+    badge: "",
+    title: "",
+    subtitle: "ORQUESTA LA CENTRAL",
+    description: "",
+    localPath: "/images/hero/LaCentral.webp",
     demoUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1600",
-    price: "La mejor energía",
-    highlights: ["Cócteles y mojitos caribeños", "Pista de baile sin fin", "El mejor ambiente de la ciudad"],
-    ctaText: "Reservar para esta Semana",
-    waText: "¡Hola! Quisiera información y reservar mesa para la programación de esta semana en Son Havana."
+    price: "$25.000 COP",
+    highlights: ["Música en vivo", "Feria de Flores"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
+    waText:
+      "¡Hola! Quiero saber más sobre la presentación de Orquesta La Central este sábado 08 de agosto en Feria de Flores.",
+    posterLayout: true,
   },
   {
-    id: "miercoles",
-    badge: "Miércoles Casino en Son Havana",
-    title: "ESTE MIÉRCOLES EN MEDELLÍN",
-    subtitle: "CLASE GRATIS DE BAILE • 8PM",
-    description: "Aprende a bailar salsa y casino de la mano de instructores profesionales de forma 100% gratuita. Quédate disfrutando de timba cubana auténtica, promoción de cócteles 2x1 y no cover.",
-    localPath: "/images/hero/clases-baile.jpg",
+    id: "la-dimension",
+    badge: "",
+    title: "",
+    subtitle: "LA DIMENSIÓN",
+    description: "",
+    localPath: "/images/hero/LaDimension.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
-    price: "ENTRADA LIBRE (NO COVER)",
-    highlights: ["Clases interactivas para todos", "Cócteles 2x1 seleccionados", "100% Timba, casino y son"],
-    ctaText: "Anotarse en la Clase",
-    waText: "¡Hola! Quisiera reservar cupos/mesa para la clase gratis de Salsa Casino de este miércoles."
+    price: "$25.000 COP",
+    highlights: ["Remate Feria de Flores", "Salsa en vivo"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
+    waText:
+      "¡Hola! Quiero saber más sobre la presentación de La Dimensión este domingo 09 de agosto en el remate de Feria de las Flores.",
+    posterLayout: true,
   }
 ];
 
@@ -216,9 +241,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             src={currentSlide.bgUrl}
             alt={
               currentSlide.posterLayout
-                ? currentSlide.id === "tromboricua"
-                  ? "Cartel Tromboricua — Trombonera Seria, viernes 07 de agosto en Feria de Flores"
-                  : "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores"
+                ? (POSTER_A11Y[currentSlide.id]?.alt ?? `Cartel ${currentSlide.subtitle}`)
                 : ""
             }
             aria-hidden={currentSlide.posterLayout ? undefined : true}
@@ -253,17 +276,6 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/70 via-on-surface/25 to-transparent pointer-events-none" />
-          </>
-        ) : currentIndex < 3 ? (
-          <>
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse 72% 68% at 50% 48%, color-mix(in srgb, var(--color-on-surface) 82%, transparent) 0%, color-mix(in srgb, var(--color-on-surface) 55%, transparent) 42%, color-mix(in srgb, var(--color-on-surface) 18%, transparent) 68%, transparent 100%)",
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-on-surface/55 via-transparent to-on-surface/20 pointer-events-none" />
           </>
         ) : (
           <>
@@ -327,12 +339,8 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         </div>
       )}
 
-      {currentSlide.posterLayout && (
-        <h1 className="sr-only">
-          {currentSlide.id === "tromboricua"
-            ? "Tromboricua — Trombonera Seria. Viernes 07 de agosto en Feria de Flores."
-            : "Son K'maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores."}
-        </h1>
+      {currentSlide.posterLayout && POSTER_A11Y[currentSlide.id] && (
+        <h1 className="sr-only">{POSTER_A11Y[currentSlide.id].sr}</h1>
       )}
 
       {/* Bloque inferior fijo: misma altura en todos los slides */}

@@ -75,7 +75,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     price: "$25.000 COP",
     highlights: ["Salsa en vivo", "El mejor ambiente de la ciudad"],
     ctaText: "Realiza tu reserva",
-    secondaryCtaText: "Mayor Información",
+    secondaryCtaText: "Más Información",
     waText:
       "¡Hola! Quiero saber más sobre la presentación de Tromboricua este viernes 07 de agosto en Feria de Flores.",
     posterLayout: true,
@@ -341,26 +341,32 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             className="max-w-5xl mx-auto flex flex-col items-center space-y-4"
           >
             <div
-              className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl min-h-[1.25rem]"
-              style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
+              className={`flex flex-col items-center space-y-4 ${
+                slideCopy.id === "la-dimension" ? "-translate-y-1" : ""
+              }`}
             >
-              {slideCopy.highlights.map((h, i) => (
-                <span key={i} className="inline-flex items-center">
-                  {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
-                  <span>{h}</span>
-                </span>
-              ))}
-            </div>
-
-            {slideCopy.price && (
               <div
-                className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2 min-h-[1.25rem]"
+                className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl min-h-[1.25rem]"
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
-                <Music className="w-4 h-4 text-mango" />
-                <span>Aporte Cultural: {slideCopy.price}</span>
+                {slideCopy.highlights.map((h, i) => (
+                  <span key={i} className="inline-flex items-center">
+                    {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}
+                    <span>{h}</span>
+                  </span>
+                ))}
               </div>
-            )}
+
+              {slideCopy.price && (
+                <div
+                  className="text-xs sm:text-sm font-black text-mango tracking-wider font-anybody uppercase flex items-center gap-2 min-h-[1.25rem]"
+                  style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
+                >
+                  <Music className="w-4 h-4 text-mango" />
+                  <span>Aporte Cultural: {slideCopy.price}</span>
+                </div>
+              )}
+            </div>
 
             <div
               className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md sm:max-w-none"

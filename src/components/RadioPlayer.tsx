@@ -35,11 +35,11 @@ const PLAYLIST: LiveChannel[] = [
   },
   {
     id: "4",
-    title: "Radio Progreso 90.3",
-    artist: "Cuba • Noticias y música desde la Isla",
+    title: "Radio Habana Son Cuba",
+    artist: "Cuba • Son, salsa y sabor habanero",
     duration: "LIVE",
     tag: "Cuba",
-    audioUrl: "https://icecast.teveo.cu/XjfW7qWN",
+    audioUrl: "https://stream.zeno.fm/2ieszeso9istv",
   },
   {
     id: "5",

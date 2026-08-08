@@ -13,7 +13,7 @@ Archivo central de control. Léelo primero en cada sesión. Denso a propósito: 
 - Animación: `motion` (antes framer-motion), import `from "motion/react"`. Iconos: `lucide-react`.
 - Gestor: `bun` (existe `bun.lock`) pero los scripts usan `npm`/`vite`. Dev: `npm run dev` → puerto 3000. Lint/typecheck: `npm run lint` (= `tsc --noEmit`). Build: `npm run build`.
 - **No hay servidor:** `express` y `dotenv` están en `package.json` pero no hay `server.js`. `@google/genai` y `GEMINI_API_KEY` **no se usan en `src/`** (dependencia muerta / herencia de AI Studio).
-- **No es repo git** todavía (`git init` no ejecutado).
+- **GitHub:** `anaesve/son-havana` → Vercel → https://sonhavana.co.
 
 ## 3. Arquitectura (mapa mental, no leer todo el código)
 - Todo el estado vive en `src/App.tsx`: carrito (`cartItems`) + flags de modales, pasado por props (prop-drilling, sin Context/Redux).

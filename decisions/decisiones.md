@@ -4,6 +4,16 @@ Registro de decisiones no triviales. Formato: fecha · decisión · razón · es
 
 ---
 
+### 2026-08-08 · Merch sin precio: "MUY PRONTO"
+- **Decisión:** en las cards de Merch mostrar **MUY PRONTO** en lugar de `$XX.00 USD`.
+- **Razón:** pedido de Ana; merch aún no a la venta con precio público.
+- **Estado:** vigente en `Merch.tsx` (UI). Los `price` numéricos del array quedan por si se reactiva el carrito.
+
+### 2026-08-07 · Canal Cuba: Radio Habana Son Cuba (Zeno)
+- **Decisión:** sustituir Radio Progreso (`icecast.teveo.cu/XjfW7qWN`) por **Radio Habana Son Cuba** (`https://stream.zeno.fm/2ieszeso9istv`).
+- **Razón:** Icecast devolvía 400/404 HTML; Zeno verificado en browser + bytes `audio/mpeg` (mp3). Alternativas OK descartadas por elección de Ana: OFA (`fzn68npxd5zuv`), SalSon (`qasz5cect7zuv`).
+- **Estado:** vigente en `RadioPlayer` PLAYLIST id `"4"`; deploy `5501367` en producción.
+
 ### 2026-07-27 (noche++) · Hero ilustrado + scrim radial + radio viva + footer redes
 - **Decisión:** (1) Slides Lavoe / Niche / Programación del hero pasan a ilustraciones de cartelismo aportadas por Ana. (2) Scrim de esos 3 slides = radial centrado (texto legible, esquinas claras); se elimina el marco blanco. (3) Sustituir streams muertos (Zeno 401, laut.fm 404) por URLs verificadas. (4) Footer con URLs reales de FB/YT/Spotify/WA e iconos de marca donde Lucide no alcanza.
 - **Razón:** legibilidad sobre ilustraciones densas; conversión y presencia social correctas; radio usable.

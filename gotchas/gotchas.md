@@ -13,7 +13,9 @@
 - Un solo elemento `Audio` compartido; usa `stateRef` para evitar *stale closures* en los listeners registrados una sola vez al montar. Si editas listeners, mantén ese patrón.
 - Autoplay: navegadores bloquean `play()` sin gesto del usuario → se captura `NotAllowedError` y se hace `setIsPlaying(false)`. No forzar autoplay.
 - Streams de terceros se caen → hay auto-skip al siguiente canal tras 4s de error (`hasError`). Si un canal falla siempre, actualizar su `audioUrl` en `PLAYLIST`.
-- **2026-07-27:** Zeno (`stream.zeno.fm/*` → 401) y varias estaciones laut.fm antiguas (`salsamania`, `salsa-classics`, `salsajazz` → 404) dejaron de servir. Playlist actual: Latina Stereo, Colombia Salsa Dura / Salsa Latina (tikast), 100% Salsa (streammaximum), Campesina Cubana (laut.fm host propio). Validar con GET de bytes (`curl -r 0-2k`), no con HEAD.
+- **Zeno:** curl sin `Referer: https://zeno.fm/` → **401**. Con Referer → 302 a `stream-*.surfernetwork.com/...?zt=<JWT>` (JWT corto). En el playlist guardar solo la canónica `https://stream.zeno.fm/{id}`, no la URL con `zt=`.
+- **2026-08-07:** `https://icecast.teveo.cu/XjfW7qWN` (Radio Progreso) → 404 HTML. Reemplazado por Habana Son Cuba `https://stream.zeno.fm/2ieszeso9istv` (mp3). Validar con GET de bytes + Content-Type `audio/mpeg`, no solo HEAD.
+- **2026-07-27:** varias estaciones laut.fm antiguas → 404. Validar con GET de bytes (`curl -r 0-2k`), no con HEAD.
 - Al sincronizar el canal, comparar la URL pedida (ref), no `audio.src`: varios streams redirigen y el src resuelto ya no coincide con el del playlist.
 - Al pausar se limpia `audio.src` para cerrar la conexión HTTP y ahorrar ancho de banda; hay guardas para no disparar errores con src vacío/igual a la URL del documento.
 

@@ -1,40 +1,35 @@
 # Estado actual
 
-Última actualización: 2026-07-27 (noche++). Mantener corto y real. Mover ítems entre secciones al cerrar sesión.
+Última actualización: 2026-08-08. Mantener corto y real. Mover ítems entre secciones al cerrar sesión.
 
 ## Hecho
-- Landing SPA funcional: Header, Hero (4 slides), Contrataciones, Merch, Galería, Reservas, Footer, RadioPlayer, 3 modales.
-- Conversión única por WhatsApp `573105156550` en Header, Hero, Reservas, ReservationModal, CartDrawer, Footer.
-- Paleta **Serigrafía ICAIC + naranja SH** (`#ff6b35`) vigente; contraste AA auditado (0 fallos). Ver `decisions/design.md`.
-- Texturas `fondo-*` atmosféricas (no serigrafía); Merch en cards blancas; Reservas en `bg-card` sólidas.
-- **Hero ilustrado (noche++):** Lavoe, Niche y Programación semanal con ilustraciones cartelismo en `public/images/hero/`. Scrim radial centrado en slides 1–3; sin marco blanco.
-- **Radio:** playlist con streams vivos (Latina Stereo, Colombia Salsa Dura, 100% Salsa, Salsa Latina, Campesina Cubana). Sync por URL pedida (ref), no `audio.src`.
-- **Footer redes** linkeadas (IG, FB, YT, Spotify, WA) con iconos de marca en Spotify/WhatsApp.
-- Pulidos UI: bounce en 3 iconos de Reservas; sin iconos gigantes en Corporativos/Bodas; dots del hero más arriba.
-- **Repo GitHub:** https://github.com/anaesve/son-havana (`main` pushed).
+- Landing SPA en producción: https://sonhavana.co (GitHub `anaesve/son-havana` → Vercel).
+- Hero con 4 posters (Son K’maron, Tromboricua, La Central, La Dimensión); desktop + mobile distintos en `public/images/hero/`.
+- Conversión WhatsApp `573105156550`; modales reserva/cotización/carrito.
+- Logo local `/images/logo/son-havana-logo.webp` en Header/Footer.
+- Fuentes self-hosted (Fontsource Anybody/Geist/Archivo Narrow).
+- Merch + contrataciones en `.webp`; scroll-lock centralizado.
+- **Radio (2026-08-07):** canal Cuba = **Radio Habana Son Cuba** (`https://stream.zeno.fm/2ieszeso9istv`, mp3). Reemplaza Icecast Progreso (404).
+- **Merch (2026-08-08):** precio visible = **MUY PRONTO** (desktop + mobile; mismo componente).
 
 ## Pendiente
 - Renombrar utilidades `neon-*` / `glow-*` (deuda consciente).
 - QA en móvil **real** + checklist DoD incompleta.
-- `<title>` de `index.html` sigue siendo "My Google AI Studio App".
-- Logo header/footer sigue hotlink remoto `lh3.googleusercontent.com`.
 - Limpiar deps muertas (`express`, `dotenv`, `@google/genai`).
-- Repo remoto creado y pusheado (2026-07-27).
 - Validar textos de sedes con el negocio.
-- Ideal: reexportar hero a 1920×1080+ (hoy ~1024×576).
-- Borrar o ignorar `hector-lavoe.jpg` suelto en la raíz (duplicado viejo; el hero usa `public/images/hero/`).
+- Limpiar basura local: JPG hero viejos borrados sin commit, `_to_delete/`, `sonhavana-logo.webp` suelto en raíz.
 
 ## Blockers
-- Ninguno. Riesgo externo: streams de radio de terceros y hotlinks del logo.
+- Ninguno. Riesgo externo: streams de radio de terceros (Zeno pide Referer en algunos clientes; JWT de surfernetwork es efímero — usar URL canónica `stream.zeno.fm/{id}`).
 
 ## Checklist QA antes de demo/deploy (DoD)
 - [ ] Cada CTA del hero abre el flujo correcto.
 - [ ] Reserva de mesa/cumpleaños/orquesta completable al primer intento.
 - [ ] Compra de merch → carrito → WhatsApp con detalle correcto.
 - [ ] Selector de fecha del modal responde a clic/tacto.
-- [ ] Radio reproduce y salta de canal (CH1–CH5).
-- [x] `npm run lint` sin errores (última verificación de sesión anterior).
+- [ ] Radio reproduce y salta de canal (CH1–CH5), incl. Habana Son Cuba.
+- [x] `npm run lint` sin errores.
 - [x] Contraste AA (script; ver `logs/`).
 - [ ] Ningún color por defecto de Tailwind fuera de paleta (queda `red-*` en error/borrado).
 - [ ] Probado en móvil real.
-- [ ] Deploy a URL pública.
+- [x] Deploy a URL pública (https://sonhavana.co).

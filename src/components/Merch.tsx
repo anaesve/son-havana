@@ -89,9 +89,8 @@ export default function Merch({ onAddToCart }: MerchProps) {
                 </div>
 
                 <div className="flex flex-col gap-3 pt-2 mt-auto">
-                  <span className="text-mango font-anybody font-black text-lg md:text-xl whitespace-nowrap">
-                    ${product.price.toFixed(2)}{" "}
-                    <span className="text-sm text-mango/90">USD</span>
+                  <span className="text-mango font-anybody font-black text-lg md:text-xl uppercase tracking-wider whitespace-nowrap">
+                    MUY PRONTO
                   </span>
                   <button
                     type="button"

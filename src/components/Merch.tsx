@@ -90,7 +90,7 @@ export default function Merch({ onAddToCart }: MerchProps) {
 
                 <div className="flex flex-col gap-3 pt-2 mt-auto">
                   <span className="text-mango font-anybody font-black text-lg md:text-xl uppercase tracking-wider whitespace-nowrap">
-                    MUY PRONTO
+                    MUY PRONTO...
                   </span>
                   <button
                     type="button"

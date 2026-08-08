@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import { X, Trash2, ShoppingBag, Plus, Minus, MessageSquare } from "lucide-react";
-import { CartItem } from "../types";
+import { CartItem, MERCH_PRICE_LABEL } from "../types";
 import { motion, AnimatePresence } from "motion/react";
 import { useDialogA11y } from "../hooks/useDialogA11y";
 
@@ -25,16 +25,14 @@ export default function CartDrawer({
   const handleClose = useCallback(() => onClose(), [onClose]);
   useDialogA11y(isOpen, handleClose, panelRef);
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-
   const getWhatsAppOrderLink = () => {
     let orderDetails = "¡Hola Son Havana! Quisiera ordenar el siguiente Merch:\n\n";
     cartItems.forEach((item) => {
-      orderDetails += `- *${item.product.name}* (Cant: ${item.quantity}) - $${(item.product.price * item.quantity).toFixed(2)} USD\n`;
+      orderDetails += `- *${item.product.name}* (Cant: ${item.quantity}) - ${MERCH_PRICE_LABEL}\n`;
     });
-    orderDetails += `\n*Total referencial:* $${subtotal.toFixed(2)} USD\n\n`;
+    orderDetails += `\n*Precio:* ${MERCH_PRICE_LABEL}\n\n`;
     orderDetails += "Me gustaría confirmar disponibilidad y, si aplica, personalizar mi instrumento. ";
-    orderDetails += "¿Me comparten el link o las opciones de pago (transferencia, tarjeta u otro medio)?";
+    orderDetails += "¿Me avisan cuando esté disponible y cómo pagar?";
     return `https://wa.me/573105156550?text=${encodeURIComponent(orderDetails)}`;
   };
 
@@ -123,8 +121,8 @@ export default function CartDrawer({
                       <p className="text-sm font-anybody font-black text-white truncate">
                         {item.product.name}
                       </p>
-                      <p className="text-xs text-primary font-anybody font-bold">
-                        ${item.product.price.toFixed(2)} USD
+                      <p className="text-xs text-primary font-anybody font-bold uppercase tracking-wider">
+                        {MERCH_PRICE_LABEL}
                       </p>
                       <div className="flex items-center gap-2.5 mt-2">
                         <button
@@ -165,8 +163,10 @@ export default function CartDrawer({
             {cartItems.length > 0 && (
               <div className="p-6 border-t border-surface-variant/10 bg-black/40 space-y-4">
                 <div className="flex justify-between items-center text-sm font-anybody font-bold text-surface-variant">
-                  <span>Subtotal referencial:</span>
-                  <span className="text-lg text-white font-black">${subtotal.toFixed(2)} USD</span>
+                  <span>Precio:</span>
+                  <span className="text-lg text-white font-black uppercase tracking-wider">
+                    {MERCH_PRICE_LABEL}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center text-[10px] text-surface-variant/80 leading-tight gap-3">
                   <span>

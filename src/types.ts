@@ -1,3 +1,6 @@
+/** Precio público del merch mientras no hay tarifa (UI + carrito + WA). */
+export const MERCH_PRICE_LABEL = "MUY PRONTO...";
+
 export interface Product {
   id: string;
   name: string;

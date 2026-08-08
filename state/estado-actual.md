@@ -10,7 +10,7 @@
 - Fuentes self-hosted (Fontsource Anybody/Geist/Archivo Narrow).
 - Merch + contrataciones en `.webp`; scroll-lock centralizado.
 - **Radio (2026-08-07):** canal Cuba = **Radio Habana Son Cuba** (`https://stream.zeno.fm/2ieszeso9istv`, mp3). Reemplaza Icecast Progreso (404).
-- **Merch (2026-08-08):** precio visible = **MUY PRONTO...** (desktop + mobile; mismo componente).
+- **Merch (2026-08-08):** **MUY PRONTO...** en cards, carrito y WhatsApp (`MERCH_PRICE_LABEL`).
 
 ## Pendiente
 - Renombrar utilidades `neon-*` / `glow-*` (deuda consciente).

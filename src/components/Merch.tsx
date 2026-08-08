@@ -1,5 +1,5 @@
 import React from "react";
-import { Product } from "../types";
+import { MERCH_PRICE_LABEL, Product } from "../types";
 import { ShoppingBag, Flame } from "lucide-react";
 
 interface MerchProps {
@@ -90,7 +90,7 @@ export default function Merch({ onAddToCart }: MerchProps) {
 
                 <div className="flex flex-col gap-3 pt-2 mt-auto">
                   <span className="text-mango font-anybody font-black text-lg md:text-xl uppercase tracking-wider whitespace-nowrap">
-                    MUY PRONTO...
+                    {MERCH_PRICE_LABEL}
                   </span>
                   <button
                     type="button"

@@ -4,10 +4,10 @@ Registro de decisiones no triviales. Formato: fecha · decisión · razón · es
 
 ---
 
-### 2026-08-08 · Merch sin precio: "MUY PRONTO"
-- **Decisión:** en las cards de Merch mostrar **MUY PRONTO...** en lugar de `$XX.00 USD`.
+### 2026-08-08 · Merch sin precio: "MUY PRONTO..."
+- **Decisión:** mostrar **MUY PRONTO...** (`MERCH_PRICE_LABEL` en `types.ts`) en cards, carrito, subtotal del drawer y mensaje de WhatsApp. Sin precios USD en UI ni en el pedido.
 - **Razón:** pedido de Ana; merch aún no a la venta con precio público.
-- **Estado:** vigente en `Merch.tsx` (UI). Los `price` numéricos del array quedan por si se reactiva el carrito.
+- **Estado:** vigente. Los `price` numéricos del array quedan internos/legacy.
 
 ### 2026-08-07 · Canal Cuba: Radio Habana Son Cuba (Zeno)
 - **Decisión:** sustituir Radio Progreso (`icecast.teveo.cu/XjfW7qWN`) por **Radio Habana Son Cuba** (`https://stream.zeno.fm/2ieszeso9istv`).

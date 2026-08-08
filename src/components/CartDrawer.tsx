@@ -26,13 +26,11 @@ export default function CartDrawer({
   useDialogA11y(isOpen, handleClose, panelRef);
 
   const getWhatsAppOrderLink = () => {
-    let orderDetails = "¡Hola Son Havana! Quisiera ordenar el siguiente Merch:\n\n";
+    let orderDetails = "¡Hola Son Havana!\n\n";
     cartItems.forEach((item) => {
       orderDetails += `- *${item.product.name}* (Cant: ${item.quantity}) - ${MERCH_PRICE_LABEL}\n`;
     });
-    orderDetails += `\n*Precio:* ${MERCH_PRICE_LABEL}\n\n`;
-    orderDetails += "Me gustaría confirmar disponibilidad y, si aplica, personalizar mi instrumento. ";
-    orderDetails += "¿Me avisan cuando esté disponible y cómo pagar?";
+    orderDetails += "\n¡Por favor, avísenme cuando este producto esté disponible!";
     return `https://wa.me/573105156550?text=${encodeURIComponent(orderDetails)}`;
   };
 

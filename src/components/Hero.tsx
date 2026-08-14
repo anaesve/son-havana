@@ -15,6 +15,7 @@ interface Slide {
   bgUrl: string; // This will hold the path/fallback url dynamically
   localPath: string; // The target local path for the user
   localPathMobile?: string;
+  localPathTablet?: string;
   demoUrl: string; // The demo backup url
   price?: string;
   highlights: string[];
@@ -26,6 +27,10 @@ interface Slide {
 }
 
 const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
+  "la-dimension-13ago": {
+    alt: "Cartel La Dimensión — Trombones Poderosos, jueves 13 de agosto en Son Havana",
+    sr: "La Dimensión — Trombones Poderosos. Jueves 13 de agosto en Son Havana.",
+  },
   "son-kmaron": {
     alt: "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores",
     sr: "Son K'maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.",
@@ -45,6 +50,24 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
 };
 
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
+  {
+    id: "la-dimension-13ago",
+    badge: "",
+    title: "",
+    subtitle: "LA DIMENSIÓN",
+    description: "",
+    localPath: "/images/hero/LaDimension-jueves.webp",
+    localPathMobile: "/images/hero/LaDimension-jueves-mobile.webp",
+    localPathTablet: "/images/hero/LaDimension-jueves-tablet.webp",
+    demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
+    price: "$25.000 COP",
+    highlights: ["Salsa en Vivo", "Pista de baile"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
+    waText:
+      "¡Hola! Quiero saber más sobre la presentación de La Dimensión este jueves 13 de agosto en Son Havana.",
+    posterLayout: true,
+  },
   {
     id: "son-kmaron",
     badge: "",
@@ -120,23 +143,34 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(!reduceMotion);
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [viewportArt, setViewportArt] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [slides, setSlides] = useState<Slide[]>(() =>
     SLIDES_TEMPLATE.map((s) => ({ ...s, bgUrl: s.localPath }))
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const resolveSlidePath = useCallback((slide: Omit<Slide, "bgUrl"> | Slide) => {
-    if (slide.localPathMobile && isMobileViewport) return slide.localPathMobile;
+    if (viewportArt === "mobile" && slide.localPathMobile) return slide.localPathMobile;
+    // Tablet cae al arte móvil si aún no tiene el suyo: recorta menos que el 16:9.
+    if (viewportArt === "tablet") return slide.localPathTablet ?? slide.localPathMobile ?? slide.localPath;
     return slide.localPath;
-  }, [isMobileViewport]);
+  }, [viewportArt]);
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobileViewport(mq.matches);
+    // En retrato, object-cover recorta el arte 16:9 y parte los títulos del cartel.
+    const portrait = window.matchMedia("(orientation: portrait)");
+    const narrow = window.matchMedia("(max-width: 767px)");
+    const update = () => {
+      if (!portrait.matches) return setViewportArt("desktop");
+      setViewportArt(narrow.matches ? "mobile" : "tablet");
+    };
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    portrait.addEventListener("change", update);
+    narrow.addEventListener("change", update);
+    return () => {
+      portrait.removeEventListener("change", update);
+      narrow.removeEventListener("change", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -148,7 +182,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
         return slide.bgUrl === slide.demoUrl ? slide : { ...slide, bgUrl: nextPath };
       })
     );
-  }, [isMobileViewport, resolveSlidePath]);
+  }, [viewportArt, resolveSlidePath]);
 
   useEffect(() => {
     if (reduceMotion) setIsPlaying(false);

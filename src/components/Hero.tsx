@@ -32,8 +32,8 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
     sr: "La Dimensión — Trombones Poderosos. Jueves 13 de agosto en Son Havana.",
   },
   "son-kmaron": {
-    alt: "Cartel Son K'maron — Salsa Clásica con Estilo, jueves 06 de agosto en Feria de Flores",
-    sr: "Son K'maron — Salsa Clásica con Estilo. Jueves 06 de agosto en Feria de Flores.",
+    alt: "Cartel Son K'maron — Salsa Clásica con Estilo, viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» en los controles",
+    sr: "Son K'maron — Salsa Clásica con Estilo. Viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» como invitado especial en los controles.",
   },
   tromboricua: {
     alt: "Cartel Tromboricua — Trombonera Seria, viernes 07 de agosto en Feria de Flores",
@@ -77,14 +77,15 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     description: "",
     localPath: "/images/hero/son-kmaron.webp",
     localPathMobile: "/images/hero/son-kmaron-mobile.webp",
+    localPathTablet: "/images/hero/son-kmaron-tablet.webp",
     demoUrl:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
     price: "$25.000 COP",
-    highlights: ["Música en vivo", "Feria de Flores"],
+    highlights: ["Música en vivo", "Pista de baile"],
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:
-      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este jueves 06 de agosto en Feria de Flores.",
+      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este viernes 14 de agosto en Son Havana.",
     posterLayout: true,
   },
   {
@@ -240,6 +241,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   };
 
   const currentSlide = slides[currentIndex];
+  const nextSlide = slides[(currentIndex + 1) % slides.length];
   const slideCopy = SLIDES_TEMPLATE[currentIndex];
 
   const handleWhatsApp = (text: string) => {
@@ -259,17 +261,17 @@ export default function Hero({ onBookingOpen }: HeroProps) {
     >
       {/* Full Background Photographic Slider with High Opacity & Maximum Brightness */}
       <div className="absolute inset-0 z-0">
-        {slides.map((s) =>
-          s.id === currentSlide.id ? null : (
-            <img
-              key={`preload-${s.id}`}
-              src={getPreloadPath(s)}
-              className="hidden"
-              onError={() => handleImageError(s.id)}
-              alt=""
-              aria-hidden="true"
-            />
-          )
+        {/* Solo el cartel siguiente: los carteles van sin pérdida y precargarlos
+            todos descarga >11 MB de golpe. */}
+        {nextSlide.id !== currentSlide.id && (
+          <img
+            key={`preload-${nextSlide.id}`}
+            src={getPreloadPath(nextSlide)}
+            className="hidden"
+            onError={() => handleImageError(nextSlide.id)}
+            alt=""
+            aria-hidden="true"
+          />
         )}
 
         <AnimatePresence mode="wait">

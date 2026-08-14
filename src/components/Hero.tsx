@@ -61,7 +61,8 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPathTablet: "/images/hero/LaDimension-jueves-tablet.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
-    highlights: ["Salsa en Vivo", "Pista de baile"],
+    // Sin highlights: el cartel ya rotula "Trombones Poderosos" justo en esa franja.
+    highlights: [],
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:

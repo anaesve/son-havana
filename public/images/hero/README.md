@@ -29,5 +29,7 @@ sobrevivir el recorte de object-cover en vertical), NO versiones reducidas del
 cartel de desktop. Nunca regenerarlos desde el arte de desktop: los títulos
 quedan cortados. Excepción: LaCentral, cuya composición compacta sí tolera el recorte.
 
-Tamaños: desktop 2560px de ancho, mobile 1920px.
-Exportar en WebP CON PÉRDIDA, calidad 90 (nunca "sin pérdida": genera archivos de ~4 MB).
+Exportar en WebP SIN PÉRDIDA (`cwebp -lossless -z 9`) y a la resolución de
+origen: los carteles no se recomprimen ni se reescalan hacia abajo. Decisión de
+Ana (14 ago 2026): la nitidez del cartel manda sobre el peso del archivo.
+Si un cartel llega ya en WebP sin pérdida, copiarlo tal cual — no re-exportar.

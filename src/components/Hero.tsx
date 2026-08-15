@@ -35,9 +35,9 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
     alt: "Cartel Son K'maron — Salsa Clásica con Estilo, viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» en los controles",
     sr: "Son K'maron — Salsa Clásica con Estilo. Viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» como invitado especial en los controles.",
   },
-  tromboricua: {
-    alt: "Cartel Tromboricua — Trombonera Seria, viernes 07 de agosto en Feria de Flores",
-    sr: "Tromboricua — Trombonera Seria. Viernes 07 de agosto en Feria de Flores.",
+  "el-son-de-pablo": {
+    alt: "Cartel El Son de Pablo — Salsa y Más, sábado 15 de agosto; trae tu aporte en especie para las víctimas del terremoto",
+    sr: "El Son de Pablo — Salsa y Más. Sábado 15 de agosto. Trae tu aporte en especie para las víctimas del terremoto.",
   },
   "la-central": {
     alt: "Cartel Orquesta La Central, sábado 08 de agosto en Feria de Flores",
@@ -89,20 +89,21 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     posterLayout: true,
   },
   {
-    id: "tromboricua",
+    id: "el-son-de-pablo",
     badge: "",
     title: "",
-    subtitle: "TROMBORICUA",
+    subtitle: "EL SON DE PABLO",
     description: "",
-    localPath: "/images/hero/Tromboricua.webp",
-    localPathMobile: "/images/hero/Tromboricua-mobile.webp",
+    localPath: "/images/hero/SonDePablo.webp",
+    localPathMobile: "/images/hero/SonDePablo-mobile.webp",
+    localPathTablet: "/images/hero/SonDePablo-tablet.webp",
     demoUrl: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
     highlights: ["Salsa en vivo", "El mejor ambiente de la ciudad"],
     ctaText: "Realiza tu reserva",
     secondaryCtaText: "Más Información",
     waText:
-      "¡Hola! Quiero saber más sobre la presentación de Tromboricua este viernes 07 de agosto en Feria de Flores.",
+      "¡Hola! Quiero saber más sobre la presentación de El Son de Pablo este sábado 15 de agosto en Son Havana.",
     posterLayout: true,
   },
   {

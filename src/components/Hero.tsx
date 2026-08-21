@@ -370,7 +370,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
                   slideCopy.highlightsAccent
                     ? "text-mango font-anybody uppercase tracking-wider"
                     : "text-white font-archivo"
-                }`}
+                }${slideCopy.id === "luismi-yanes" ? " translate-y-2 md:translate-y-3" : ""}`}
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
                 {slideCopy.highlightsAccent && (

@@ -24,8 +24,10 @@ interface Slide {
   waText: string;
   /** Cartel ilustrado: sin copy encima, solo bloque inferior + CTAs */
   posterLayout?: boolean;
-  /** Highlights en mango (estilo aporte cultural) en lugar de blanco */
+  /** Highlights en estilo promo (Anybody mayúsculas); mango por defecto */
   highlightsAccent?: boolean;
+  /** Promo en blanco (misma tipografía, mejor contraste sobre cartel claro) */
+  highlightsAccentWhite?: boolean;
 }
 
 const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
@@ -60,6 +62,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
     highlights: ["Clase GRATIS 8PM", "Cócteles 2x1"],
     highlightsAccent: true,
+    highlightsAccentWhite: true,
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText: "¡Hola! Quiero saber más sobre el miércoles de Timba Cubana este 18 de agosto en Son Havana.",
@@ -368,13 +371,16 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               <div
                 className={`flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black max-w-3xl min-h-[1.25rem] ${
                   slideCopy.highlightsAccent
-                    ? "text-mango font-anybody uppercase tracking-wider"
+                    ? `font-anybody uppercase tracking-wider ${slideCopy.highlightsAccentWhite ? "text-white" : "text-mango"}`
                     : "text-white font-archivo"
                 }${slideCopy.id === "luismi-yanes" ? " translate-y-2 md:translate-y-3" : ""}`}
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
                 {slideCopy.highlightsAccent && (
-                  <Music className="w-4 h-4 text-mango mr-1 shrink-0" aria-hidden="true" />
+                  <Music
+                    className={`w-4 h-4 mr-1 shrink-0 ${slideCopy.highlightsAccentWhite ? "text-white" : "text-mango"}`}
+                    aria-hidden="true"
+                  />
                 )}
                 {slideCopy.highlights.map((h, i) => (
                   <span key={i} className="inline-flex items-center">

@@ -398,7 +398,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
       )}
 
       {/* Bloque inferior fijo: misma altura en todos los slides */}
-      <div className="absolute inset-x-0 bottom-[13.5rem] md:bottom-[12rem] z-20 px-6 md:px-12 text-center">
+      <div className="absolute inset-x-0 bottom-[12rem] md:bottom-[10.5rem] z-20 px-6 md:px-12 text-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={slideCopy.id}

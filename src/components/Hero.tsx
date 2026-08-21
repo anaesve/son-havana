@@ -27,9 +27,9 @@ interface Slide {
 }
 
 const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
-  "la-dimension-13ago": {
-    alt: "Cartel La Dimensión — Trombones Poderosos, jueves 13 de agosto en Son Havana",
-    sr: "La Dimensión — Trombones Poderosos. Jueves 13 de agosto en Son Havana.",
+  "luismi-yanes": {
+    alt: "Cartel Luismi Yanes «El Caballo de la Salsa», desde Cartagena, viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial",
+    sr: "Luismi Yanes, El Caballo de la Salsa, desde Cartagena. Viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial.",
   },
   "son-kmaron": {
     alt: "Cartel Son K'maron — Salsa Clásica con Estilo, viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» en los controles",
@@ -51,22 +51,20 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
 
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
   {
-    id: "la-dimension-13ago",
+    id: "luismi-yanes",
     badge: "",
     title: "",
-    subtitle: "LA DIMENSIÓN",
+    subtitle: "LUISMI YANES",
     description: "",
-    localPath: "/images/hero/LaDimension-jueves.webp",
-    localPathMobile: "/images/hero/LaDimension-jueves-mobile.webp",
-    localPathTablet: "/images/hero/LaDimension-jueves-tablet.webp",
+    // Pendientes las versiones tablet y mobile del cartel.
+    localPath: "/images/hero/LuismiYanes.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
-    price: "$25.000 COP",
-    // Sin highlights: el cartel ya rotula "Trombones Poderosos" justo en esa franja.
+    // Sin aporte ni highlights: el rótulo caía encima de "Diego Galé" y la fecha del cartel.
     highlights: [],
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:
-      "¡Hola! Quiero saber más sobre la presentación de La Dimensión este jueves 13 de agosto en Son Havana.",
+      "¡Hola! Quiero saber más sobre la presentación de Luismi Yanes con el maestro Diego Galé este viernes 21 de agosto en Son Havana.",
     posterLayout: true,
   },
   {

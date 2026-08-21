@@ -16,8 +16,8 @@ Zona segura (el resto lo tapan header, CTAs y el reproductor):
 Coloca aquí las imágenes:
 - son-kmaron.webp
 - son-kmaron-mobile.webp (móvil ≤767px)
-- Tromboricua.webp
-- Tromboricua-mobile.webp (móvil ≤767px)
+- LuismiYanes.webp / LuismiYanes-tablet.webp / LuismiYanes-mobile.webp (slide 1, vie 21 ago)
+- Tromboricua.webp / Tromboricua-tablet.webp / Tromboricua-mobile.webp (slide 2, sáb 22 ago)
 - LaCentral.webp
 - LaCentral-mobile.webp (móvil ≤767px)
 - LaDimension.webp

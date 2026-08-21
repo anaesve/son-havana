@@ -31,6 +31,10 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
     alt: "Cartel Luismi Yanes «El Caballo de la Salsa», desde Cartagena, viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial",
     sr: "Luismi Yanes, El Caballo de la Salsa, desde Cartagena. Viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial.",
   },
+  "tromboricua-22ago": {
+    alt: "Cartel Tromboricua — Trombonera Seria, la salsa es con música en vivo, sábado 22 de agosto en Son Havana",
+    sr: "Tromboricua — Trombonera Seria. La salsa es con música en vivo. Sábado 22 de agosto en Son Havana.",
+  },
   "son-kmaron": {
     alt: "Cartel Son K'maron — Salsa Clásica con Estilo, viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» en los controles",
     sr: "Son K'maron — Salsa Clásica con Estilo. Viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» como invitado especial en los controles.",
@@ -56,15 +60,34 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     title: "",
     subtitle: "LUISMI YANES",
     description: "",
-    // Pendientes las versiones tablet y mobile del cartel.
     localPath: "/images/hero/LuismiYanes.webp",
+    localPathTablet: "/images/hero/LuismiYanes-tablet.webp",
+    localPathMobile: "/images/hero/LuismiYanes-mobile.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
-    // Sin aporte ni highlights: el rótulo caía encima de "Diego Galé" y la fecha del cartel.
-    highlights: [],
+    price: "$25.000 COP",
+    highlights: ["Música en vivo", "Pista de baile"],
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:
       "¡Hola! Quiero saber más sobre la presentación de Luismi Yanes con el maestro Diego Galé este viernes 21 de agosto en Son Havana.",
+    posterLayout: true,
+  },
+  {
+    id: "tromboricua-22ago",
+    badge: "",
+    title: "",
+    subtitle: "TROMBORICUA",
+    description: "",
+    localPath: "/images/hero/Tromboricua.webp",
+    localPathTablet: "/images/hero/Tromboricua-tablet.webp",
+    localPathMobile: "/images/hero/Tromboricua-mobile.webp",
+    demoUrl: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=1600",
+    price: "$25.000 COP",
+    highlights: ["El mejor ambiente de la ciudad", "Salsa en vivo"],
+    ctaText: "Realiza tu reserva",
+    secondaryCtaText: "Más Información",
+    waText:
+      "¡Hola! Quiero saber más sobre la presentación de Tromboricua este sábado 22 de agosto en Son Havana.",
     posterLayout: true,
   },
   {
@@ -242,6 +265,15 @@ export default function Hero({ onBookingOpen }: HeroProps) {
   const currentSlide = slides[currentIndex];
   const nextSlide = slides[(currentIndex + 1) % slides.length];
   const slideCopy = SLIDES_TEMPLATE[currentIndex];
+
+  // Cartel 16:9 sin arte vertical propio: en retrato se muestra completo en la
+  // franja superior (object-contain) en vez de recortado por object-cover.
+  const containPoster =
+    viewportArt !== "desktop" &&
+    !!currentSlide.posterLayout &&
+    !slideCopy.localPathMobile &&
+    !slideCopy.localPathTablet &&
+    currentSlide.bgUrl !== currentSlide.demoUrl;
 
   const handleWhatsApp = (text: string) => {
     const encodedText = encodeURIComponent(text);

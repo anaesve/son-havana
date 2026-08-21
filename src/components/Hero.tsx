@@ -24,9 +24,19 @@ interface Slide {
   waText: string;
   /** Cartel ilustrado: sin copy encima, solo bloque inferior + CTAs */
   posterLayout?: boolean;
+  /** Highlights en mango (estilo aporte cultural) en lugar de blanco */
+  highlightsAccent?: boolean;
 }
 
 const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
+  "miercoles-timba": {
+    alt: "Cartel miércoles de Timba Cubana en Son Havana, miércoles 18 de agosto",
+    sr: "Miércoles de Timba Cubana. Miércoles 18 de agosto en Son Havana.",
+  },
+  "jueves-sonora": {
+    alt: "Cartel La Sonora «Sonido Clásico», jueves 19 de agosto en Son Havana",
+    sr: "La Sonora, Sonido Clásico. Jueves 19 de agosto en Son Havana.",
+  },
   "luismi-yanes": {
     alt: "Cartel Luismi Yanes «El Caballo de la Salsa», desde Cartagena, viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial",
     sr: "Luismi Yanes, El Caballo de la Salsa, desde Cartagena. Viernes 21 de agosto en Son Havana, con el maestro Diego Galé como invitado especial.",
@@ -35,25 +45,42 @@ const POSTER_A11Y: Record<string, { alt: string; sr: string }> = {
     alt: "Cartel Tromboricua — Trombonera Seria, la salsa es con música en vivo, sábado 22 de agosto en Son Havana",
     sr: "Tromboricua — Trombonera Seria. La salsa es con música en vivo. Sábado 22 de agosto en Son Havana.",
   },
-  "son-kmaron": {
-    alt: "Cartel Son K'maron — Salsa Clásica con Estilo, viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» en los controles",
-    sr: "Son K'maron — Salsa Clásica con Estilo. Viernes 14 de agosto, con Juan Hernández «A prueba de Fuego» como invitado especial en los controles.",
-  },
-  "el-son-de-pablo": {
-    alt: "Cartel El Son de Pablo — Salsa y Más, sábado 15 de agosto; trae tu aporte en especie para las víctimas del terremoto",
-    sr: "El Son de Pablo — Salsa y Más. Sábado 15 de agosto. Trae tu aporte en especie para las víctimas del terremoto.",
-  },
-  "la-central": {
-    alt: "Cartel Orquesta La Central, sábado 08 de agosto en Feria de Flores",
-    sr: "Orquesta La Central. Sábado 08 de agosto en Feria de Flores.",
-  },
-  "la-dimension": {
-    alt: "Cartel La Dimensión, domingo 09 de agosto — remate Feria de las Flores",
-    sr: "La Dimensión. Domingo 09 de agosto. Remate de Feria de las Flores.",
-  },
 };
 
 const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
+  {
+    id: "miercoles-timba",
+    badge: "",
+    title: "",
+    subtitle: "TIMBA CUBANA",
+    description: "",
+    localPath: "/images/hero/Miercoles18.webp",
+    localPathTablet: "/images/hero/Miercoles18-tablet.webp",
+    localPathMobile: "/images/hero/Miercoles18-mobile.webp",
+    demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
+    highlights: ["Música en vivo", "Pista de baile"],
+    ctaText: "Reserva Aquí",
+    secondaryCtaText: "Quiero saber más",
+    waText: "¡Hola! Quiero saber más sobre el miércoles de Timba Cubana este 18 de agosto en Son Havana.",
+    posterLayout: true,
+  },
+  {
+    id: "jueves-sonora",
+    badge: "",
+    title: "",
+    subtitle: "LA SONORA",
+    description: "",
+    localPath: "/images/hero/Jueves19.webp",
+    localPathTablet: "/images/hero/Jueves19-tablet.webp",
+    localPathMobile: "/images/hero/Jueves19-mobile.webp",
+    demoUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1600",
+    highlights: ["Clase GRATIS 8PM", "Cócteles 2x1"],
+    highlightsAccent: true,
+    ctaText: "Separa tu Mesa",
+    secondaryCtaText: "Saber Más",
+    waText: "¡Hola! Quiero saber más sobre la presentación de La Sonora este jueves 19 de agosto en Son Havana.",
+    posterLayout: true,
+  },
   {
     id: "luismi-yanes",
     badge: "",
@@ -65,7 +92,7 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
     localPathMobile: "/images/hero/LuismiYanes-mobile.webp",
     demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
     price: "$25.000 COP",
-    highlights: ["Música en vivo", "Pista de baile"],
+    highlights: ["Cócteles 2x1", "Clase GRATIS 8PM"],
     ctaText: "Reserva Aquí",
     secondaryCtaText: "Quiero saber más",
     waText:
@@ -90,77 +117,6 @@ const SLIDES_TEMPLATE: Omit<Slide, "bgUrl">[] = [
       "¡Hola! Quiero saber más sobre la presentación de Tromboricua este sábado 22 de agosto en Son Havana.",
     posterLayout: true,
   },
-  {
-    id: "son-kmaron",
-    badge: "",
-    title: "",
-    subtitle: "Son K'maron",
-    description: "",
-    localPath: "/images/hero/son-kmaron.webp",
-    localPathMobile: "/images/hero/son-kmaron-mobile.webp",
-    localPathTablet: "/images/hero/son-kmaron-tablet.webp",
-    demoUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDYTcqV6EBGI1xWvG689UvIm6Kjr-qxNUc3JPdVj2eD-4gMlhiGOR4AOKasnwA32UcKCOB15OTMxu01qW5Lh1y_OKEkRPvAMAo8CNfPj1G6hvVcQoP6H4EoRKa_MeUmoFScFONcbrulmuIvc2jZPhVNjeG9q5Pf15iOZ-D7JTWtojXiejaYw0-biW2RvT9iYg6u00QlYPnhdpmD-tvMWD33jspfWxSv5yBx-1WOk7kmjm7Ve0VAUU-_",
-    price: "$25.000 COP",
-    highlights: ["Música en vivo", "Pista de baile"],
-    ctaText: "Reserva Aquí",
-    secondaryCtaText: "Quiero saber más",
-    waText:
-      "¡Hola! Quiero saber más sobre la presentación de Son K'maron este viernes 14 de agosto en Son Havana.",
-    posterLayout: true,
-  },
-  {
-    id: "el-son-de-pablo",
-    badge: "",
-    title: "",
-    subtitle: "EL SON DE PABLO",
-    description: "",
-    localPath: "/images/hero/SonDePablo.webp",
-    localPathMobile: "/images/hero/SonDePablo-mobile.webp",
-    localPathTablet: "/images/hero/SonDePablo-tablet.webp",
-    demoUrl: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=1600",
-    price: "$25.000 COP",
-    highlights: ["Salsa en vivo", "El mejor ambiente de la ciudad"],
-    ctaText: "Realiza tu reserva",
-    secondaryCtaText: "Más Información",
-    waText:
-      "¡Hola! Quiero saber más sobre la presentación de El Son de Pablo este sábado 15 de agosto en Son Havana.",
-    posterLayout: true,
-  },
-  {
-    id: "la-central",
-    badge: "",
-    title: "",
-    subtitle: "ORQUESTA LA CENTRAL",
-    description: "",
-    localPath: "/images/hero/LaCentral.webp",
-    localPathMobile: "/images/hero/LaCentral-mobile.webp",
-    demoUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1600",
-    price: "$25.000 COP",
-    highlights: ["Música en Vivo", "Pista de baile"],
-    ctaText: "Separa tu Mesa",
-    secondaryCtaText: "Saber Más",
-    waText:
-      "¡Hola! Quiero saber más sobre la presentación de Orquesta La Central este sábado 08 de agosto en Feria de Flores.",
-    posterLayout: true,
-  },
-  {
-    id: "la-dimension",
-    badge: "",
-    title: "",
-    subtitle: "LA DIMENSIÓN",
-    description: "",
-    localPath: "/images/hero/LaDimension.webp",
-    localPathMobile: "/images/hero/LaDimension-mobile.webp",
-    demoUrl: "https://images.unsplash.com/photo-1524117074187-3575b7f39a91?auto=format&fit=crop&q=80&w=1600",
-    price: "$25.000 COP",
-    highlights: ["Clases GRATIS de baile 7pm", "Salsa en Vivo"],
-    ctaText: "Reservas Aquí",
-    secondaryCtaText: "Mayores Informes",
-    waText:
-      "¡Hola! Quiero saber más sobre la presentación de La Dimensión este domingo 09 de agosto en el remate de Feria de las Flores.",
-    posterLayout: true,
-  }
 ];
 
 export default function Hero({ onBookingOpen }: HeroProps) {
@@ -408,15 +364,18 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="max-w-5xl mx-auto flex flex-col items-center space-y-4"
           >
-            <div
-              className={`flex flex-col items-center space-y-4 ${
-                slideCopy.id === "la-dimension" ? "-translate-y-1" : ""
-              }`}
-            >
+            <div className="flex flex-col items-center space-y-4">
               <div
-                className="flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black text-white font-archivo max-w-3xl min-h-[1.25rem]"
+                className={`flex flex-wrap justify-center items-center gap-y-2 text-xs sm:text-sm font-black max-w-3xl min-h-[1.25rem] ${
+                  slideCopy.highlightsAccent
+                    ? "text-mango font-anybody uppercase tracking-wider"
+                    : "text-white font-archivo"
+                }`}
                 style={{ textShadow: "0 2px 10px rgba(0,0,0,1)" }}
               >
+                {slideCopy.highlightsAccent && (
+                  <Music className="w-4 h-4 text-mango mr-1 shrink-0" aria-hidden="true" />
+                )}
                 {slideCopy.highlights.map((h, i) => (
                   <span key={i} className="inline-flex items-center">
                     {i > 0 && <span className="text-mango mx-3 select-none text-base">•</span>}

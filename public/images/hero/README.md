@@ -13,23 +13,17 @@ Zona segura (el resto lo tapan header, CTAs y el reproductor):
 - tablet: dejar libre el 8% superior y el 21% inferior.
 - mobile: dejar libre el 15% superior y el 45% inferior.
 
-Coloca aquí las imágenes:
-- son-kmaron.webp
-- son-kmaron-mobile.webp (móvil ≤767px)
-- LuismiYanes.webp / LuismiYanes-tablet.webp / LuismiYanes-mobile.webp (slide 1, vie 21 ago)
-- Tromboricua.webp / Tromboricua-tablet.webp / Tromboricua-mobile.webp (slide 2, sáb 22 ago)
-- LaCentral.webp
-- LaCentral-mobile.webp (móvil ≤767px)
-- LaDimension.webp
-- LaDimension-mobile.webp (móvil ≤767px, slide 4)
-- LaDimension-jueves.webp / -tablet.webp / -mobile.webp (slide 1, jueves 13 ago)
+## Slides vigentes (orden mié → sáb)
+- Miercoles18.webp / -tablet / -mobile (Timba Cubana, mié 18 ago)
+- Jueves19.webp / -tablet / -mobile (La Sonora, jue 19 ago)
+- LuismiYanes.webp / -tablet / -mobile (vie 21 ago)
+- Tromboricua.webp / -tablet / -mobile (sáb 22 ago)
 
 IMPORTANTE: los archivos *-mobile son ARTE DISTINTO (texto más pequeño para
 sobrevivir el recorte de object-cover en vertical), NO versiones reducidas del
 cartel de desktop. Nunca regenerarlos desde el arte de desktop: los títulos
-quedan cortados. Excepción: LaCentral, cuya composición compacta sí tolera el recorte.
+quedan cortados.
 
 Exportar en WebP SIN PÉRDIDA (`cwebp -lossless -z 9`) y a la resolución de
-origen: los carteles no se recomprimen ni se reescalan hacia abajo. Decisión de
-Ana (14 ago 2026): la nitidez del cartel manda sobre el peso del archivo.
-Si un cartel llega ya en WebP sin pérdida, copiarlo tal cual — no re-exportar.
+origen: los carteles no se recomprimen ni se reescalan hacia abajo. Si un cartel
+llega ya en WebP sin pérdida, copiarlo tal cual — no re-exportar.

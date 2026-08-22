@@ -19,10 +19,8 @@ Zona segura (el resto lo tapan header, CTAs y el reproductor):
 - LuismiYanes.webp / -tablet / -mobile (vie 21 ago)
 - Tromboricua.webp / -tablet / -mobile (sáb 22 ago)
 
-IMPORTANTE: los archivos *-mobile son ARTE DISTINTO (texto más pequeño para
-sobrevivir el recorte de object-cover en vertical), NO versiones reducidas del
-cartel de desktop. Nunca regenerarlos desde el arte de desktop: los títulos
-quedan cortados.
+IMPORTANTE: los archivos *-mobile son ARTE DISTINTO del diseñador (export WebP
+sin pérdida desde Desktop), NO recortes automáticos del desktop.
 
 Exportar en WebP SIN PÉRDIDA (`cwebp -lossless -z 9`) y a la resolución de
 origen: los carteles no se recomprimen ni se reescalan hacia abajo. Si un cartel
